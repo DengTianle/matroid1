@@ -1,0 +1,60 @@
+
+c parsing input formula with 384 variables and 2398 clauses
+
+c WARNING: deleted clause on proof line 2709 does not occur: [0] -34 135 0
+
+c WARNING: deleted clause on proof line 2710 does not occur: [0] -33 136 0
+
+c WARNING: deleted clause on proof line 2711 does not occur: [0] -32 137 0
+
+c WARNING: deleted clause on proof line 2712 does not occur: [0] -31 138 0
+
+c WARNING: deleted clause on proof line 2717 does not occur: [0] -39 140 0
+
+c WARNING: deleted clause on proof line 2756 does not occur: [0] -155 160 0
+
+c WARNING: deleted clause on proof line 2769 does not occur: [0] -70 175 0
+
+c WARNING: deleted clause on proof line 2795 does not occur: [0] -190 195 0
+
+c WARNING: deleted clause on proof line 2843 does not occur: [0] -225 231 0
+
+c WARNING: deleted clause on proof line 2844 does not occur: [0] -229 230 0
+
+c WARNING: deleted clause on proof line 2889 does not occur: [0] -265 274 0
+
+c WARNING: deleted clause on proof line 2890 does not occur: [0] -269 270 0
+
+c WARNING: deleted clause on proof line 2968 does not occur: [0] -149 332 0
+
+c WARNING: deleted clause on proof line 2969 does not occur: [0] -148 333 0
+
+c WARNING: deleted clause on proof line 2970 does not occur: [0] -147 334 0
+
+c WARNING: deleted clause on proof line 2971 does not occur: [0] -146 330 0
+
+c WARNING: deleted clause on proof line 2990 does not occur: [0] -181 340 0
+
+c WARNING: deleted clause on proof line 3015 does not occur: [0] -256 370 0
+
+c WARNING: deleted clause on proof line 3040 does not occur: [0] -296 380 0
+
+c WARNING: deleted clause on proof line 3041 does not occur: [0] -297 381 0
+
+c WARNING: deleted clause on proof line 3042 does not occur: [0] -298 382 0
+
+c WARNING: deleted clause on proof line 3043 does not occur: [0] -299 383 0
+
+c finished parsing
+
+c detected empty clause; start verification via backward checking
+
+c 55 of 2398 clauses in core                            
+
+c 4 of 11 lemmas in core using 80 resolution steps
+
+c 0 RAT lemmas in core; 0 redundant literals in core lemmas
+
+s VERIFIED
+
+c verification time: 0.076 seconds

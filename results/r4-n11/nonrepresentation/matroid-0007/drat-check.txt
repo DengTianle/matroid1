@@ -1,0 +1,56 @@
+
+c parsing input formula with 657 variables and 4274 clauses
+
+c WARNING: deleted clause on proof line 4353 does not occur: [0] -48 53 0
+
+c WARNING: deleted clause on proof line 4438 does not occur: [0] -1 93 0
+
+c WARNING: deleted clause on proof line 4439 does not occur: [0] -2 93 0
+
+c WARNING: deleted clause on proof line 4440 does not occur: [0] -3 93 0
+
+c WARNING: deleted clause on proof line 4441 does not occur: [0] -4 93 0
+
+c WARNING: deleted clause on proof line 4582 does not occur: [0] -158 163 0
+
+c WARNING: deleted clause on proof line 4645 does not occur: [0] -108 183 0
+
+c WARNING: deleted clause on proof line 4667 does not occur: [0] -133 203 0
+
+c WARNING: deleted clause on proof line 4930 does not occur: [0] -378 383 0
+
+c WARNING: deleted clause on proof line 4931 does not occur: [0] -379 384 0
+
+c WARNING: deleted clause on proof line 4932 does not occur: [0] -380 385 0
+
+c WARNING: deleted clause on proof line 4933 does not occur: [0] -381 386 0
+
+c WARNING: deleted clause on proof line 4934 does not occur: [0] -382 387 0
+
+c WARNING: deleted clause on proof line 5007 does not occur: [0] -443 448 0
+
+c WARNING: deleted clause on proof line 5008 does not occur: [0] -444 449 0
+
+c WARNING: deleted clause on proof line 5009 does not occur: [0] -445 450 0
+
+c WARNING: deleted clause on proof line 5010 does not occur: [0] -446 451 0
+
+c WARNING: deleted clause on proof line 5011 does not occur: [0] -447 452 0
+
+c WARNING: deleted clause on proof line 5198 does not occur: [0] -217 563 0
+
+c WARNING: deleted clause on proof line 5203 does not occur: [0] -237 568 0
+
+c finished parsing
+
+c detected empty clause; start verification via backward checking
+
+c 174 of 4274 clauses in core                            
+
+c 26 of 35 lemmas in core using 563 resolution steps
+
+c 0 RAT lemmas in core; 3 redundant literals in core lemmas
+
+s VERIFIED
+
+c verification time: 0.080 seconds

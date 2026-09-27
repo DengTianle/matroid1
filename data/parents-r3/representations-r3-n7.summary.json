@@ -1,0 +1,10 @@
+{
+  "rank": 3,
+  "size": 7,
+  "representation_classes": 22,
+  "abstract_classes": 18,
+  "attempts": 257,
+  "seconds": 0.2128896229842212,
+  "complete": true,
+  "method": "linear extensions retaining all field-isomorphism classes"
+}

@@ -1,0 +1,35 @@
+{
+  "retrieved_utc": "2026-09-26T16:45:57.347848+00:00",
+  "landing_page": "https://homepages.ecs.vuw.ac.nz/~bretteni/code.html",
+  "executed_downloaded_content": false,
+  "files": [
+    {
+      "url": "https://homepages.ecs.vuw.ac.nz/~bretteni/code.html",
+      "path": "data/raw/brettell/code.html",
+      "bytes": 5889,
+      "sha256": "4cfe71f44570c55981e154d64142c1bc5683de9e2cb118d4d760b5b174c645c5",
+      "state": "cached"
+    },
+    {
+      "url": "https://homepages.ecs.vuw.ac.nz/~bretteni/code/matroid_utils.sage",
+      "path": "data/raw/brettell/matroid_utils.sage",
+      "bytes": 5393,
+      "sha256": "8ac8c4c59ebed97279033ef9c2058254d88d4b46094509b8ddaf51438ca1bdf7",
+      "state": "cached"
+    },
+    {
+      "url": "https://homepages.ecs.vuw.ac.nz/~bretteni/code/p_representable_matroids.sage",
+      "path": "data/raw/brettell/p_representable_matroids.sage",
+      "bytes": 66222,
+      "sha256": "2eec2a3f77d2963bfe541d8ab4c96b1de852b2ae8165af3614706d5f163764d0",
+      "state": "cached"
+    },
+    {
+      "url": "https://homepages.ecs.vuw.ac.nz/~bretteni/code/gf5_excluded_minors10.sobj",
+      "path": "data/raw/brettell/gf5_excluded_minors10.sobj",
+      "bytes": 92795,
+      "sha256": "9aa082356eb700a5d60ae2bc24c3ae310e40c4219c9835ff4083a58f0f409465",
+      "state": "downloaded"
+    }
+  ]
+}

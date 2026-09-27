@@ -1,0 +1,7 @@
+`known_counts.json` records published comparison targets and their sources. It is not a count produced by this implementation.
+
+`fixtures/` contains deterministic portable records for U(2,6), U(2,7), the Fano matroid, the Vámos matroid, and one constructed GF(5)-representable rank-4 matroid on eleven elements. Definitions are in `gf5minors/matroid.py`; `scripts/prepare_data.py` creates them and refuses to replace different existing records. The rank-4 fixture is a positive recognition test, not an excluded-minor candidate discovered by the project.
+
+Each `gf5-bases-v1` record stores integer `n`, integer `rank`, and every basis as a sorted list of distinct labels from 0 through n-1. The basis family is nonempty, including the singleton family containing the empty basis at rank zero. The loader validates the basis-exchange axiom. Labels in deletion/contraction outputs are the remaining parent labels in increasing order, renumbered from zero.
+
+`reference_manifest.json` records the actual URLs, byte counts and SHA-256 digests of the author-provided files cached in `raw/brettell/`. The cache is ignored by Git. The `.sobj` archive is a Sage serialization and is kept as an inert reference; no loader is automatically invoked. The source snapshots are retained for review, not installed as project dependencies. See [the literature note](../docs/LITERATURE.md) for the old Sage/Python version considerations.

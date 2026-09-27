@@ -1,0 +1,9 @@
+{
+  "input_sha256": "7940989ae051b32496dbfd7e4717d405431bcfd89da69d0dd522517552c76441",
+  "start": 0,
+  "stop": 35,
+  "matroids_checked": 35,
+  "matrices_checked": 770,
+  "complete": true,
+  "seconds": 37.08184425599757
+}

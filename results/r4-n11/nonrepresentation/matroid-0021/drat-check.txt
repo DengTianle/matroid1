@@ -1,0 +1,18 @@
+
+c parsing input formula with 577 variables and 3746 clauses
+
+c WARNING: deleted clause on proof line 4198 does not occur: [0] -12 347 0
+
+c finished parsing
+
+c detected empty clause; start verification via backward checking
+
+c 110 of 3746 clauses in core                            
+
+c 5 of 10 lemmas in core using 154 resolution steps
+
+c 0 RAT lemmas in core; 0 redundant literals in core lemmas
+
+s VERIFIED
+
+c verification time: 0.077 seconds

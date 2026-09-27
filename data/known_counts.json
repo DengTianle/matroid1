@@ -1,0 +1,22 @@
+{
+  "schema": "gf5-literature-counts-v1",
+  "review_date": "2026-09-27",
+  "source": "https://arxiv.org/html/2307.14614v2",
+  "source_location": "Table 9",
+  "interpretation": "Isomorphism classes, each rank counted separately; no rank-4 size-11 count is asserted.",
+  "counts_by_size_and_rank": {
+    "7": {"2": 1, "3": 5, "4": 5, "5": 1},
+    "8": {"3": 2, "4": 92, "5": 2},
+    "9": {"3": 9, "4": 219, "5": 219, "6": 9},
+    "10": {"3": 1, "4": 130, "5": 1866, "6": 130, "7": 1}
+  },
+  "total_at_most_9": 564,
+  "total_exactly_10": 2128,
+  "total_at_most_10": 2692,
+  "rank3_author_report": {
+    "source": "https://matroidunion.org/?p=3244",
+    "counts_by_size": {"7": 5, "8": 2, "9": 9, "10": 1, "11": 1},
+    "total": 18,
+    "maximum_size": 11
+  }
+}

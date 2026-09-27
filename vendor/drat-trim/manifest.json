@@ -1,0 +1,21 @@
+{
+  "commit": "2e3b2dc0ecf938addbd779d42877b6ed69d9a985",
+  "downloaded_utc": "2026-09-27T04:16:09.728665+00:00",
+  "files": {
+    "drat-trim.c": {
+      "url": "https://raw.githubusercontent.com/marijnheule/drat-trim/2e3b2dc0ecf938addbd779d42877b6ed69d9a985/drat-trim.c",
+      "sha256": "d834b649f437e091597f5347f259b9f681087f89ca0844d0cee250a1a1a0c2ee",
+      "bytes": 59546
+    },
+    "LICENSE": {
+      "url": "https://raw.githubusercontent.com/marijnheule/drat-trim/2e3b2dc0ecf938addbd779d42877b6ed69d9a985/LICENSE",
+      "sha256": "71ab2a9dc5a294ad8fba4ccb8c45aaa8a439596d314a2a046ac9b62266872a18",
+      "bytes": 1184
+    },
+    "README.md": {
+      "url": "https://raw.githubusercontent.com/marijnheule/drat-trim/2e3b2dc0ecf938addbd779d42877b6ed69d9a985/README.md",
+      "sha256": "fa0b7c5b81b332aad990a1980c5d7a5fda41b153159cf331982bf36d87483054",
+      "bytes": 12939
+    }
+  }
+}

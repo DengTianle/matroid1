@@ -1,0 +1,3 @@
+{"index": 0, "matroid": {"schema": "gf5-bits-v1", "n": 5, "rank": 4, "bits": "7"}, "matrices": [[[1, 0, 0, 0, 0], [0, 1, 0, 0, 0], [0, 0, 1, 0, 1], [0, 0, 0, 1, 1]]], "connected": false, "unlabelled_classes": 1}
+{"index": 1, "matroid": {"schema": "gf5-bits-v1", "n": 5, "rank": 4, "bits": "f"}, "matrices": [[[1, 0, 0, 0, 0], [0, 1, 0, 0, 1], [0, 0, 1, 0, 1], [0, 0, 0, 1, 1]]], "connected": false, "unlabelled_classes": 1}
+{"index": 2, "matroid": {"schema": "gf5-bits-v1", "n": 5, "rank": 4, "bits": "1f"}, "matrices": [[[1, 0, 0, 0, 1], [0, 1, 0, 0, 1], [0, 0, 1, 0, 1], [0, 0, 0, 1, 1]]], "connected": true, "unlabelled_classes": 1}

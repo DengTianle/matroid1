@@ -1,0 +1,252 @@
+{
+  "size": 11,
+  "rank": 4,
+  "excluded_classes": 35,
+  "catalogue_sha256": "7940989ae051b32496dbfd7e4717d405431bcfd89da69d0dd522517552c76441",
+  "search_complete": true,
+  "parents_covered": 58756,
+  "parent_statuses": {
+    "DISCONNECTED_PARENT": 84,
+    "EXHAUSTED": 58672
+  },
+  "parent_catalogue_levels": [
+    {
+      "rank": 3,
+      "size": 4,
+      "representation_classes": 2,
+      "abstract_classes": 2,
+      "attempts": 4,
+      "seconds": 0.017894803982926533,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "d927813142107d6726c917079da5dde09a0f31e9ee83fd198630500e9e8c1d41",
+      "abstracts_sha256": "d1ba526bf56518abb667d7bf5971ebde97f3a49c14d8a9f63f5c3718dc7a80ef"
+    },
+    {
+      "rank": 3,
+      "size": 5,
+      "representation_classes": 4,
+      "abstract_classes": 4,
+      "attempts": 36,
+      "seconds": 0.01710952800931409,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "e1f67c6b96fd8cb589ad3dfeaae389a9b74cd8cefcfabac059578ed372bfea04",
+      "abstracts_sha256": "d208ff5415f49b3268dbce7598f76f4f2953ae4cb73bdf3b77141ecc1eedc520"
+    },
+    {
+      "rank": 3,
+      "size": 6,
+      "representation_classes": 11,
+      "abstract_classes": 9,
+      "attempts": 86,
+      "seconds": 0.05595531399012543,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "6f292f4f4c0c160ad09771bf010ee4ca8b1317957c59076575164e7feee05cad",
+      "abstracts_sha256": "10eebf9261d49f14f217b2075306009df8ccc9893d3e81b30f5446eefdd6e6d8"
+    },
+    {
+      "rank": 3,
+      "size": 7,
+      "representation_classes": 22,
+      "abstract_classes": 18,
+      "attempts": 257,
+      "seconds": 0.2128896229842212,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "836ca11c3685f40bc830595b8d4fa095ca06f08800d8227352bba22d37679884",
+      "abstracts_sha256": "f7c496d614e1faa70eb565c08f6b08336d339b4243d2a86cfde67a5053a143c5"
+    },
+    {
+      "rank": 3,
+      "size": 8,
+      "representation_classes": 42,
+      "abstract_classes": 34,
+      "attempts": 510,
+      "seconds": 0.6597836650034878,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "702cae5e62f1cacdd3b5258bab18dd2038b4d1bb57fadef6e2788565343189ba",
+      "abstracts_sha256": "73a06d7d2689bd68f7abfd7dcf8173b82cdac99fc3bb0dcc76603d022cb7c2a0"
+    },
+    {
+      "rank": 3,
+      "size": 9,
+      "representation_classes": 92,
+      "abstract_classes": 82,
+      "attempts": 966,
+      "seconds": 1.6059302869834937,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "56eda3af555015758276a2f9dde708af64874817bafbde7de0dd3e3d993bb2f4",
+      "abstracts_sha256": "607cea6508f3d6c240b114e774b7bc47b4a8588db1e93964a8381d67b8647fc0"
+    },
+    {
+      "rank": 3,
+      "size": 10,
+      "representation_classes": 174,
+      "abstract_classes": 168,
+      "attempts": 2024,
+      "seconds": 4.249290467007086,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "44cefff1b28fc9a1b2017aad0e450e4cc6bbca931bb53a431f1546bae18158d1",
+      "abstracts_sha256": "56fefd4dd5ed584b32cc13560f13d3102ce530056230484309356ee9e8d87067"
+    },
+    {
+      "rank": 4,
+      "size": 5,
+      "representation_classes": 3,
+      "abstract_classes": 3,
+      "attempts": 11,
+      "seconds": 0.030976696987636387,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "2064c85a573554f96a68e237b31c414048713cb4efbc7b2a14d9d67ef05089c9",
+      "abstracts_sha256": "e288ad54ddae9ecfb0aa9847da0fa270274d1447d26061f7f41b58eb41f749ae"
+    },
+    {
+      "rank": 4,
+      "size": 6,
+      "representation_classes": 12,
+      "abstract_classes": 11,
+      "attempts": 231,
+      "seconds": 0.13071740200393833,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "73f98a9fbed0a978c4419a90ac85386343c3b12adb7be2a7091af32ebb635f18",
+      "abstracts_sha256": "28edcc9fdc19bea336227bc244d550764044558d73de7530f83d42fc6f2a23b0"
+    },
+    {
+      "rank": 4,
+      "size": 7,
+      "representation_classes": 58,
+      "abstract_classes": 44,
+      "attempts": 1284,
+      "seconds": 1.1235317660029978,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "463e5eeed79a3768c2c9401bb3c20a05cb3fcdd6c609ca71ed010e52a9af6bf6",
+      "abstracts_sha256": "95ddae37c461ba2c2b61db3baef45c22700ed2ba24fcf67e8f8cc56e0e65bf93"
+    },
+    {
+      "rank": 4,
+      "size": 8,
+      "representation_classes": 460,
+      "abstract_classes": 303,
+      "attempts": 7475,
+      "seconds": 10.80234703500173,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "9e05b1d72ea22deae165e54abafb0c36468339bc841bfab7bd45fccf3eaa22c7",
+      "abstracts_sha256": "746b6e3e05acf39df4cf14a544dfd12fa7260959d9431cca7539783c69a2f209"
+    },
+    {
+      "rank": 4,
+      "size": 9,
+      "representation_classes": 5001,
+      "abstract_classes": 3763,
+      "attempts": 65782,
+      "seconds": 137.23955883501912,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "f72f12b3c437818cab8adecddc3240f7f3920219d9132425193277a29b120d13",
+      "abstracts_sha256": "20d2b2954ec61e1b4c983f1ae90f2864a20e3e82c169437e403df9bda7dac452"
+    },
+    {
+      "rank": 4,
+      "size": 10,
+      "representation_classes": 64508,
+      "abstract_classes": 58756,
+      "attempts": 731025,
+      "seconds": 2221.3771383219864,
+      "complete": true,
+      "method": "linear extensions retaining all field-isomorphism classes",
+      "representations_sha256": "d096e497c2136a512c1271676fbd6afeab8d97d18b4a96b2ad041c60261b5b8e",
+      "abstracts_sha256": "a77089657734b7ee58535ab0ce6d72795d8cc63481df66b5512fe2fc2015d5da"
+    }
+  ],
+  "all_nonrepresentation_proofs_checked": true,
+  "nonrepresentation_proofs": 35,
+  "all_immediate_minor_matrices_checked": true,
+  "minor_matrices": 770,
+  "independent_isomorphism_deduplication": true,
+  "calibration": [
+    {
+      "size": 7,
+      "rank": 4,
+      "classes": 5,
+      "exact_isomorphism_match": true,
+      "reference": "data/catalogue/gf5-excluded-through10.jsonl"
+    },
+    {
+      "size": 8,
+      "rank": 4,
+      "classes": 92,
+      "exact_isomorphism_match": true,
+      "reference": "data/catalogue/gf5-excluded-through10.jsonl"
+    },
+    {
+      "size": 9,
+      "rank": 4,
+      "classes": 219,
+      "exact_isomorphism_match": true,
+      "reference": "data/catalogue/gf5-excluded-through10.jsonl"
+    },
+    {
+      "size": 10,
+      "rank": 4,
+      "classes": 130,
+      "exact_isomorphism_match": true,
+      "reference": "data/catalogue/gf5-excluded-through10.jsonl"
+    }
+  ],
+  "independent_search_comparison": {
+    "first": "runs/calibration-n10",
+    "second": "runs/calibration-n10-join",
+    "size": 10,
+    "rank": 4,
+    "labelled_candidates": 5991,
+    "exact_match": true
+  },
+  "basis_count_distribution": {
+    "210": 1,
+    "212": 1,
+    "216": 1,
+    "220": 2,
+    "226": 1,
+    "228": 1,
+    "233": 1,
+    "238": 1,
+    "239": 2,
+    "241": 3,
+    "242": 2,
+    "243": 2,
+    "244": 1,
+    "245": 1,
+    "247": 1,
+    "248": 1,
+    "249": 1,
+    "250": 2,
+    "252": 2,
+    "254": 1,
+    "255": 1,
+    "256": 2,
+    "257": 1,
+    "258": 1,
+    "261": 1,
+    "262": 1
+  },
+  "triangle_count_distribution": {
+    "4": 3,
+    "5": 5,
+    "6": 5,
+    "7": 10,
+    "8": 9,
+    "10": 1,
+    "12": 1,
+    "13": 1
+  },
+  "paving_classes": 0
+}

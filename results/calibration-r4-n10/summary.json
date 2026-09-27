@@ -1,0 +1,54 @@
+{
+  "size": 10,
+  "rank": 4,
+  "excluded_classes": 130,
+  "parents_covered": 3763,
+  "parents_total": 3763,
+  "deletion_minimal_candidates": 5991,
+  "search_complete": true,
+  "independent_candidate_certificates_complete": false,
+  "catalogue_sha256": "5ee4487d76e342a48a5bebc95850d35b509f159bbcbf54ddb42c5f129a67bff9",
+  "inputs": {
+    "data/parents/labelled-r4-n8.jsonl": "158f8a801ae1d7dd3a2aebc023ad1762a67125be5d96be7e761e286c79d7cf70",
+    "data/parents/labelled-r4-n9.jsonl": "4ee15506174c72dd656550791c29806fab8cc00e8b826d9dadf95b3a2e469b74",
+    "data/parents-r3/abstract-r3-n4.jsonl": "d1ba526bf56518abb667d7bf5971ebde97f3a49c14d8a9f63f5c3718dc7a80ef",
+    "data/parents-r3/abstract-r3-n5.jsonl": "d208ff5415f49b3268dbce7598f76f4f2953ae4cb73bdf3b77141ecc1eedc520",
+    "data/parents-r3/abstract-r3-n6.jsonl": "10eebf9261d49f14f217b2075306009df8ccc9893d3e81b30f5446eefdd6e6d8",
+    "data/parents-r3/abstract-r3-n7.jsonl": "f7c496d614e1faa70eb565c08f6b08336d339b4243d2a86cfde67a5053a143c5",
+    "data/parents-r3/abstract-r3-n8.jsonl": "73a06d7d2689bd68f7abfd7dcf8173b82cdac99fc3bb0dcc76603d022cb7c2a0",
+    "data/parents-r3/abstract-r3-n9.jsonl": "607cea6508f3d6c240b114e774b7bc47b4a8588db1e93964a8381d67b8647fc0"
+  },
+  "critical_sources": {
+    "gf5minors/__init__.py": "7d60a67eb51442aa12d33a4a06423afe78d994cc519bfee7b4ce55e6cb57e8b0",
+    "gf5minors/__main__.py": "2ab8d228d57f0dc238cb6afae7541bbb95b169d07b58c6e912d15ad0fc01d20c",
+    "gf5minors/compact.py": "64590ab34b2e6a2abfe04b4f2081069f11c10346699a5dc885b3e8121ab26a6d",
+    "gf5minors/extensions.py": "4c9117692d736ce62b8f392264b314dced03221ca0480786f08c31aaa89ac91d",
+    "gf5minors/matroid.py": "258f3d91c09a6d0e90c9cbe6a6ce079fca1f7536885bd7b7f8e7e9bc87a76182",
+    "gf5minors/projective.py": "fbc18f998752ab4bf8f39529210bc6b1bdeed2ae0d411d51b3970c691a1fc86c",
+    "gf5minors/provenance.py": "cd50b0ca579c0c35159262bb0d319e18a98c913a495cd7fd278d3494d40ab168",
+    "gf5minors/representation.py": "ca94040b377a84680bbe5a47130e4eb18aa8eac710a271604df1bd1cd5be84aa",
+    "gf5minors/sage_bridge.py": "b94e03dbcb387203d2990833c3ab9573e89e80e3c938c99bca1f0cafb9c43b2f",
+    "gf5minors/table_join.py": "b754376928cc4156e63ec639c26f90ac386d9ac08cd52e142af27b12c4fb1286",
+    "gf5minors/table_sat.py": "a5a7e9592fe2012a77457ceb02d29ecc64a6698f0268eb9aa67bdd9781c15699",
+    "scripts/search_compatible_deletions.py": "5565df837ef2080bd51dce3770936a705bf805ba3d5450a8758803391244f043",
+    "scripts/table_worker.py": "328308a59824c0ffa1ab6229fe3f0460ba16f78183cb946ce2d5e8db055a804e"
+  },
+  "shards": [
+    {
+      "directory": "runs/calibration-n10-join",
+      "target_size": 10,
+      "target_rank": 4,
+      "start": 0,
+      "stop": 3763,
+      "parents_total": 3763,
+      "completed_parents": 3763,
+      "last_completed": 3762,
+      "unknown_parents": [],
+      "deletion_minimal_candidates": 5991,
+      "excluded_classes_within_run": 130,
+      "seconds": 338.948962052993,
+      "complete_for_range": true,
+      "global_complete": true
+    }
+  ]
+}

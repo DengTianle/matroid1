@@ -1,0 +1,13 @@
+{
+  "index": 6,
+  "matroid_id": "84b2198cbd9ef5aff0977dadd68bb355d117d7926a26ac9d163b08397eef5978",
+  "status": "UNSAT",
+  "seconds": 0.20712749598897062,
+  "variables": 702,
+  "clauses": 4528,
+  "matrix": null,
+  "witness_checked": false,
+  "proof_written": true,
+  "proof_checked": true,
+  "solver": "glucose4"
+}

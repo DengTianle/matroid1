@@ -1,0 +1,1537 @@
+[
+  {
+    "class_id": "GF5-r4-n11-0001",
+    "basis_count": 250,
+    "triangle_count": 6,
+    "triangles": [
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        1,
+        7,
+        9
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        4,
+        5,
+        6
+      ],
+      [
+        6,
+        7,
+        8
+      ],
+      [
+        8,
+        9,
+        10
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "cea61f049725c247c3f259c8964960456deb4aa588f2b8ea165c6df92a582321"
+  },
+  {
+    "class_id": "GF5-r4-n11-0002",
+    "basis_count": 233,
+    "triangle_count": 7,
+    "triangles": [
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        4,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        8,
+        9,
+        10
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "a2359acfad2acaeb0ab1dbdb19ce0cc39caee47a6db351dc914d5e2b2ccd9496"
+  },
+  {
+    "class_id": "GF5-r4-n11-0003",
+    "basis_count": 252,
+    "triangle_count": 7,
+    "triangles": [
+      [
+        0,
+        5,
+        7
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        1,
+        3,
+        6
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        4,
+        5,
+        6
+      ],
+      [
+        6,
+        8,
+        10
+      ],
+      [
+        7,
+        8,
+        9
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "a8735a1e5e9c71c23a19a5d99cbcb87ed29a70682532e77bf4da37972c58c7ce"
+  },
+  {
+    "class_id": "GF5-r4-n11-0004",
+    "basis_count": 250,
+    "triangle_count": 5,
+    "triangles": [
+      [
+        0,
+        4,
+        8
+      ],
+      [
+        0,
+        5,
+        7
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        6,
+        7,
+        9
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "44da558e63d82d4025a967bd5e0dce3cd522b4ecb8317a3bf058cf7de67f008a"
+  },
+  {
+    "class_id": "GF5-r4-n11-0005",
+    "basis_count": 247,
+    "triangle_count": 7,
+    "triangles": [
+      [
+        0,
+        6,
+        8
+      ],
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        8,
+        9,
+        10
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "b7a29c7a359e2fb80f0ac208b2ac061d66f4c7bfdd8e7c053556828dbe08d8b6"
+  },
+  {
+    "class_id": "GF5-r4-n11-0006",
+    "basis_count": 241,
+    "triangle_count": 8,
+    "triangles": [
+      [
+        0,
+        7,
+        9
+      ],
+      [
+        0,
+        7,
+        10
+      ],
+      [
+        0,
+        9,
+        10
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        7,
+        9,
+        10
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "4977a773c19438d20f252617e5ccd3f319ab0e50d565969c1ceea36c3d1dcf77"
+  },
+  {
+    "class_id": "GF5-r4-n11-0007",
+    "basis_count": 249,
+    "triangle_count": 7,
+    "triangles": [
+      [
+        0,
+        6,
+        8
+      ],
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        7,
+        9,
+        10
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "f267aa35893e0fd88390e2c5ce07be7ecfcae855fbeed0a5f7bf3858981407f4"
+  },
+  {
+    "class_id": "GF5-r4-n11-0008",
+    "basis_count": 252,
+    "triangle_count": 7,
+    "triangles": [
+      [
+        0,
+        5,
+        7
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        1,
+        3,
+        6
+      ],
+      [
+        1,
+        8,
+        9
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        4,
+        5,
+        6
+      ],
+      [
+        7,
+        9,
+        10
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "8bbaae5e2dac25ec9bcfaa5cf7351f1fb2dd009378f22719011c28b860c217a0"
+  },
+  {
+    "class_id": "GF5-r4-n11-0009",
+    "basis_count": 255,
+    "triangle_count": 6,
+    "triangles": [
+      [
+        0,
+        3,
+        8
+      ],
+      [
+        0,
+        6,
+        9
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        4,
+        5,
+        6
+      ],
+      [
+        7,
+        8,
+        10
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "56e201ba245efb353e9503ec2a7fed892b3abc018c1b0480264b9cecb60f1f71"
+  },
+  {
+    "class_id": "GF5-r4-n11-0010",
+    "basis_count": 239,
+    "triangle_count": 8,
+    "triangles": [
+      [
+        0,
+        6,
+        8
+      ],
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        5,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        4,
+        6,
+        7
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "ffd20430a768a85a9088873d02063f7a1cacf8dbe0dc60394ce68d6589a19ca2"
+  },
+  {
+    "class_id": "GF5-r4-n11-0011",
+    "basis_count": 212,
+    "triangle_count": 10,
+    "triangles": [
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        2,
+        8
+      ],
+      [
+        1,
+        5,
+        7
+      ],
+      [
+        1,
+        6,
+        8
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        2,
+        6,
+        8
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        4,
+        6,
+        7
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "0ad3cf5656dc8480f4842b31c03a6006e289c751117affda352227de2a0f81eb"
+  },
+  {
+    "class_id": "GF5-r4-n11-0012",
+    "basis_count": 242,
+    "triangle_count": 8,
+    "triangles": [
+      [
+        0,
+        4,
+        9
+      ],
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        5,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        4,
+        6,
+        7
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "7ae9cea00c373df63056973034a455c8cb3eb5f01e146bdb8cc86578ccec283b"
+  },
+  {
+    "class_id": "GF5-r4-n11-0013",
+    "basis_count": 254,
+    "triangle_count": 5,
+    "triangles": [
+      [
+        0,
+        4,
+        8
+      ],
+      [
+        0,
+        5,
+        7
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        6,
+        9,
+        10
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "0824f01d86fdd57c8a50770a5d5e95906aa0a47ac17a659b6b4c6fc04802d7ef"
+  },
+  {
+    "class_id": "GF5-r4-n11-0014",
+    "basis_count": 257,
+    "triangle_count": 4,
+    "triangles": [
+      [
+        0,
+        7,
+        9
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        6,
+        9,
+        10
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "6649bdba98ff8a904b9e16131a077cde2218d8de36f5d2c293fa5e7a0e92fa69"
+  },
+  {
+    "class_id": "GF5-r4-n11-0015",
+    "basis_count": 262,
+    "triangle_count": 4,
+    "triangles": [
+      [
+        0,
+        5,
+        7
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        6,
+        8,
+        9
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "f13ea2bfdc9c4e19cfa66c8b8ce3bee514324bf8421c9992026140121a82367f"
+  },
+  {
+    "class_id": "GF5-r4-n11-0016",
+    "basis_count": 210,
+    "triangle_count": 13,
+    "triangles": [
+      [
+        1,
+        2,
+        7
+      ],
+      [
+        1,
+        5,
+        8
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        3,
+        6
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        2,
+        4,
+        6
+      ],
+      [
+        2,
+        5,
+        6
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        6
+      ],
+      [
+        3,
+        5,
+        6
+      ],
+      [
+        4,
+        5,
+        6
+      ],
+      [
+        4,
+        7,
+        8
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "91df045cdb62546707bd57b881c5d0596cf26bcb35a26848b7b10332d45a8b38"
+  },
+  {
+    "class_id": "GF5-r4-n11-0017",
+    "basis_count": 245,
+    "triangle_count": 7,
+    "triangles": [
+      [
+        0,
+        2,
+        9
+      ],
+      [
+        0,
+        4,
+        8
+      ],
+      [
+        0,
+        5,
+        7
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        1,
+        7,
+        9
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        3,
+        8,
+        9
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "7655b35d71e483f1545b939e734a9917450f242e0fe0ecc4d6f68b431f333356"
+  },
+  {
+    "class_id": "GF5-r4-n11-0018",
+    "basis_count": 242,
+    "triangle_count": 6,
+    "triangles": [
+      [
+        0,
+        1,
+        10
+      ],
+      [
+        0,
+        4,
+        9
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        3,
+        5,
+        7
+      ],
+      [
+        4,
+        5,
+        6
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "0ec33dbc02c152f2e28ad1b9f6e6aebe6661cac8ca460de769d002a5b38f8a3c"
+  },
+  {
+    "class_id": "GF5-r4-n11-0019",
+    "basis_count": 244,
+    "triangle_count": 8,
+    "triangles": [
+      [
+        0,
+        1,
+        9
+      ],
+      [
+        0,
+        2,
+        7
+      ],
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        6,
+        7,
+        9
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "0c480b24978ac0855c90371edabc05ba96338a00ad23f4d7bb34e8c32d6c4da3"
+  },
+  {
+    "class_id": "GF5-r4-n11-0020",
+    "basis_count": 256,
+    "triangle_count": 6,
+    "triangles": [
+      [
+        0,
+        4,
+        6
+      ],
+      [
+        0,
+        5,
+        7
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        4,
+        8,
+        10
+      ],
+      [
+        5,
+        8,
+        9
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "046f8b8f833dedfef76aa574e2d811921ff85addf8b762bdbe7767f0ecfb68cc"
+  },
+  {
+    "class_id": "GF5-r4-n11-0021",
+    "basis_count": 226,
+    "triangle_count": 8,
+    "triangles": [
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        4,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        2,
+        8,
+        9
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        3,
+        8,
+        10
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "c435bab77e9906a6cfe77a6797587555dec6f38a003d052f4e8e7646d4586889"
+  },
+  {
+    "class_id": "GF5-r4-n11-0022",
+    "basis_count": 261,
+    "triangle_count": 4,
+    "triangles": [
+      [
+        0,
+        5,
+        7
+      ],
+      [
+        0,
+        6,
+        9
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        2,
+        3,
+        4
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "274297ba1bda81421f9d9532a76d4ed756efd70a99d4e079db48d7312b8cf33c"
+  },
+  {
+    "class_id": "GF5-r4-n11-0023",
+    "basis_count": 220,
+    "triangle_count": 8,
+    "triangles": [
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        4,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        3,
+        6,
+        8
+      ],
+      [
+        5,
+        7,
+        8
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "39de8b6a3a34c57c105f72e2967fbb82ea3a9cb972da0c02ee76bb0ad962a837"
+  },
+  {
+    "class_id": "GF5-r4-n11-0024",
+    "basis_count": 220,
+    "triangle_count": 8,
+    "triangles": [
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        4,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        4,
+        6,
+        8
+      ],
+      [
+        5,
+        7,
+        8
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "fd6c3805381144bf408524d54dc1d0daab113487aec8a699efb82806920695c4"
+  },
+  {
+    "class_id": "GF5-r4-n11-0025",
+    "basis_count": 243,
+    "triangle_count": 7,
+    "triangles": [
+      [
+        0,
+        8,
+        9
+      ],
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        4,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "be6d489eef62c020403622675c1eba805735a89fc7ae69f629bc3f570732d0c9"
+  },
+  {
+    "class_id": "GF5-r4-n11-0026",
+    "basis_count": 243,
+    "triangle_count": 7,
+    "triangles": [
+      [
+        0,
+        8,
+        9
+      ],
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        4,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "c17e2d8a366267628328def29f1e7ceff7f0781d34b8adf6366b8df93667fd3f"
+  },
+  {
+    "class_id": "GF5-r4-n11-0027",
+    "basis_count": 228,
+    "triangle_count": 12,
+    "triangles": [
+      [
+        0,
+        8,
+        10
+      ],
+      [
+        1,
+        2,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        3,
+        6
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        2,
+        4,
+        6
+      ],
+      [
+        2,
+        5,
+        6
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        6
+      ],
+      [
+        3,
+        5,
+        6
+      ],
+      [
+        4,
+        5,
+        6
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "fb0a5d38f57f0f75e1e292a7db4521f5150bab041ebde3acdc0158b8c48ede89"
+  },
+  {
+    "class_id": "GF5-r4-n11-0028",
+    "basis_count": 248,
+    "triangle_count": 5,
+    "triangles": [
+      [
+        0,
+        7,
+        9
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        3,
+        6,
+        7
+      ],
+      [
+        4,
+        5,
+        6
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "c4eaa63f6da20afc5412422861acbfc637f74650d1728227c5796b3cf36f1449"
+  },
+  {
+    "class_id": "GF5-r4-n11-0029",
+    "basis_count": 216,
+    "triangle_count": 8,
+    "triangles": [
+      [
+        1,
+        6,
+        7
+      ],
+      [
+        1,
+        6,
+        8
+      ],
+      [
+        1,
+        7,
+        8
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        6,
+        7,
+        8
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "a08de9f829bfa3345617b86c9ddff6506fa1866d8b10e25cc106a4a5d445cac0"
+  },
+  {
+    "class_id": "GF5-r4-n11-0030",
+    "basis_count": 256,
+    "triangle_count": 5,
+    "triangles": [
+      [
+        0,
+        9,
+        10
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        4,
+        5,
+        6
+      ],
+      [
+        6,
+        7,
+        8
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "d85d078d26886d6397a21e3db474b942434119d721b6afc79bcd894637824fac"
+  },
+  {
+    "class_id": "GF5-r4-n11-0031",
+    "basis_count": 239,
+    "triangle_count": 7,
+    "triangles": [
+      [
+        0,
+        6,
+        8
+      ],
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        4,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "cf89f77dac7f14c271dc775f85b8bd4991da8d15a640f00bbde473d99a739f54"
+  },
+  {
+    "class_id": "GF5-r4-n11-0032",
+    "basis_count": 241,
+    "triangle_count": 7,
+    "triangles": [
+      [
+        0,
+        5,
+        8
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        1,
+        3,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        6,
+        7
+      ],
+      [
+        3,
+        8,
+        9
+      ],
+      [
+        4,
+        5,
+        6
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "c5ab3f9d0686af5927a01b806304e883a669e77dacc064d7308db68773a7a934"
+  },
+  {
+    "class_id": "GF5-r4-n11-0033",
+    "basis_count": 241,
+    "triangle_count": 6,
+    "triangles": [
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        1,
+        8,
+        9
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        3,
+        6,
+        7
+      ],
+      [
+        4,
+        5,
+        6
+      ],
+      [
+        4,
+        9,
+        10
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "941951b188366ef85e1b34868da6a5b2bc95c935d142e0ab7cb40a9341b42f4a"
+  },
+  {
+    "class_id": "GF5-r4-n11-0034",
+    "basis_count": 258,
+    "triangle_count": 5,
+    "triangles": [
+      [
+        0,
+        5,
+        7
+      ],
+      [
+        1,
+        2,
+        5
+      ],
+      [
+        1,
+        7,
+        9
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        4,
+        5,
+        6
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "99af858731779400e76923de3bd5f8d5068ddceb1e0c358dc463ddafbd326dc0"
+  },
+  {
+    "class_id": "GF5-r4-n11-0035",
+    "basis_count": 238,
+    "triangle_count": 8,
+    "triangles": [
+      [
+        0,
+        6,
+        8
+      ],
+      [
+        1,
+        2,
+        6
+      ],
+      [
+        1,
+        5,
+        7
+      ],
+      [
+        2,
+        3,
+        4
+      ],
+      [
+        2,
+        3,
+        5
+      ],
+      [
+        2,
+        4,
+        5
+      ],
+      [
+        3,
+        4,
+        5
+      ],
+      [
+        4,
+        6,
+        7
+      ]
+    ],
+    "paving": false,
+    "canonical_graph_sha256": "95b21701297023555faa700c7c122cc86f4a5a31656037f2697f1ce0bf1db4aa"
+  }
+]

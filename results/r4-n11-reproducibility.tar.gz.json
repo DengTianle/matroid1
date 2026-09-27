@@ -1,0 +1,7 @@
+{
+  "archive": "results/r4-n11-reproducibility.tar.gz",
+  "bytes": 7630836,
+  "sha256": "ef6ce9b8630c560f86aabaff5be7e7774703fd4744ca34882e996f15042f6c41",
+  "excluded_classes": 35,
+  "catalogue_sha256": "7940989ae051b32496dbfd7e4717d405431bcfd89da69d0dd522517552c76441"
+}
