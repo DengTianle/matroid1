@@ -1,0 +1,35 @@
+:root { color-scheme: light; }
+body {
+  max-width: 54rem; margin: 3rem auto; padding: 0 1.6rem;
+  color: #20252a; background: #fff; font: 18px/1.65 Georgia, "Times New Roman", serif;
+}
+header { margin-bottom: 2.5rem; text-align: center; }
+h1 { font-size: 1.9rem; line-height: 1.3; }
+h2 { font-size: 1.5rem; margin-top: 2.2rem; }
+h3 { font-size: 1.16rem; margin-top: 1.8rem; }
+h4 { font-size: 1rem; margin-bottom: .35rem; }
+p { margin: .8rem 0; }
+a { color: #185a86; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+nav { padding: 1rem 1.5rem; background: #f6f7f8; border: 1px solid #dfe3e6; }
+nav ul { margin: .2rem 0; }
+blockquote { margin: 1.3rem 0; padding: .4rem 1rem; border-left: 3px solid #a3adb6; }
+blockquote p:first-child { margin-top: .3rem; }
+blockquote p:last-child { margin-bottom: .3rem; }
+table { border-collapse: collapse; margin: 1.5rem auto; font-size: .94rem; }
+th, td { padding: .35rem .7rem; text-align: right; }
+thead { border-top: 1px solid; border-bottom: 1px solid; }
+tbody { border-bottom: 1px solid; }
+caption { margin: .5rem 0; font-size: .95rem; line-height: 1.4; }
+code, pre { font: .85em/1.5 "DejaVu Sans Mono", monospace; overflow-wrap: anywhere; }
+pre { background: #f6f7f8; padding: 1rem; white-space: pre-wrap; }
+dt { font-weight: bold; margin-top: .7rem; }
+dd { margin-left: 1.3rem; }
+math[display="block"] { margin: 1.1rem 0; overflow-x: auto; overflow-y: hidden; padding: .35rem 0; }
+@media print {
+  body { max-width: none; margin: 0; padding: 0; font-size: 11pt; }
+  nav { display: none; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3, h4 { break-after: avoid; }
+  table, blockquote { break-inside: avoid; }
+  @page { size: A4; margin: 22mm; }
+}

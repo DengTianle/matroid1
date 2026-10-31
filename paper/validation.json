@@ -1,0 +1,24 @@
+{
+  "catalogue_sha256": "7940989ae051b32496dbfd7e4717d405431bcfd89da69d0dd522517552c76441",
+  "classes": 35,
+  "hyperplane_descriptions_reconstructed": 35,
+  "parents_covered": 58756,
+  "parent_statuses": {
+    "DISCONNECTED_PARENT": 84,
+    "EXHAUSTED": 58672
+  },
+  "enumeration_methods": {
+    "exact natural join": 58672
+  },
+  "deletion_minimal_candidates": 659,
+  "critical_source_digests_match": true,
+  "input_digests_match": true,
+  "certificate_replay_requested": true,
+  "determinant_cnfs_regenerated_and_matched": 35,
+  "drat_proofs_replayed": 35,
+  "minor_matrices_rechecked": 770,
+  "html_sha256": "3250a249c095cb351876dd426945ef7f5032dab3a0b98a97e4aecd474a327ed9",
+  "seconds": 14.207130766939372,
+  "paper_source_sha256": "6769c900f19db172a996e0778c3bd329c25d95e6693a6aa325fbdf9a4618b8ba",
+  "html_refreshed_without_replaying_unchanged_certificates": true
+}

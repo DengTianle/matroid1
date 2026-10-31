@@ -7,3 +7,8 @@ dist/
 data/raw/
 runs/*
 !runs/.gitkeep
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.toc
+paper/*.synctex.gz
