@@ -19,46 +19,42 @@
 \newcommand{\si}{\operatorname{si}}
 \newcommand{\PG}{\operatorname{PG}}
 \newcommand{\Aut}{\operatorname{Aut}}
-\newcommand{\rank}{\operatorname{rank}}
 \setlength{\emergencystretch}{2em}
 \setcounter{tocdepth}{1}
 \title{The rank-four, eleven-element excluded minors\protect\\
 for representability over $\mathbb F_5$}
 \author{}
-\date{Computational proof and exact catalogue\\31 October 2026}
+\date{A computational classification\\Revised exposition, 5 November 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-An exhaustive computation gives exactly 35 isomorphism classes of
-rank-four, eleven-element excluded minors for representability over
-$\mathbb F_5$. We give the mathematical justification of the enumeration,
-its computational evidence, and exact descriptions of all 35 matroids.
-The main reduction uses compatible representable deletions: on more than
-twice the rank many elements, the basis-exchange axiom follows from the
-corresponding axiom in every single-element deletion. Complete sets of
-labelled representations turn this condition into finite relations on
-the hyperplanes of a ten-element parent. The computation covers all
-58,756 simple representable parent classes, exhausts every required
-relation problem, and checks all contractions. Each retained class has a
-separate determinant-based unsatisfiability certificate and explicit
-representations of its 22 immediate minors. The classification therefore
-combines a proof of exhaustive coverage with independently checkable
-certificates for the listed objects.
+There are exactly 35 isomorphism classes of rank-four, eleven-element
+excluded minors for representability over $\mathbb F_5$. The proof is an
+exhaustive construction. Every such matroid has a representable
+ten-element deletion. For each possible deletion, we recover all
+nonrepresentable extensions whose other deletions are representable,
+then test their contractions. The essential observation is that, when
+the ground set has more than twice the rank many elements, compatible
+basis data for the single-element deletions already determine a
+matroid. This turns the extension search into an exact intersection of
+finite tables. We prove that each stage preserves every possible
+excluded minor, explain how the tables are constructed and exhausted,
+and give the computational results that complete the classification.
+Separate certificates verify nonrepresentability and all immediate
+minors of each of the 35 resulting matroids.
 \end{abstract}
 
 \tableofcontents
 \clearpage
 
-\section{The classification}\label{sec:classification}
+\section{The theorem and the structure of its proof}\label{sec:classification}
 
-All matroids in this paper are finite. A matroid is \emph{quinary} if it
-is representable over $\F=\mathbb Z/5\mathbb Z$. An \emph{excluded minor}
-for quinary matroids is a matroid that is not quinary but every proper
-minor of which is quinary. Isomorphism always means abstract matroid
-isomorphism, unless an equivalence of representations is explicitly
-specified.
+A matroid is \emph{quinary} if it is representable over
+$\F=\mathbb Z/5\mathbb Z$. An \emph{excluded minor} for quinary matroids
+is a nonquinary matroid every proper minor of which is quinary. We
+classify these obstructions at one specified rank and size.
 
 \begin{theorem}[Computational classification]\label{thm:main}
 There are exactly 35 isomorphism classes of rank-four, eleven-element
@@ -66,740 +62,1077 @@ excluded minors for representability over $\F$. Representatives
 $M_1,\ldots,M_{35}$ are specified in Appendix~\ref{sec:catalogue}.
 \end{theorem}
 
-The proof has two computational parts. To establish that the catalogue
-contains every required class, we enumerate complete represented parent
-catalogues and solve an exhaustive finite compatibility problem for each
-eligible parent. To establish that every retained matroid is an excluded
-minor, we check a separate certificate of nonrepresentability and
-representations of every immediate minor. The latter certificates alone
-would establish only a lower bound of 35 classes; completeness also
-requires the former computation.
-
-The exact catalogue, in lexicographic basis-bit format, is
-\path{results/r4-n11/excluded.jsonl}. Its SHA-256 digest is
-\begin{quote}\small\ttfamily
-7940989ae051b32496dbfd7e4717d405431bcfd89da69d0dd522517552c76441.
-\end{quote}
-The identifiers in the appendix refer to this fixed catalogue.
-
-\begin{corollary}\label{cor:dual}
-There are exactly 35 isomorphism classes of rank-seven, eleven-element
-excluded minors for representability over $\F$.
-\end{corollary}
-\begin{proof}
-Field representability is closed under duality, and duality interchanges
-deletion and contraction. Thus $M$ is an excluded minor if and only if
-$M^*$ is. Duality gives a bijection between the rank-four and rank-seven
-isomorphism classes on eleven elements.
-\end{proof}
-
-For context, Brettell's classification through ten elements gives 5,
-92, 219, and 130 rank-four excluded minors at sizes seven, eight, nine,
-and ten, respectively \cite{brettell}. These four catalogues provide
-end-to-end calibration instances for the computation here. Compatible
-extensions and the need to preserve inequivalent representations also
-appear in the computational methods of Brettell and Pendavingh
-\cite{brettell-pendavingh}. Our coverage argument below uses complete
-represented catalogues and imposes compatibility with every deletion.
-
-\section{Preliminaries and structural reductions}\label{sec:preliminaries}
-
-For a rank-$r$ matroid $M$ on $E$, write $\B(M)$ for its set of bases.
-It is a nonempty family of $r$-subsets satisfying the ordered
-basis-exchange axiom: if $A,B\in\B(M)$ and $a\in A\setminus B$, then
-there is $b\in B\setminus A$ such that
-$(A\setminus\{a\})\cup\{b\}\in\B(M)$. We use the usual notation
-$M\setminus e$ and $M/e$ for deletion and contraction. The
-\emph{simplification} $\si(M)$ deletes loops and retains one element
-from each parallel class. A hyperplane of a rank-$r$ matroid is a flat
-of rank $r-1$.
-
-\begin{lemma}[Immediate minors suffice]\label{lem:immediate}
-A matroid $M$ is an excluded minor for quinary matroids if and only if
-$M$ is not quinary and $M\setminus e$ and $M/e$ are quinary for every
-$e\in E(M)$.
-\end{lemma}
-\begin{proof}
-Every proper minor is a minor of an immediate deletion or contraction.
-Representability over a fixed field is closed under taking minors.
-The reverse implication follows directly from the definition.
-\end{proof}
-
-\begin{lemma}[Connectivity reduction]\label{lem:connectivity}
-An excluded minor for representability over a field is 3-connected if
-its ground set has at least four elements. In particular, if $M$ has
-rank four and eleven elements and is such an excluded minor, then for
-every $e\in E(M)$ the deletion $M\setminus e$ is a connected, simple,
-rank-four quinary matroid on ten elements.
-\end{lemma}
-\begin{proof}
-Representability over a fixed field is closed under direct sums and
-2-sums. The standard decomposition of a disconnected matroid as a
-direct sum, or of a connected matroid with a 2-separation as a 2-sum,
-has summands isomorphic to proper minors \cite{oxley}. If all proper
-minors were representable, these decompositions would make the matroid
-itself representable, a contradiction. This proves 3-connectivity.
-For the closure under 2-sums, one may choose representations of the two
-summands in which their common element is a fixed unit vector, identify
-that vector in the two vector spaces, and then delete its column.
-The resulting column matroid represents the 2-sum.
-
-A 3-connected matroid on at least four elements has no loops, coloops,
-parallel pairs, or series pairs. Hence $N=M\setminus e$ is simple and
-has rank four. It is quinary because it is a proper minor. To see that
-it is connected, suppose that $E(N)=A\mathbin{\dot\cup}B$ is a
-nontrivial direct-sum partition. Choose the names so that $|A|\geq2$.
-Then $r_M(A)+r_M(B)=r(M)$ and
+The defining condition has a useful finite form. A matroid $M$ is an
+excluded minor precisely when
 \[
+ M\text{ is nonquinary},\qquad
+ M\setminus a\text{ and }M/a\text{ are quinary for every }a\in E(M).
+\]
+Indeed, every proper minor is a minor of one of these immediate
+deletions or contractions, and field representability is closed under
+taking minors. For an eleven-element matroid there are therefore 22
+immediate minors to consider. This criterion is easy to apply to a
+given matroid. The main difficulty is to find a finite list that is
+guaranteed to contain \emph{every} matroid satisfying it.
+
+We construct such a list by reversing deletion. Choose an element
+$e$ of an unknown excluded minor $M$ and put $N=M\setminus e$. The
+matroid $N$ is quinary. We call it a \emph{parent}, since the task is
+to recover $M$ by adding $e$ to it. The proof proceeds in three steps.
+\begin{enumerate}
+\item \emph{Find all possible parents.} We prove that $N$ must be a
+connected simple rank-four matroid on ten elements, and generate a
+complete quinary catalogue of these matroids
+(Section~\ref{sec:parents}).
+\item \emph{Recover all possible extensions of each parent.} For a
+fixed $N$, we construct exactly the nonquinary extensions $M$ for which
+every deletion $M\setminus a$ is quinary. The recovery theorem is
+proved in Section~\ref{sec:local}; its finite tables and their exhaustive
+solution are developed in Section~\ref{sec:tables}.
+\item \emph{Impose the remaining minor conditions.} We test every
+contraction of every recovered matroid and identify isomorphic
+outputs. This leaves precisely the desired excluded minors
+(Section~\ref{sec:finish}).
+\end{enumerate}
+
+The second step is the heart of the argument. A quinary extension of
+$N$ can be obtained by appending a column to a representation of $N$;
+the desired $M$, however, is nonquinary. Instead we construct its
+\emph{different deletions} from representations, and require their
+basis data to agree wherever they overlap. A local-to-global lemma
+then shows that these compatible data form a matroid. We can thus
+enumerate nonrepresentable matroids using only finite lists of
+representable ones.
+
+Two inclusions will finish the proof. The construction must contain
+every excluded minor, giving an upper bound on their number. Each
+listed object must also be an excluded minor, and the objects must be
+pairwise nonisomorphic, giving the matching lower bound. The
+computation in Section~\ref{sec:computation} supplies both: the
+exhaustive construction leaves 35 classes, and separate certificates
+verify all 35. Its numerical results are organized there according
+to the three steps above; implementation records are collected in
+Appendix~\ref{sec:reproduction}.
+
+For comparison, Brettell's classification through ten elements gives
+5, 92, 219, and 130 rank-four excluded minors at sizes seven through
+ten \cite{brettell}. We reproduce those smaller catalogues as checks
+on the method. The use of compatible extensions and of inequivalent
+representations has precedents in the computations of Brettell and
+Pendavingh \cite{brettell-pendavingh}. Here the proof of coverage rests
+on generating all possible parents and imposing compatibility with
+every deletion.
+
+\section{Step 1: finding every possible parent}\label{sec:parents}
+
+This step establishes the starting point of the search: a complete
+list of matroids $N$ that could occur as $M\setminus e$. We first
+determine which parents are needed, then prove that the represented
+generation procedure reaches all of them.
+
+\subsection{Why connected simple parents suffice}
+
+We use the standard notation $r_M(X)$ for the rank of a subset and
+$\B(M)$ for the bases of $M$. All matroids are finite. A simple
+matroid has no loops or parallel pairs.
+
+\begin{lemma}[Possible deletions]\label{lem:parents}
+If $M$ is a rank-four, eleven-element excluded minor for quinary
+matroids, then for every $e\in E(M)$ the deletion $M\setminus e$ is
+a connected simple rank-four quinary matroid on ten elements.
+\end{lemma}
+\begin{proof}
+An excluded minor for representability over a field is 3-connected
+when it has at least four elements. To recall the reason,
+representability over a fixed field is closed under direct sums and
+2-sums. A disconnected matroid decomposes as a direct sum; a connected
+matroid with a 2-separation decomposes as a 2-sum. The summands are
+isomorphic to proper minors \cite{oxley}. If the matroid were an
+excluded minor, all summands would be representable, forcing the
+matroid itself to be representable. For the 2-sum construction, choose
+representations in which the common element is a unit vector,
+identify its one-dimensional span in the two vector spaces, and
+delete its column.
+
+Thus $M$ is 3-connected. It has no loops, parallel pairs, or coloops,
+so $N=M\setminus e$ is simple and has rank four. It is quinary by
+minor-minimality. It remains to prove that $N$ is connected. If
+$E(N)=A\mathbin{\dot\cup}B$ were a nontrivial direct-sum partition,
+choose the names so that $|A|\geq2$. Since $r(N)=r(M)$, we would have
+\[
+ r_M(A)+r_M(B)=r(M),\qquad
  r_M(A)+r_M(B\cup\{e\})-r(M)\leq1.
 \]
-Both $A$ and $B\cup\{e\}$ have at least two elements, contradicting
+Both $A$ and $B\cup\{e\}$ have at least two elements. This contradicts
 3-connectivity of $M$.
 \end{proof}
 
-The represented parent catalogue includes disconnected as well as
-connected matroids. Only disconnected parents are discarded before the
-compatibility search. A deletion of a 3-connected matroid need not be
-3-connected, so the reduction requires connected parents, without a
-3-connectivity restriction on them.
+Let $P=\{0,\ldots,9\}$ and take a new label $e=10$. Let
+$\mathcal P$ contain one labelled representative on $P$ of each
+connected simple rank-four quinary matroid on ten elements. For each
+$N\in\mathcal P$, define $\mathcal D(N)$ to be the set of simple
+rank-four matroids $M$ on $P\cup\{e\}$ satisfying
+\[
+ \begin{gathered}
+ M\setminus e=N,\qquad M\text{ is nonquinary},\\
+ M\setminus a\text{ is quinary for every }a\in P\cup\{e\}.
+ \end{gathered}
+\]
+We call these \emph{deletion-minimal nonquinary extensions} of $N$.
+The word ``deletion'' is essential: contractions have not yet been
+tested.
+
+\begin{proposition}[Reduction of the classification]\label{prop:reduction}
+The rank-four, eleven-element quinary excluded minors are exactly,
+up to isomorphism, the members of
+\[
+ \bigcup_{N\in\mathcal P}
+ \{M\in\mathcal D(N):M/a\text{ is quinary for every }a\in E(M)\}.
+\]
+\end{proposition}
+\begin{proof}
+Every matroid in the displayed set is nonquinary and has quinary
+immediate deletions and contractions, so it is an excluded minor.
+Conversely, let $M$ be any excluded minor of the specified rank and
+size. By Lemma~\ref{lem:parents}, a deletion $M\setminus e$ is
+isomorphic to a member $N$ of $\mathcal P$. Relabel this deletion as
+$N$ and its missing element as $e$. The resulting matroid belongs
+to $\mathcal D(N)$, and all its contractions are quinary. Its
+isomorphism class therefore occurs in the displayed set.
+\end{proof}
+
+This proposition specifies exactly what the rest of the computation
+must produce. It suffices to construct $\mathcal P$, compute each
+$\mathcal D(N)$ completely, and apply the contraction test. In
+particular, a parent may be discarded for being disconnected, but
+not merely for failing to be 3-connected.
+
+\subsection{Generating a complete represented catalogue}
+
+A full-rank $r\times k$ matrix over $\F$ represents a matroid whose
+bases are its nonsingular $r$-column submatrices. In a simple
+representation, its columns specify distinct points of
+$\PG(r-1,5)$ and span the ambient space. We represent a projective
+point by the vector whose first nonzero entry is 1. There are
+$(5^r-1)/4$ such points, in particular 156 in rank four.
+
+Starting with $I_r$, append every projective point not already used,
+and repeat until the required size is reached. Isomorphic repetitions
+can be removed during growth, provided the equivalence used respects
+the \emph{representation}. Two matrices are \emph{field-isomorphic}
+when one can be obtained from the other by invertible row operations,
+nonzero column scalings, and a permutation of columns. Abstractly
+isomorphic matroids can have representations that are not
+field-isomorphic. All such represented classes must be retained.
+
+\begin{proposition}[Completeness of represented generation]\label{prop:generation}
+The procedure just described, retaining one matrix from each
+field-isomorphism class at each size, generates every simple
+rank-$r$ quinary representation up to field isomorphism.
+\end{proposition}
+\begin{proof}
+Take any simple rank-$r$ representation. Choose $r$ columns forming
+a basis, transform them to $I_r$, and order the remaining columns.
+Appending those columns in that order gives a chain of simple
+rank-preserving represented extensions from $I_r$ to the chosen
+matrix. Inductively, each intermediate representation is
+field-isomorphic to a retained one. Such an isomorphism carries all
+possible appended projective points bijectively to possible appended
+points of the retained representation, and extends the permutation
+of old labels by fixing the new label. Thus replacing an intermediate
+matrix by its retained representative cannot lose any later
+represented extension class. Induction on the number of columns
+proves the assertion.
+\end{proof}
+
+After a represented level is complete, forgetting the matrices and
+deduplicating by abstract matroid isomorphism gives the required
+parent classes. We generate all simple rank-four represented levels
+through size ten in this way, then retain the connected ten-element
+parents for $\mathcal P$. The same procedure in rank three provides
+the catalogue that will be needed to test contractions in
+Section~\ref{sec:finish}.
+
+Step 1 is now justified: every possible deletion of an excluded minor
+occurs in $\mathcal P$. We next explain how to recover its possible
+nonquinary extensions. This requires more than appending columns to
+the parent itself; it requires matching the representable deletions
+of the prospective extension.
+
+\section{Step 2: recovering an extension from its deletions}\label{sec:local}
+
+Fix one parent $N\in\mathcal P$. Our goal in this section is an exact
+description of $\mathcal D(N)$ that can be computed from finite lists
+of quinary matroids. We first describe the unknown data of an
+extension, then express the conditions on its deletions in those
+data. The main proposition will show that these conditions already
+enforce the matroid axioms.
+
+\subsection{The unknown basis data}
+
+The deletion equation $M\setminus e=N$ fixes the status of every
+four-set avoiding $e$: it is a basis of $M$ exactly when it is a
+basis of $N$. The only unknown four-sets are therefore
+\[
+ T\cup\{e\},\qquad T\in\binom P3.
+\]
+There are $\binom{10}{3}=120$ of these, compared with the
+$\binom{10}{4}=210$ already fixed four-sets. Introduce a Boolean
+variable $x_T$ for each triple, with $x_T=1$ meaning that
+$T\cup\{e\}$ is a basis. An assignment $x$ specifies a nonempty
+four-subset family
+\[
+ \B_N(x)=\B(N)\ \cup
+          \{T\cup\{e\}:T\in\binom P3,\ x_T=1\}.
+\]
+For the moment this is only a proposed basis family; an arbitrary
+assignment need not define a matroid.
+
+Consider how another deletion reads these variables. For $f\in P$,
+the four-sets of $M\setminus f$ that contain $e$ are indexed by the
+triples avoiding $f$. Write
+\[
+ \pi_f(x)=x\big|_{\binom{P\setminus\{f\}}3}
+\]
+for the restriction to those coordinates. The four-sets avoiding
+both $e$ and $f$ are already determined by $N\setminus f$. Thus
+$\pi_f(x)$ is exactly the extra basis data needed to specify
+$M\setminus f$ as an extension of $N\setminus f$.
+
+For example, the bit $x_{\{0,1,2\}}$ records whether
+$\{0,1,2,10\}$ is a basis. This bit is visible in the deletion of
+3 and in the deletion of 4, but disappears in the deletion of 0.
+If independently chosen extensions for the deletions of 3 and 4
+disagree on that bit, they cannot be deletions of one matroid. A
+single assignment $x$ enforces agreement on every such shared
+four-set at once.
+
+To express which deletions are permitted, let $Q$ be any fixed
+labelled simple rank-four quinary matroid on a set $U$. Define its
+\emph{represented extension table} $\RR(Q)$ to be the set of Boolean
+patterns $z$ on $\binom U3$ for which
+\[
+ \B(Q)\ \cup\{T\cup\{e\}:z_T=1\}
+\]
+is the basis family of a simple rank-four quinary extension of $Q$.
+All labels in this definition are fixed. In
+Section~\ref{sec:tables} we will construct this table completely
+from representations of $Q$.
+
+The meaning of table membership is now precise:
+\begin{itemize}
+\item $\pi_f(x)\in\RR(N\setminus f)$ says that the proposed deletion
+avoiding $f$ is simple, rank four, and quinary;
+\item $x\in\RR(N)$ says that the proposed full extension of $N$ is
+itself simple, rank four, and quinary.
+\end{itemize}
+The first statement is meaningful because a connected parent has no
+coloops, so every $N\setminus f$ still has rank four.
+
+Consequently the assignments we want should form the finite set
+\[
+ \mathcal S(N)=
+ \bigl\{x\in\{0,1\}^{\binom P3}:
+       \pi_f(x)\in\RR(N\setminus f)\text{ for every }f\in P\bigr\}
+       \setminus\RR(N).
+\]
+The intersection requires all the other deletions to be quinary;
+the subtraction removes the extensions that are quinary themselves.
+What still needs proof is that an assignment satisfying these
+conditions actually defines a matroid. Without that implication,
+the displayed expression would merely describe consistent tables
+of four-subsets.
+
+\subsection{Why compatible deletions force the matroid axioms}
+
+The basis-exchange axiom involves two bases and hence at most twice
+the rank many elements. If the ground set is larger, the whole
+exchange question can be seen inside one deletion. This gives the
+needed local-to-global principle.
 
 \begin{lemma}[Deletion compatibility]\label{lem:deletion}
-Let $E$ have $n>2r$ elements and let
-$\varnothing\ne\B\subseteq\binom Er$. Suppose that for each $e\in E$
-the family
-\[
- \B_e=\{B\in\B:e\notin B\}
-\]
-is the set of bases of a rank-$r$ matroid on $E\setminus\{e\}$.
-Then $\B$ is the set of bases of a rank-$r$ matroid on $E$.
+Let $|E|=n>2r$ and let $\varnothing\ne\B\subseteq\binom Er$.
+Suppose that for each $a\in E$ the family of members of $\B$ avoiding
+$a$ is the basis family of a rank-$r$ matroid on $E\setminus\{a\}$.
+Then $\B$ is the basis family of a rank-$r$ matroid on $E$.
 \end{lemma}
 \begin{proof}
-Take $A,B\in\B$ and $a\in A\setminus B$. Since
-$|A\cup B|\leq2r<n$, choose $e\notin A\cup B$. Both $A$ and $B$ are
-bases of the deletion matroid specified by $\B_e$. Its basis-exchange
-axiom supplies $b\in B\setminus A$ with
-$(A\setminus\{a\})\cup\{b\}\in\B_e\subseteq\B$.
-This proves every instance of basis exchange; nonemptiness is assumed.
+Take $A,B\in\B$ and $b\in A\setminus B$. We must find
+$c\in B\setminus A$ such that
+$(A\setminus\{b\})\cup\{c\}\in\B$. Since
+$|A\cup B|\leq2r<n$, there is an element $a\notin A\cup B$.
+Both $A$ and $B$ are bases of the specified deletion avoiding $a$.
+Basis exchange in that matroid supplies the required $c$, and its
+exchanged basis also belongs to $\B$. This proves every ordered
+instance of basis exchange. Together with nonemptiness and the
+common size of the members, it proves that $\B$ is a matroid basis
+family.
 \end{proof}
 
-For the target dimensions, $11>2\cdot4$. Consequently, a prescribed
-four-subset family whose eleven deletions are rank-four quinary
-matroids automatically satisfies the matroid axioms. This observation
-is what makes the finite table search sufficient. At target sizes seven
-and eight the inequality fails, and the calibration searches impose
-the basis-exchange clauses explicitly.
+Here $n=11$ and $r=4$, so the lemma applies. In particular, the
+representations witnessing different deletions do not have to fit
+together as matrices. They need only prescribe compatible bases.
+The lemma then supplies the abstract matroid, even when it has no
+representation over $\F$.
 
-\section{Complete represented catalogues}\label{sec:representations}
-
-An $r\times k$ matrix over $\F$ of full row rank represents the matroid
-whose bases are the $r$-subsets of columns with nonzero determinant.
-A simple rank-$r$ representation is a spanning set of points of
-$\PG(r-1,5)$. We represent each projective point by its unique nonzero
-vector whose first nonzero entry is 1. There are
-\[
- \frac{5^r-1}{4}
-\]
-such points: 31 in rank three and 156 in rank four.
-
-\subsection{Equivalence and generation}
-
-Two representations of a fixed labelled matroid are \emph{projectively
-equivalent} if they differ by invertible row operations and nonzero
-scaling of individual columns. They are \emph{field-isomorphic} if,
-in addition, column labels may be permuted. These are the equivalences
-used by Sage's \texttt{is\_field\_equivalent} and
-\texttt{is\_field\_isomorphic}, respectively \cite{sage}. Since $\F$ is
-a prime field, field automorphisms introduce no further equivalences.
-Abstractly isomorphic matroids can have inequivalent representations.
-
-\begin{proposition}[Coverage by represented extensions]\label{prop:parents}
-Start with the identity representation $I_r$. At each size, take every
-simple rank-preserving represented single-element extension of every
-retained matrix, and retain one representative of each field-isomorphism
-class. The resulting level of size $k$ contains every simple rank-$r$
-quinary representation on $k$ elements up to field isomorphism.
+\begin{proposition}[Exact recovery of deletion-minimal extensions]\label{prop:local}
+For a fixed parent $N\in\mathcal P$, the map
+$x\mapsto M_x$, where $\B(M_x)=\B_N(x)$, is a bijection from
+$\mathcal S(N)$ to $\mathcal D(N)$.
 \end{proposition}
 \begin{proof}
-In any such representation, choose a basis and transform its columns
-to $I_r$. Order the remaining columns arbitrarily. Appending them in
-this order gives a chain of simple rank-preserving represented
-extensions, starting at $I_r$. Inductively the representation at each
-stage is field-isomorphic to a retained one. An invertible row map and
-column scalings carry possible appended projective points bijectively
-to possible appended projective points; a permutation of old labels
-extends by fixing the new label. Thus replacing a stage by a retained
-field-isomorphic representation preserves every possible extension
-class. This proves the assertion by induction on $k$.
+First take $x\in\mathcal S(N)$. The proposed basis family
+$\B_N(x)$ is nonempty because it contains $\B(N)$. Its deletion
+avoiding $e$ is the rank-four quinary matroid $N$. For each $f\in P$,
+the condition $\pi_f(x)\in\RR(N\setminus f)$ says that its deletion
+avoiding $f$ is also the basis family of a simple rank-four quinary
+matroid. Lemma~\ref{lem:deletion} therefore makes $\B_N(x)$ a
+matroid basis family.
+
+Call this matroid $M_x$. Each pair of elements lies in one of its
+simple deletions, so $M_x$ is simple. All its deletions are quinary
+by construction. If $M_x$ were quinary, its pattern would belong
+to $\RR(N)$ by the definition of that table, contrary to the
+subtraction in $\mathcal S(N)$. Hence $M_x\in\mathcal D(N)$.
+
+Conversely, take $M\in\mathcal D(N)$. Its bases containing $e$
+give a unique pattern $x$. For every $f\in P$, the matroid
+$M\setminus f$ is a simple quinary extension of $N\setminus f$;
+it has rank four since it contains the rank-four restriction
+$N\setminus f$. Thus $\pi_f(x)\in\RR(N\setminus f)$. Since
+$M$ is nonquinary, $x\notin\RR(N)$. Therefore
+$x\in\mathcal S(N)$, and $M=M_x$. Finally, different patterns
+give different basis families, proving injectivity.
 \end{proof}
 
-The implementation uses Sage's unrestricted
-\texttt{linear\_extensions(simple=True)}, followed by exact field
-isomorphism tests. No cross-ratio restriction is supplied. An abstract
-basis invariant is used only to select buckets for comparisons; equality
-of that invariant never substitutes for an isomorphism test. Abstract
-parent classes are deduplicated separately after the represented level
-is complete. Keeping only one representation of each abstract matroid
-during growth would invalidate Proposition~\ref{prop:parents}.
+This proposition is the bridge between the mathematical problem
+and the computation. It accounts for all four requirements on an
+output: validity as a matroid, simplicity, representability of every
+deletion, and nonrepresentability of the full matroid. To finish
+Step 2, it remains to build the tables $\RR(Q)$ without omissions
+and exhaust the finite conditions defining $\mathcal S(N)$.
 
-\subsection{Recovering every labelled representation}
+\section{Constructing and exhausting the extension tables}\label{sec:tables}
 
-The tables in the next section require all projective representations
-of a fixed labelled matroid $N$, including representations related by
-nontrivial automorphisms of $N$. To obtain them from the unlabelled
-field classes, align each represented class with the chosen labels of
-$N$ using one matroid isomorphism, and close the aligned matrices under
-the full group $\Aut(N)$.
+Proposition~\ref{prop:local} reduces each parent search to a finite
+problem about quinary extensions of nine- and ten-element matroids.
+There are two obligations: every represented extension must occur
+in its table, and every simultaneous solution of the table
+conditions must be considered. We address them in that order.
 
-We deduplicate these labelled matrices with the following normal form.
-Fix an ordered basis $B=(b_1,\ldots,b_r)$ of $N$, reduce its columns to
-$I_r$, and write the remaining block as $A$. Its support is fixed by
-the matroid:
-\[
- A_{ij}\ne0
- \quad\Longleftrightarrow\quad
- (B\setminus\{b_i\})\cup\{j\}\in\B(N),\qquad j\notin B.
-\]
-Form the bipartite graph with row vertices, nonbasis-column vertices,
-and one edge for each nonzero entry. Choose a deterministic spanning
-forest of this graph and scale rows and columns so that all entries on
-the forest are 1. Scale the basis columns inversely to restore $I_r$.
+\subsection{Putting all representations on the required labels}
 
-\begin{lemma}[Labelled normal form]\label{lem:normalform}
-For a fixed ordered basis and a deterministic support forest, the
-normalized matrix is a complete invariant of labelled projective
-equivalence. This remains true for disconnected support graphs.
+The represented catalogues of Section~\ref{sec:parents} retain all
+field-isomorphism classes. A table $\RR(Q)$, however, describes
+extensions of one \emph{labelled} matroid $Q$. To use the catalogue
+for this purpose, we need all representations on those labels, up
+to row operations and column scaling alone. We call the latter
+equivalence \emph{labelled projective equivalence}.
+
+First choose one matroid isomorphism aligning each unlabelled
+represented class of $Q$ with the chosen labels. There may be many
+alignments, and they can give different labelled extension patterns.
+The missing alignments are recovered by applying all automorphisms
+of $Q$ to the aligned matrices.
+
+\begin{lemma}[Complete labelled representations]\label{lem:labelled}
+Align one matrix from every field-isomorphism class representing
+$Q$ with the fixed labels of $Q$, and close the resulting set under
+$\Aut(Q)$. Up to labelled projective equivalence, this gives every
+representation of the labelled matroid $Q$.
 \end{lemma}
 \begin{proof}
-Root each tree at a row vertex. Choose its row scale, and successively
-choose the scale at each new vertex to make the joining entry 1. This
-normalizes every tree edge. A component consisting of an isolated
-vertex requires no constraint.
-
-After reducing the same labelled basis to $I_r$, any projective
-equivalence is a row scaling together with column scalings: its row
-map must be diagonal because it preserves every basis-column
-direction. Between two forest-normalized matrices, the multipliers
-on each forest edge must have product 1. Along a tree this forces all
-row multipliers to be a common scalar and all column multipliers its
-inverse. Hence their product is also 1 on every other edge of that
-component. All entries agree. Conversely, every operation used in the
-normalization is a projective equivalence.
+Take any representation on those labels and forget its labels.
+It belongs to one of the represented classes in the complete
+catalogue. Choose a field isomorphism from the catalogue matrix
+to this representation. It induces an alignment of the underlying
+matroid with $Q$. The chosen alignment of that same catalogue
+matrix differs from it by an automorphism of $Q$. Applying that
+automorphism to the aligned matrix therefore reaches the desired
+representation, up to row operations and column scaling.
 \end{proof}
 
-\begin{proposition}[Complete labelled sets]\label{prop:labelled}
-One alignment of every unlabelled represented class, followed by
-closure under generators of $\Aut(N)$ and normalization as above,
-produces every labelled projective representation class of $N$.
-\end{proposition}
-\begin{proof}
-Every labelled representation belongs, after forgetting its labels, to
-one of the represented classes. Relative to the chosen alignment of
-that class, any other alignment differs by an automorphism of $N$.
-Closing under group generators therefore reaches it, up to projective
-equivalence. Lemma~\ref{lem:normalform} makes equality testing of the
-resulting labelled classes exact.
-\end{proof}
+The computation closes under generators of the full automorphism
+group, which reaches the same orbit as applying the entire group.
+Repeated labelled projective classes are recognized by a canonical
+matrix normalization. The normalization and its proof are given in
+Appendix~\ref{sec:normalization}; its purpose is to remove repetitions
+without discarding a representation class. Denote the resulting
+complete labelled set of matrices by $\mathcal L(Q)$.
 
-The automorphism group is computed from a bipartite incidence graph:
-one vertex color consists of elements, and the other consists of the
-bases or, when fewer, the nonbases. Incidence gives the edges. A
-color-preserving graph automorphism induces exactly a matroid
-automorphism on the element vertices, since the chosen family
-determines all bases. This justifies using the graph automorphism
-generators in Proposition~\ref{prop:labelled}.
+\subsection{Building a table by appending projective points}
 
-\section{The finite compatibility problem}\label{sec:tables}
-
-Fix a connected simple rank-four quinary matroid $N$ on a ten-element
-set $P$. Write $e$ for a new element, and $\HH(N)$ for the rank-three
-hyperplanes of $N$. For each $H\in\HH(N)$ introduce a Boolean
-coordinate $x_H$. Its intended value is 1 when the new element lies
-outside the closure of $H$ in an extension.
-
-For any assignment $x$, define a four-subset family on $P\cup\{e\}$ by
+For each $V\in\mathcal L(Q)$ append every point $v$ of $\PG(3,5)$
+whose direction is not already a column of $V$. The resulting
+matrix has rank four, and its column matroid is simple. Record the
+pattern
 \[
- \begin{aligned}
- \B(x)={}&\B(N)\ \cup\\
- &\bigl\{T\cup\{e\}:T\in\binom P3,\ r_N(T)=3,
-                         \ x_{\cl_N(T)}=1\bigr\}.
- \end{aligned}
+ \rho(V,v)_T=1\quad\Longleftrightarrow\quad
+             \det[\,V_T\mid v\,]\ne0,
+             \qquad T\in\binom{E(Q)}3,
 \]
-An arbitrary assignment need not define a matroid. The deletion tables
-will enforce exactly the compatibility needed for it to do so.
+where $V_T$ consists of the three old columns indexed by $T$.
+Collect all these rows, merging duplicates.
 
-\begin{lemma}[Hyperplane coordinates are sufficient]\label{lem:coordinates}
-Every rank-preserving matroid extension $M$ of $N$ by $e$ has basis
-family $\B(x)$ for a unique assignment $x$.
-\end{lemma}
-\begin{proof}
-If $r_N(T)<3$, then $r_M(T\cup\{e\})\leq3$, so this four-set is not
-a basis. If $r_N(T)=3$ and $H=\cl_N(T)$, then
-$\cl_M(T)=\cl_M(H)$, because $T\subseteq H\subseteq\cl_M(T)$.
-Consequently $T\cup\{e\}$ is a basis exactly when
-$e\notin\cl_M(H)$. This depends only on $H$. Every rank-three
-hyperplane contains an independent triple, so every coordinate is
-determined by the basis family.
-\end{proof}
-
-\subsection{Represented extension relations}
-
-For any fixed labelled simple rank-four quinary matroid $Q$, let
-$\RR(Q)$ be the finite set of patterns of simple represented
-rank-preserving extensions of $Q$ by $e$. Initially a pattern has one
-bit for each triple $T$ of $Q$, recording whether $T\cup\{e\}$ is a
-basis. To construct it, take every labelled representation of $Q$ and
-append each of the 156 projective points of $\PG(3,5)$ except the
-directions of columns already used. Compute the determinant bits and
-merge duplicate patterns.
-
-\begin{proposition}[Exactness of extension tables]\label{prop:extensiontables}
-This construction gives every simple quinary rank-preserving extension
-of the fixed labelled matroid $Q$, and no other extension pattern.
+\begin{proposition}[Completeness of the extension table]\label{prop:tables}
+The rows obtained in this way are exactly $\RR(Q)$.
 \end{proposition}
 \begin{proof}
-Every appended point gives a representation; exclusion of used
-directions ensures simplicity. Conversely, restrict any representation
-of a simple quinary extension to $Q$. It is projectively equivalent
-to one of the complete labelled representatives of $Q$. Apply that
-equivalence to the whole representation. Its new column is a nonzero
-projective point not already used. Its basis pattern therefore occurs
-in the construction.
+Every appended point gives a simple rank-four quinary extension,
+so every constructed row belongs to $\RR(Q)$. Conversely, take
+any extension represented by a row of $\RR(Q)$, and choose a
+matrix representing it. Its restriction to $Q$ is labelled
+projectively equivalent to a member $V$ of $\mathcal L(Q)$, by
+Lemma~\ref{lem:labelled}. Apply that equivalence to the entire
+matrix. The new column is a nonzero projective point not already
+used, since the extension is simple. That point is among those
+appended to $V$, so the extension's row occurs in the construction.
 \end{proof}
 
-All computations are exact modulo five. In the implementation the
-determinant on three old columns and an appended vector is evaluated
-as a linear form in that vector, using the cofactors of the old triple.
-Dependent triples give zero forms. Independent triples spanning the
-same hyperplane have proportional forms and hence identical
-nonzero-status bits. The tables are thus compressed without information
-loss to hyperplane coordinates.
+This proves the first obligation of the section. In particular, a
+deletion $N\setminus f$ is matched to its catalogue representative
+and all its matrices are aligned back to the actual labels
+$P\setminus\{f\}$ before its table is formed. Equality of bits in
+different tables consequently refers to the same elements, as
+required by Proposition~\ref{prop:local}.
 
-For each $f\in P$, the matroid $N\setminus f$ has rank four because
-$N$ is connected. Let
+All determinant calculations take place in $\F$. For a fixed old
+triple the determinant is a linear form in $v$, so its cofactors
+allow all 156 projective points to be tested in one finite
+calculation. This speeds up table construction while computing
+exactly the determinant bits in the displayed definition.
+
+\subsection{Compressing the coordinates without changing the solutions}
+
+The 120 triple coordinates give the simplest proof of the recovery
+theorem, but many must agree. We now identify those repetitions to
+obtain the smaller problems actually solved by the program.
+
+Let $M$ be any rank-preserving matroid extension of $N$. If a triple
+$T$ is dependent in $N$, then $r_M(T\cup\{e\})\leq3$, so its bit
+is zero. If $T$ is independent and $H=\cl_N(T)$, then $H$ is a
+rank-three hyperplane and
+\[
+ \cl_M(T)=\cl_M(H).
+\]
+Indeed, $T\subseteq H\subseteq\cl_M(T)$, which proves both closure
+inclusions. Hence
+\[
+ T\cup\{e\}\in\B(M)
+ \quad\Longleftrightarrow\quad e\notin\cl_M(H).
+\]
+Thus independent triples spanning the same hyperplane have the
+same bit. Since every hyperplane has a spanning triple, one bit
+$y_H$ for each rank-three hyperplane $H$ determines all the triple
+bits of a genuine extension.
+
+Write $\HH(N)$ for these hyperplanes. In a table for the deletion
+of $f$, the visible hyperplanes are
 \[
  C_f=\{\cl_N(T):T\in\binom{P\setminus\{f\}}3,
-                         \ r_N(T)=3\}\subseteq\HH(N).
+                              \ r_N(T)=3\}.
 \]
-Relabel the complete representations of $N\setminus f$ to its actual
-labels, construct $\RR(N\setminus f)$, and project its triple bits
-onto $C_f$. Call the resulting relation
-$R_f\subseteq\{0,1\}^{C_f}$. Let
-$R\subseteq\{0,1\}^{\HH(N)}$ be the full relation for $N$ itself.
-Each projected pattern is checked to be constant on triples with the
-same closure, and zero on dependent triples. Thus $x|_{C_f}\in R_f$
-is precisely the assertion that the proposed deletion avoiding $f$ is
-a simple rank-four quinary extension of $N\setminus f$.
+The closure of such a triple in $N\setminus f$ is
+$\cl_N(T)\setminus\{f\}$. Consequently every row of
+$\RR(N\setminus f)$ is constant on triples assigned the same
+coordinate in $C_f$, and is zero on dependent triples. Projecting
+onto one bit per visible hyperplane therefore loses no row
+information. Let $A_f\subseteq\{0,1\}^{C_f}$ be this projected
+table, and let $A\subseteq\{0,1\}^{\HH(N)}$ be the analogous
+projection of $\RR(N)$.
 
-Define the solution set
+The problem actually solved is
 \[
- \mathcal D(N)=
- \bigl\{x\in\{0,1\}^{\HH(N)}:
-               x|_{C_f}\in R_f\text{ for every }f\in P\bigr\}
- \setminus R.
+ \widehat{\mathcal S}(N)=
+ \{y\in\{0,1\}^{\HH(N)}:
+                  y|_{C_f}\in A_f\text{ for every }f\in P\}
+                  \setminus A.
 \]
-The representations witnessing the different deletion relations need
-not be restrictions of a single matrix. Requiring such a matrix would
-discard precisely the nonrepresentable objects being sought.
+Expanding $y_H$ back to every independent triple spanning $H$,
+and inserting zeros on dependent triples, takes each solution to
+one in $\mathcal S(N)$. Conversely,
+Proposition~\ref{prop:local} makes every solution of
+$\mathcal S(N)$ a genuine matroid extension, so the closure
+argument above shows that it has a unique such compression.
+Thus $\widehat{\mathcal S}(N)$ and $\mathcal S(N)$ have exactly the
+same solutions in different coordinates.
 
-\begin{proposition}[Correctness of the compatibility search]\label{prop:compatibility}
-The assignments in $\mathcal D(N)$ correspond bijectively to the simple
-rank-four nonquinary matroids $M$ on $P\cup\{e\}$ such that
-$M\setminus e=N$ and every single-element deletion of $M$ is quinary.
-\end{proposition}
-\begin{proof}
-Take $x\in\mathcal D(N)$. The family $\B(x)$ contains $\B(N)$ and is
-therefore nonempty. Its deletion avoiding $e$ is $N$. Its deletion
-avoiding $f\in P$ is the rank-four quinary matroid prescribed by
-$x|_{C_f}\in R_f$. The deletion compatibility lemma makes $\B(x)$ a
-matroid basis family. Every pair of elements is contained in one of
-these simple deletions, so the resulting matroid is simple.
-Proposition~\ref{prop:extensiontables} shows that it is quinary if and
-only if $x\in R$, which has been excluded.
+Every hyperplane coordinate is seen by at least one deletion:
+choose $f\notin H$ and a spanning triple of $H$. That triple avoids
+$f$, so $H\in C_f$. The union of the coordinate sets $C_f$ is
+therefore all of $\HH(N)$.
 
-Conversely, any matroid with the stated properties has a unique
-hyperplane assignment by Lemma~\ref{lem:coordinates}. Each quinary
-deletion places its restricted pattern in $R_f$, while
-nonrepresentability puts its full pattern outside $R$. Thus its
-assignment lies in $\mathcal D(N)$. Uniqueness also proves injectivity.
-\end{proof}
+\subsection{Why the finite join is exhaustive}
 
-Every coordinate occurs in the deletion relations. More precisely,
-$H\notin C_f$ exactly when $f$ is a coloop of the rank-three
-restriction $N|H$: removing $f$ then destroys all spanning triples of
-$H$. A rank-three matroid has at most three coloops. Hence any four
-different deletions already cover all coordinates. The program checks
-full coordinate coverage and imposes all ten relations.
-
-\subsection{Exhausting the relations}
-
-The principal target search uses an exact natural join of finite
-relations. Start with the single empty assignment. Given a relation on
-coordinates $S$ and one on $T$, replace them by
+It remains to impose all the tables simultaneously. For relations
+$U$ and $V$ on coordinate sets $S$ and $T$, their \emph{natural join}
+is the finite relation
 \[
- A\Join B=\{a\cup b:a\in A,\ b\in B,
-                              \ a|_{S\cap T}=b|_{S\cap T}\}.
+ U\Join V=\{u\cup v:u\in U,\ v\in V,
+                            \ u|_{S\cap T}=v|_{S\cap T}\}.
 \]
-Group rows by their overlap bits and take every compatible pair. By
-induction, the current relation is exactly the set of assignments
-satisfying the relations processed so far. Once all coordinates have
-appeared, rows in $R$ can be removed immediately: later joins only
-test a full assignment, and cannot change it. Processing all deletion
-relations therefore gives exactly $\mathcal D(N)$.
+In words, take every pair of rows that agree on their shared
+coordinates and combine them into a row on $S\cup T$. Grouping
+rows by their overlap values implements exactly this operation.
 
-A separate solver encodes the same relations as shared reduced binary
-decision diagrams and exact Tseitin clauses. Each node satisfies
-$v\leftrightarrow(x?h:l)$; requiring the root enforces membership in
-the finite relation. Full patterns in $R$ are forbidden by blocking
-clauses. Each satisfying hyperplane assignment is also blocked after
-enumeration. Final UNSAT then means that this parent's solution set
-has been exhausted. The two methods implement the same finite
-relations through different enumeration algorithms.
+Start with the single empty assignment and join the ten relations
+$A_f$, one at a time. After processing any collection of deletions,
+the current rows are exactly the assignments on the coordinates
+seen so far that satisfy all the processed relations. This is
+true initially, and the definition of join proves the induction
+step. After all ten joins, every coordinate has been seen, so
+the rows are exactly
+\[
+ \{y:y|_{C_f}\in A_f\text{ for every }f\in P\}.
+\]
+Removing the rows in $A$ now gives
+$\widehat{\mathcal S}(N)$ and hence, by the recovery theorem,
+every member of $\mathcal D(N)$.
 
-Time limits and intermediate-size bounds yield the status
-\texttt{UNKNOWN}; they never mean exhaustion. The worker can fall back
-from a bounded join to SAT. A complete classification requires every
-eligible parent to end with \texttt{EXHAUSTED}. The reported independent
-SAT/join comparisons concern the calibration searches described in
-Section~\ref{sec:evidence}; the entire target computation is not claimed
-to have been duplicated with both solvers.
+The implementation may change the join order and remove rows of
+$A$ as soon as all coordinates have appeared. Neither change
+alters the result: a completed assignment cannot be changed by
+later joins, only accepted or rejected. Resource limits are
+handled separately. An interrupted or bounded calculation is
+recorded as \texttt{UNKNOWN}, and cannot count as an exhaustive
+parent search. Only a finished calculation establishes that
+every solution has been considered. A second method solves the
+same finite relations using SAT; its encoding is described in
+Appendix~\ref{sec:sat}.
 
-\section{Contractions, isomorphism, and completeness}\label{sec:completeness}
+Step 2 is therefore justified: complete representation lists give
+complete tables, and completed joins give exactly
+$\mathcal D(N)$. At this stage every output is nonquinary and all
+its deletions are quinary. The sole remaining minor conditions
+are the contractions.
 
-\begin{lemma}[Testing contractions by simplification]\label{lem:simplification}
-A matroid is representable over $\F$ if and only if its simplification
-is. Consequently, a rank-four candidate whose deletions are quinary is
-an excluded minor exactly when the simplification of each contraction
-is a rank-three quinary matroid.
+\section{Step 3: testing contractions and certifying the list}\label{sec:finish}
+
+Proposition~\ref{prop:reduction} tells us how to finish the
+classification once the sets $\mathcal D(N)$ have been recovered.
+We must test every contraction and then pass from labelled
+matroids to isomorphism classes. We also verify each final object
+by certificates that can be checked without rerunning the search.
+
+\subsection{The remaining minor conditions}
+
+For a simple rank-four matroid $M$, every contraction $M/a$ has
+rank three. It may have parallel elements. Its
+\emph{simplification} $\si(M/a)$ deletes loops and keeps one
+element of each parallel class.
+
+\begin{lemma}[The contraction test]\label{lem:contractions}
+For $M\in\mathcal D(N)$, the matroid $M$ is an excluded minor if
+and only if every $\si(M/a)$ is a quinary rank-three matroid.
 \end{lemma}
 \begin{proof}
-A simplification is a restriction. Conversely, a representation of the
-simplification extends to the whole matroid by inserting zero columns
-for loops and nonzero scalar copies of columns for parallel elements.
-Our candidates are simple, so contraction of any element has rank
-three. Now apply Lemma~\ref{lem:immediate}.
+A matroid is quinary if and only if its simplification is. One
+direction follows because a simplification is a restriction; for
+the other, extend a representation of the simplification by zero
+columns for loops and scalar copies of columns for parallel
+elements. Thus the stated condition is equivalent to all
+contractions of $M$ being quinary. Membership in $\mathcal D(N)$
+already supplies nonrepresentability of $M$ and representability
+of all its deletions. The immediate-minor criterion from
+Section~\ref{sec:classification} now gives the result.
 \end{proof}
 
-We generate the complete simple rank-three represented catalogues
-through ten elements using Proposition~\ref{prop:parents}. The
-simplification of a contraction has at most ten elements. At size
-three it is the free rank-three matroid, represented by $I_3$; at
-larger sizes, exact isomorphism comparison with the corresponding
-rank-three catalogue decides representability. This test uses a
-complete catalogue of representable matroids, rather than an assumed
-list of forbidden rank-three minors.
+This is where the rank-three represented catalogue from Step 1
+is used. Each simplification has at most ten elements. A simple
+rank-three matroid on three elements is free and is represented
+by $I_3$. At sizes four through ten, exact isomorphism comparison
+with the corresponding complete quinary catalogue decides the
+test. In particular, this step needs no assumption about a
+classification of rank-three excluded minors of arbitrary size.
 
-Candidates passing every contraction test are deduplicated by exact
-matroid isomorphism. An independent final distinctness check uses
-canonical labels of the colored element--basis/nonbasis incidence
-graphs. Two such graphs, with the two vertex types distinguished, are
-isomorphic exactly when the matroids are isomorphic. The full canonical
-keys are compared; their SHA-256 digests are merely stored identifiers.
+After applying this test, Proposition~\ref{prop:reduction} shows
+that the retained matroids are exactly the required excluded
+minors, with possible repetitions from their different parents
+or labellings. Exact matroid isomorphism removes these repetitions.
+The final distinctness check also uses colored incidence graphs:
+one color consists of element vertices, the other of vertices
+for all bases or, when fewer, all nonbases, with edges given by
+membership. A color-preserving graph isomorphism induces exactly
+a matroid isomorphism, since either subset family determines the
+bases. Canonical forms of these graphs therefore give an exact
+second check of pairwise nonisomorphism.
 
-\begin{proposition}[Global coverage]\label{prop:coverage}
-Suppose the represented catalogues and their labelled representation
-sets are complete, every connected ten-element parent's compatibility
-problem is exhausted, and every contraction is tested as above. Then
-the isomorphism classes retained by the computation are exactly the
-rank-four, eleven-element quinary excluded minors.
+\subsection{Certifying that every listed object is an excluded minor}
+
+The construction proves coverage of the target class. For the
+opposite inclusion, each final basis family is validated and
+given two kinds of evidence: representations of all its immediate
+minors, and a proof that the matroid itself has no representation.
+
+The positive evidence is direct. For each $a\in E(M)$ we save
+matrices for $M\setminus a$ and $M/a$, in the order of their
+remaining labels. An independent modular Gaussian-elimination
+routine computes the basis family of each matrix and compares
+it with that of the required minor. It checks every subset of
+the appropriate size, so agreement establishes equality of the
+represented matroid and the specified minor. Sage performs a
+second matrix check. These witnesses certify all the proper-minor
+conditions using only finite-field arithmetic.
+
+Nonrepresentability requires a different form of evidence. We
+turn existence of a representation into a finite propositional
+formula $\Phi_M$ and check a certificate that this formula is
+unsatisfiable. Here is the mathematical condition encoded by
+the formula. Choose a basis $B=(b_1,\ldots,b_r)$ of $M$ and
+reduce its columns to the identity. The remaining entries form
+a block $Z$, and fundamental exchanges prescribe its support:
+\[
+ Z_{ij}\ne0\quad\Longleftrightarrow\quad
+ (B\setminus\{b_i\})\cup\{j\}\in\B(M),\qquad j\notin B.
+\]
+The unknown nonzero entries range over $\{1,2,3,4\}$. For every
+$r$-subset $S$, the determinant of the columns on $S$ must be
+nonzero exactly when $S\in\B(M)$. These conditions impose the
+entire basis family.
+
+\begin{proposition}[Meaning of the nonrepresentability certificate]\label{prop:certificate}
+The exact finite-field encoding $\Phi_M$ of these determinant
+conditions is satisfiable if and only if $M$ is quinary.
 \end{proposition}
 \begin{proof}
-Every retained matroid is nonquinary with quinary deletions by
-Proposition~\ref{prop:compatibility}, and has quinary contractions by
-Lemma~\ref{lem:simplification}. It is therefore an excluded minor.
-
-For the converse, let $M$ be any target excluded minor and choose
-$e\in E(M)$. By Lemma~\ref{lem:connectivity}, $M\setminus e$ is a
-connected simple rank-four quinary ten-element matroid. It is
-isomorphic to a parent $N$ in the complete catalogue. Relabel this
-deletion to $N$ and label the new element $e$. By
-Proposition~\ref{prop:compatibility}, the resulting assignment belongs
-to $\mathcal D(N)$ and hence is enumerated. All its contractions are
-quinary, so it passes the contraction tests. Isomorphism deduplication
-retains its class.
+Any representation of $M$ can be reduced on $B$ to identity form.
+Its remaining entries have the prescribed support and satisfy
+every determinant condition, so they give a solution. Conversely,
+a solution supplies a full-rank matrix whose nonsingular
+$r$-column submatrices are exactly $\B(M)$; this matrix represents
+$M$. The encoding uses exact addition and multiplication tables
+modulo five, so its satisfying assignments are precisely the
+solutions of these field conditions. The harmless scaling
+normalization and the arithmetic clauses are justified in
+Appendix~\ref{sec:encoding}.
 \end{proof}
 
-\section{Separate certificates for the retained matroids}\label{sec:certificates}
+For each final matroid, the SAT solver produces a DRAT refutation
+of $\Phi_M$. DRAT-trim checks this refutation against the saved
+formula \cite{drat}. By Proposition~\ref{prop:certificate}, a
+successful check proves that $M$ is nonquinary. Together with
+the 22 minor matrices, it certifies that $M$ is an excluded
+minor. These certificates use the final basis records directly;
+they do not need the deletion tables or their enumeration results.
 
-The preceding argument establishes correctness of the search method.
-We also certify the excluded-minor property of every retained class
-using computations separate from the compatibility solver.
+At this point the logical roles are distinct. Complete parent
+generation and exhaustive recovery show that every excluded
+minor reaches the final list. Certificates show that every entry
+of that list is an excluded minor. Exact isomorphism tests
+determine how many different classes the list represents. We
+now give the computational facts that establish these statements
+for the present rank and size.
 
-\subsection{A determinant encoding of representability}
+\section{The computation and the proof of the theorem}\label{sec:computation}
 
-Let $M$ be a supplied rank-$r$ matroid, with an ordered basis
-$B=(b_1,\ldots,b_r)$. Any representation can be put in the form
-$[I_r\mid A]$ in that column order. Fundamental exchanges determine
-which entries of $A$ are zero, as in Section~\ref{sec:representations}.
-Normalize a support forest to 1. Each remaining nonzero entry ranges
-over $\{1,2,3,4\}$.
+The completed run of 27 September 2026 records the outcomes in
+Table~\ref{tab:stages}. Each row corresponds to a specified
+mathematical set or operation in the preceding sections.
 
-For each $r$-subset $S$ of the ground set let
+\begin{table}[htbp]
+\centering
+\begin{tabular}{p{22mm}p{95mm}r}
+\toprule
+Stage & Objects counted & Number\\
+\midrule
+Generation & Simple rank-four quinary ten-element parent classes
+             & 58,756\\
+Step 1 & Connected parent classes in $\mathcal P$ & 58,672\\
+Step 2 & Labelled extensions, counted as pairs
+         $(N,M)$ with $M\in\mathcal D(N)$ & 659\\
+Step 3 & Classes after all contraction tests and isomorphism
+         deduplication & 35\\
+\bottomrule
+\end{tabular}
+\caption{The successive sets in the exhaustive classification.}
+\label{tab:stages}
+\end{table}
+
+\subsection{Evidence that the construction is complete}
+
+The represented rank-four generation retains 64,508
+field-isomorphism classes at size ten. Abstract deduplication
+gives the 58,756 simple parent classes in the first row. Exactly
+84 are disconnected and are discarded by
+Lemma~\ref{lem:parents}; the remaining 58,672 form $\mathcal P$.
+Aligning the represented classes and closing their automorphism
+orbits yields 71,547 labelled projective classes over the full
+ten-element parent catalogue. The complete nine-element labelled
+sets supply the other extension tables. All generated levels
+are listed in Appendix~\ref{sec:reproduction}.
+
+Every one of the 58,672 connected-parent problems finishes by
+exhaustive natural join, with no unresolved case. The merged
+logs account for every parent index exactly once, with each
+parent either excluded for being disconnected or having its
+finite problem exhausted. The shards have matching input and
+critical-source fingerprints. By Propositions~\ref{prop:tables}
+and~\ref{prop:local}, this yields exactly the pairs $(N,M)$
+with $M\in\mathcal D(N)$: there are 659. This is a count of
+parent-labelled extensions; it is not yet a count of isomorphism
+classes of excluded minors.
+
+Testing all contractions using the complete rank-three
+catalogues, then deduplicating by isomorphism, leaves 35
+classes. The independent incidence-graph check confirms that
+these 35 are pairwise nonisomorphic. For each of them the
+separate determinant formula has a checked DRAT refutation,
+and all 22 saved minor matrices pass both modular Gaussian and
+Sage verification. Thus there are 35 checked refutations and
+$35\cdot22=770$ checked matrices.
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+To show that there are at most 35 classes, take any rank-four,
+eleven-element quinary excluded minor $M$. By
+Lemma~\ref{lem:parents}, a deletion of $M$ is isomorphic to a
+parent $N\in\mathcal P$. The represented generation is complete
+by Proposition~\ref{prop:generation}. After aligning the labels,
+the recovery theorem, Proposition~\ref{prop:local}, places $M$
+among the solutions of the search for $N$. Its tables are
+complete by Proposition~\ref{prop:tables}, and the recorded
+search exhausts them. Since every contraction of $M$ is quinary,
+the complete contraction test of Lemma~\ref{lem:contractions}
+retains it. Hence its class is among the 35 final classes.
+
+To show that there are at least 35 classes, take the 35 final
+representatives. The checked refutation for each proves its
+nonrepresentability by Proposition~\ref{prop:certificate}.
+Its 22 checked matrices prove representability of every
+immediate minor, so it is an excluded minor. The independent
+isomorphism check proves that the representatives belong to
+35 different classes. Combining the two bounds proves the
+classification.
+\end{proof}
+
+\subsection{Checks on the computation and consequences}
+
+The same procedure reproduces the published rank-four catalogues
+at sizes seven through ten: 5, 92, 219, and 130 classes,
+respectively \cite{brettell}. Each comparison is by exact
+matroid isomorphism with the published archive. At sizes seven
+and eight the deletion-compatibility inequality $n>2r$ does not
+hold, so those calibration runs impose basis exchange explicitly.
+The rank-four nine-element target does satisfy the inequality.
+
+A separate SAT enumeration of the finite table conditions agrees
+with the join on every connected-parent problem for the
+nine-element target. At the ten-element target, the complete
+sets of 5,991 labelled deletion-minimal candidates agree. These
+checks test the implementation; the proof of coverage is the
+parent reduction and recovery argument above. The two enumeration
+methods share their table construction, and the eleven-element
+target is exhausted by the join method.
+
+Duality gives a further classification immediately.
+\begin{corollary}\label{cor:dual}
+There are exactly 35 isomorphism classes of rank-seven,
+eleven-element excluded minors for representability over $\F$.
+\end{corollary}
+\begin{proof}
+Field representability is closed under duality, and duality
+interchanges deletion and contraction. It therefore maps
+excluded minors to excluded minors and gives a bijection between
+the rank-four and rank-seven classes on eleven elements.
+\end{proof}
+
+Every matroid in the rank-four catalogue has a triangle, so none
+is paving. This is a property of the resulting classification;
+no paving restriction is used in the search. Basis and triangle
+counts accompany the exact descriptions in
+Appendix~\ref{sec:catalogue}.
+
+\appendix
+\section{Details of the representation and SAT encodings}\label{sec:encoding}
+
+The main argument uses matrix normalization to enumerate complete
+labelled representation sets, and an exact field encoding to certify
+nonrepresentability. This appendix supplies the details of those
+two operations. The last subsection describes the alternative SAT
+enumeration used to cross-check the finite joins.
+
+\subsection{A normal form for labelled representations}\label{sec:normalization}
+
+Fix an ordered basis $B=(b_1,\ldots,b_r)$ of a labelled matroid
+$Q$. Reduce a representation on $B$ so that its basis columns
+form $I_r$, and call the remaining block $Z$. The support of
+$Z$ is determined by fundamental exchanges:
+\[
+ Z_{ij}\ne0\quad\Longleftrightarrow\quad
+       (B\setminus\{b_i\})\cup\{j\}\in\B(Q).
+\]
+Its support graph has one vertex for each row, one for each
+nonbasis column, and an edge for each nonzero entry. Fix a
+deterministic spanning forest of this graph. By row and column
+scaling we make every forest entry equal to 1, compensating
+on basis columns to preserve $I_r$.
+
+\begin{lemma}[Normal form]\label{lem:normalform}
+With the basis and support forest fixed, this normalization gives
+one matrix for each labelled projective equivalence class.
+\end{lemma}
+\begin{proof}
+To establish existence, root each nontrivial tree at a row vertex
+and choose its scale. Traverse the tree: whenever the scale at
+one endpoint of an edge is known, the nonzero entry on that edge
+uniquely determines the scale at the other endpoint making the
+entry 1. There is no cycle in the tree, so no conflicting choice
+is imposed. Isolated vertices require no condition. Inverse
+scaling of the basis columns restores the identity.
+
+For uniqueness, two projectively equivalent representations
+reduced on the same labelled basis differ by row and column
+scalings: the row map must be diagonal because it fixes each
+basis-column direction. Suppose both have forest entries 1.
+On every tree edge, the row multiplier times the column
+multiplier must be 1. Connectivity then forces a common row
+multiplier throughout a component and its inverse on all column
+vertices in that component. Their product is also 1 on every
+nonforest edge, so all entries agree. This proves uniqueness,
+including when the support graph is disconnected.
+\end{proof}
+
+In the labelled-orbit calculation of
+Lemma~\ref{lem:labelled}, every new matrix is normalized before
+comparison with those already seen. The lemma proves that this
+comparison removes exactly projectively equivalent repetitions.
+The full automorphism group of $Q$ is obtained from the colored
+element--basis/nonbasis incidence graph described in
+Section~\ref{sec:finish}. Its action on element vertices is
+exactly $\Aut(Q)$, which supplies the generators used in the
+orbit calculation.
+
+\subsection{Compiling the determinant conditions to a formula}
+
+For the formula $\Phi_M$ in Proposition~\ref{prop:certificate},
+choose a basis and form $[I_r\mid Z]$ as above. The support is
+fixed by the input matroid. Forest entries may be set to 1 by
+Lemma~\ref{lem:normalform}, so only the other nonzero entries
+need variables, each with domain $\{1,2,3,4\}$.
+
+Let $S$ be an $r$-subset of the ground set and put
 \[
  I(S)=\{i:b_i\notin S\},\qquad J(S)=S\setminus B.
 \]
-These sets have equal size. Expansion on the identity columns shows
-that the full determinant on $S$ differs only by a sign from
-$\det A[I(S),J(S)]$, with the empty determinant equal to 1. Impose
+These sets have the same size. Expansion on the identity columns
+shows that the full determinant on $S$ is, up to sign,
+$\det Z[I(S),J(S)]$, with the empty determinant equal to 1.
+It is therefore enough to impose
 \[
- \det A[I(S),J(S)]\ne0
+ \det Z[I(S),J(S)]\ne0
  \quad\Longleftrightarrow\quad S\in\B(M)
  \qquad\text{for every }S\in\binom{E(M)}r.
 \]
+Every maximal minor is constrained, so these conditions determine
+the full labelled matroid.
 
-These conditions are compiled to CNF. A field-valued expression is
-represented by indicators for its possible values, constrained to
-have exactly one true indicator. For addition or multiplication,
-clauses require the output indicator for the exact result modulo five
-for each possible input pair. Constants are substituted directly.
-A cached Laplace expansion builds the determinants, and unit clauses
-enforce their zero or nonzero status. Every maximal minor is
-constrained, not only selected circuits.
-
-\begin{proposition}[Correctness of the determinant CNF]\label{prop:cnf}
-The resulting CNF is satisfiable if and only if $M$ is representable
-over $\F$.
-\end{proposition}
-\begin{proof}
-A representation can be reduced on $B$ and forest-normalized using
-invertible row operations and nonzero column scalings. Its entries
-and all intermediate field operations satisfy the indicator clauses
-and the required determinant conditions. Conversely, a satisfying
-assignment gives entries in $\F$ and exact values for each arithmetic
-operation. The identity block has rank $r$, and the conditions on
-every maximal minor say that its column matroid has exactly
-$\B(M)$ as its bases. Hence it represents $M$.
-\end{proof}
-
-For each of the 35 representatives, Glucose produces an UNSAT proof
-in DRAT format for this CNF. A pinned local build of DRAT-trim
-\cite{drat} checks each proof. The saved artifacts include the exact
-matroid, the normalization and expression map, the DIMACS formula,
-the DRAT proof, and the checker's output. A verified DRAT proof
-establishes unsatisfiability of the supplied formula;
-Proposition~\ref{prop:cnf} supplies its mathematical interpretation.
-
-\subsection{Representations of all immediate minors}
-
-For each retained $M$ and each $e$, explicit $\F$ matrices represent
-$M\setminus e$ and $M/e$. The matrices are recovered from represented
-catalogues by exact isomorphism, then parallel columns and loops are
-restored when necessary. Their columns follow the increasing order
-of the remaining parent labels, renumbered to $0,\ldots,9$.
-
-Each matrix is checked by two routes: equality of its column matroid
-with the required minor in Sage, and a separate integer modular
-Gaussian-elimination implementation. The latter computes the rank
-and checks the basis status of every subset of the required size.
-Thus all 22 immediate minors of each representative are checked,
-giving $35\cdot22=770$ matrices in total. Together with the checked
-UNSAT formulas, these witnesses establish the excluded-minor property
-of each listed class independently of the table-search decisions.
-
-\section{Computational evidence}\label{sec:evidence}
-
-The result recorded here was completed on 27 September 2026. The
-source code and saved artifacts are part of the accompanying
-repository. Table~\ref{tab:parents} gives the complete represented
-catalogue levels used by the search. The size-four rank-four level is
-the initial identity representation; all other displayed levels were
-generated by represented extension.
-
-\begin{table}[htbp]
-\centering
-\input{generated/parent-counts.tex}
-\caption{Complete simple represented catalogues. ``Field'' counts
-field-isomorphism classes of representations; ``abstract'' counts
-matroid isomorphism classes.}
-\label{tab:parents}
-\end{table}
-
-At rank four and size ten, alignment and automorphism closure yield
-71,547 labelled projective representations of the 58,756 abstract
-parents. These representations, together with the corresponding
-nine-element labelled catalogues, supply the extension tables.
-
-The target computation partitions the parent indices into the four
-half-open ranges in Table~\ref{tab:shards}. Of the 58,756 parents,
-84 are disconnected and are excluded by
-Lemma~\ref{lem:connectivity}. All 58,672 connected-parent problems
-are exhausted, with no \texttt{UNKNOWN} case. The search finds 659
-parent-labelled deletion-minimal candidates before the contraction
-tests and global isomorphism deduplication. This count can include
-several labellings, or different distinguished deletions, of the same
-abstract matroid.
-
-\begin{table}[htbp]
-\centering
-\input{generated/search-ranges.tex}
-\caption{The four exhaustive target-search ranges. Candidate counts
-are before contraction filtering and global deduplication.}
-\label{tab:shards}
-\end{table}
-
-The four search tasks each requested one CPU and 4 GB of memory in
-the ordinary Slurm partition, with a one-hour outer limit. The
-longest task took about 30 minutes. The saved workflow identifies the
-search as array job 884603, the coverage merge as 884612, the
-nonrepresentation certification as 884613, the minor certification
-as 884614, and the final audit as 884615. The nonrepresentation and
-minor certification stages took about 17 and 37 seconds, respectively.
-These timings describe this run and are not complexity bounds.
-
-The merge checks that the logged parent indices cover the entire
-catalogue exactly once, that all terminal statuses are justified
-skips or exhaustion, and that the shards used identical input and
-critical-source digests. The final audit checks the completed parent
-levels, certificate coverage and catalogue digest, and pairwise
-distinctness by incidence-graph canonicalization. It records 35
-checked nonrepresentation proofs and 770 checked minor matrices.
-
-\subsection{Calibration and cross-checks}
-
-At target sizes seven through ten, the same workflow reproduces
-exactly the published rank-four excluded-minor counts
+Here is an explicit finite propositional encoding of the field
+arithmetic. For an expression $u$ with allowed values
+$D\subseteq\F$, introduce indicators $p_{u,a}$ for $a\in D$,
+requiring exactly one to be true. If $w=u+v$, add the clauses
 \[
- \begin{array}{c|rrrr}
- |E|&7&8&9&10\\ \hline
- \text{classes}&5&92&219&130.
- \end{array}
+ \neg p_{u,a}\ \lor\ \neg p_{v,b}\ \lor\ p_{w,a+b}
 \]
-The comparison is by exact matroid isomorphism with the imported
-published catalogue, and not just by agreement of counts. SAT and
-the independent finite-table join agree on every connected parent
-problem for the nine-element target. At the ten-element target
-their complete sets of 5,991 labelled deletion-minimal candidates
-agree. Both enumeration methods share the construction of extension
-tables, so their agreement cross-checks enumeration of the relations;
-it does not independently reimplement representation-table generation.
+for every allowed pair $a,b$, where the sum is taken modulo five.
+Use the corresponding clauses with $ab$ for multiplication.
+The output indicators also satisfy the exactly-one condition.
+Thus selected input values force precisely the correct output
+value. Constants are substituted directly. A cached Laplace
+expansion evaluates the determinants, and zero or nonzero
+requirements constrain their indicators. Induction over the
+arithmetic expressions proves that the formula represents
+exactly the field conditions used in
+Proposition~\ref{prop:certificate}.
 
-\subsection{Completion of the classification proof}
+For each listed matroid the saved evidence consists of its basis
+record, the chosen basis and normalization, the DIMACS formula,
+a DRAT refutation, and the proof-checker's output. The successful
+refutation certifies the supplied formula's unsatisfiability;
+the equivalence with representability is supplied by the
+mathematical encoding above.
 
-\begin{proof}[Proof of Theorem~\ref{thm:main}]
-The complete represented levels, labelled representation sets, and
-exhausted parent ranges provide the computational hypotheses of
-Proposition~\ref{prop:coverage}. Thus every target excluded-minor
-class occurs in the retained list. The merge returns 35 classes, and
-the independent canonical incidence-graph check confirms that they
-are pairwise nonisomorphic. For each of them the checked determinant
-CNF proves nonrepresentability, and the 22 checked matrices prove
-representability of all immediate minors. By
-Lemma~\ref{lem:immediate}, each is an excluded minor. The list is
-therefore complete and has exactly 35 classes.
-\end{proof}
+\subsection{The alternative SAT enumeration of tables}\label{sec:sat}
 
-None of these 35 matroids is paving: each has a triangle, a circuit
-of size three. Their basis counts range from 210 to 262. Their
-triangle-count distribution is
+The natural-join search in Section~\ref{sec:tables} has an
+alternative implementation as a propositional satisfiability
+problem. It uses the same hyperplane coordinates and finite
+relations $A_f$. A reduced binary decision diagram expresses
+membership in each relation. If a node asks about $y$ and has
+low and high children $l,h$, its variable $v$ is constrained by
+\[
+ v\ \Longleftrightarrow\ ((\neg y\land l)\lor(y\land h)).
+\]
+An exact four-clause encoding is
+\[
+ \begin{gathered}
+ \neg v\lor y\lor l,\qquad \neg v\lor\neg y\lor h,\\
+ v\lor y\lor\neg l,\qquad v\lor\neg y\lor\neg h.
+ \end{gathered}
+\]
+Requiring each root enforces all table memberships. A blocking
+clause excludes each represented full row in $A$. After an
+assignment to the hyperplane coordinates is found, another
+blocking clause excludes that assignment from subsequent
+enumeration. A final UNSAT answer then establishes exhaustion
+of this parent's solution set. A timeout is recorded as
+\texttt{UNKNOWN}. The SAT/table-join comparisons reported in
+Section~\ref{sec:computation} compare the complete assignments
+obtained by these two enumeration procedures.
+
+\section{Exact catalogue}\label{sec:catalogue}
+
+All representatives have ground set $E=\{0,1,\ldots,10\}$ and
+rank four. Each $M_i$ is specified by the listed family
+$\HH_i$ of hyperplanes of size at least four, according to the
+rule
+\[
+ \B(M_i)=\{S\in\binom E4:
+                S\not\subseteq H\text{ for every }H\in\HH_i\}.
+\]
+Thus a four-set is a nonbasis exactly when it is contained in
+a listed hyperplane. This specifies the whole basis family:
+every dependent four-set of a rank-four matroid lies in a
+hyperplane, while hyperplanes of size three contain no four-set
+and may be omitted. The descriptions have been checked by
+reconstructing the basis records from them.
+
+The notation $M_i$ abbreviates the stable identifier
+\texttt{GF5-r4-n11-} followed by $i$ in four digits. For example,
+$M_1$ is \texttt{GF5-r4-n11-0001}. Proof directories are
+zero-indexed, so its certificates are in
+\texttt{matroid-0000}. Basis and triangle counts identify the
+corresponding records in the machine-readable catalogue. Across
+the catalogue there are between 210 and 262 bases, and the
+triangle distribution is
 \[
 \input{generated/triangle-counts.tex}
 \]
-These are properties of the final catalogue, rather than filters
-assumed during the enumeration.
-
-\section{Evidence and reproduction}\label{sec:reproduction}
-
-The mathematical argument depends on exhaustive finite computations
-and exact arithmetic. Its implementation uses Sage for represented
-extensions, field and abstract isomorphism, and graph automorphisms;
-custom code for table generation and joins; PySAT/Glucose for SAT;
-and DRAT-trim for proof checking. The completed run records Sage 10.9
-and, in the separate SAT environment, Python 3.11.16, python-sat
-1.9.dev15, and NumPy 2.4.6. DRAT-trim is pinned to upstream commit
-\texttt{2e3b2dc0ecf938addbd779d42877b6ed69d9a985}.
-
-The trusted computational components include represented-parent
-generation, labelled-orbit construction, table construction,
-exhaustive relation solving, contraction tests, and exact isomorphism
-handling. DRAT certificates reduce reliance on the nonrepresentation
-solver, but do not certify exhaustive parent generation or table
-construction. The result is a computational proof with replayable
-evidence, rather than a proof whose entire implementation has been
-verified in a proof assistant.
-
-The principal evidence files, relative to the repository root, are:
-\begin{description}\raggedright
-\item[Exact objects.] \path{results/r4-n11/excluded.jsonl} and
-\path{results/r4-n11/hyperplanes.json}.
-\item[Coverage.] \path{results/r4-n11/summary.json}, together with
-\path{runs/r4n11/shard-00/parents.jsonl} through
-\path{runs/r4n11/shard-03/parents.jsonl} and their manifests.
-\item[Final audit.] \path{results/r4-n11/verification.json} and
-\path{results/r4-n11/statistics.json}.
-\item[Nonrepresentability.] The 35 proof directories under
-\path{results/r4-n11/nonrepresentation/}, named
-\texttt{matroid-0000} through \texttt{matroid-0034}.
-\item[Immediate minors.] All 770 matrices in
-\path{results/r4-n11/minors/minor-witnesses.jsonl}.
-\end{description}
-
-The following scripts implement the successive stages:
-\begin{enumerate}
-\item \path{scripts/generate_parents.py} generates complete represented
-rank-four and rank-three levels through size ten.
-\item \path{scripts/prepare_representations.py} produces complete
-labelled rank-four representation sets at sizes five through ten.
-\item \path{scripts/search_compatible_deletions.py} builds and exhausts
-the target problems and tests contractions. The required parent ranges
-partition $[0,58756)$.
-\item \path{scripts/merge_search.py} checks coverage and deduplicates.
-\item \path{scripts/certify_nonrepresentation.py} and
-\path{scripts/certify_minors.py} produce and check the separate
-certificates.
-\item \path{scripts/final_audit.py} checks the completed result and
-exports the exact catalogue.
-\end{enumerate}
-
-On the original cluster, computation should be submitted through
-Slurm using the existing \texttt{my-sage} and \texttt{matroid1}
-environments. The wrapper \path{slurm/research.slurm} selects an
-environment and caps numerical-library threads at one. New runs
-should use fresh output directories. Full commands and their
-ordering are given in \path{docs/REPRODUCING.md}; interpreter paths
-are specific to the original installation. A completed reproducibility
-archive is \path{results/r4-n11-reproducibility.tar.gz}; its adjacent
-JSON manifest records the archive digest. That archive predates this
-expository writeup.
-
-For a single class $M_i$, its proof directory has zero-based index
-$i-1$. Within an allocation, the checker invocation is
-\begin{verbatim}
-vendor/drat-trim/drat-trim FORMULA PROOF
-\end{verbatim}
-where \texttt{FORMULA} is that directory's
-\texttt{representation.cnf} and \texttt{PROOF} is its
-\texttt{proof.drat}. A successful check prints \texttt{s VERIFIED}.
-The saved minor matrices can be checked directly by
-\texttt{gf5minors.matroid.verify\_representation}, without rerunning
-the search or relying on the represented catalogues.
-
-\appendix
-\section{Exact catalogue}\label{sec:catalogue}
-
-All representatives have ground set $E=\{0,1,\ldots,10\}$ and rank
-four. For each $M_i$, let $\HH_i$ be the family of subsets listed
-below. The complete definition is
-\[
- \B(M_i)=\{S\in\binom E4:
-                       S\not\subseteq H\text{ for every }H\in\HH_i\}.
-\]
-Thus a four-set is a nonbasis exactly when it is contained in at
-least one listed set. The listed sets are precisely the hyperplanes
-of size at least four. Hyperplanes of size three contain no four-set
-and may be omitted. Every dependent four-set of a rank-four matroid
-is contained in a hyperplane, which proves that this convention
-specifies the full basis family. The descriptions have also been
-checked by reconstructing the basis-bit records from them.
-
-The name $M_i$ abbreviates the stable identifier
-\texttt{GF5-r4-n11-}\texttt{iiii}, with $i$ written in four digits.
-For example, $M_1$ is \texttt{GF5-r4-n11-0001}; its proof directory
-is \texttt{matroid-0000}. Basis and triangle counts are supplied to
-make comparison with the machine-readable catalogue easier.
 
 \begingroup
 \raggedright
 \input{generated/catalogue.tex}
 \par\endgroup
+
+\section{Computational records and reproduction}\label{sec:reproduction}
+
+This appendix identifies the saved evidence for each step of
+the proof. All paths are relative to the repository root.
+The exact catalogue is
+\path{results/r4-n11/excluded.jsonl}, with SHA-256 digest
+\begin{quote}\small\ttfamily
+7940989ae051b32496dbfd7e4717d405431bcfd89da69d0dd522517552c76441.
+\end{quote}
+Its equivalent hyperplane descriptions are in
+\path{results/r4-n11/hyperplanes.json}.
+
+\subsection{Parent coverage and exhaustive search}
+
+Table~\ref{tab:parents} gives the completed represented levels.
+The rank-four size-four entry is the seed $I_4$; rank-three
+generation starts from $I_3$. The counts distinguish represented
+classes, which must be retained during generation, from abstract
+matroid classes used to index the parent searches.
+
+\begin{table}[htbp]
+\centering
+\input{generated/parent-counts.tex}
+\caption{Complete simple represented catalogues. ``Field'' counts
+field-isomorphism classes; ``abstract'' counts matroid classes.}
+\label{tab:parents}
+\end{table}
+
+The main scripts correspond to the proof as follows.
+\begin{description}\raggedright
+\item[Parent generation.] \path{scripts/generate_parents.py}
+generates all represented rank-four and rank-three levels through
+size ten. The completed abstract lists index the parents and
+supply the contraction comparisons.
+\item[Labelled representations.]
+\path{scripts/prepare_representations.py} aligns the represented
+classes and closes under automorphisms. The normalization and
+point-extension tables are implemented in
+\path{gf5minors/projective.py}.
+\item[Recovery and contraction testing.]
+\path{scripts/search_compatible_deletions.py} builds the tables
+for each parent and tests contractions of the recovered
+matroids. The exact join is in
+\path{gf5minors/table_join.py}; the alternative SAT solver is in
+\path{gf5minors/table_sat.py}.
+\item[Merging and counting.]
+\path{scripts/merge_search.py} checks parent coverage and removes
+isomorphic repetitions. \path{scripts/final_audit.py} checks
+certificate coverage and distinctness by canonical incidence
+graphs.
+\end{description}
+
+The four ranges in Table~\ref{tab:shards} partition
+$[0,58756)$. Their logs record either exhaustion or the
+disconnected-parent exclusion for every index. The merge checks
+the ranges for gaps and overlaps, terminal statuses, and
+agreement of input and critical-source fingerprints.
+
+\begin{table}[htbp]
+\centering
+\input{generated/search-ranges.tex}
+\caption{Exhaustive target-search ranges. Candidate counts precede
+contraction filtering and global isomorphism deduplication.}
+\label{tab:shards}
+\end{table}
+
+The global coverage record is
+\path{results/r4-n11/summary.json}. Detailed parent logs and
+input manifests are in \path{runs/r4n11/shard-00/} through
+\path{runs/r4n11/shard-03/}. The final audit and statistics are
+\path{results/r4-n11/verification.json} and
+\path{results/r4-n11/statistics.json}. The target search used
+four Slurm tasks, each requesting one CPU and 4 GB of memory.
+The longest range took about 30 minutes.
+
+\subsection{Certificates and their replay}
+
+\path{scripts/certify_nonrepresentation.py} constructs the
+separate determinant formulas and checks their DRAT proofs.
+The 35 proof directories under
+\path{results/r4-n11/nonrepresentation/} are named
+\texttt{matroid-0000} through \texttt{matroid-0034}. For $M_i$,
+the directory index is $i-1$. Its files
+\texttt{representation.cnf} and \texttt{proof.drat} can be
+replayed with
+\begin{verbatim}
+vendor/drat-trim/drat-trim FORMULA PROOF
+\end{verbatim}
+A successful check prints \texttt{s VERIFIED}.
+
+\path{scripts/certify_minors.py} constructs and checks the
+immediate-minor matrices. All 770 are stored in
+\path{results/r4-n11/minors/minor-witnesses.jsonl}.
+The remaining column labels are in increasing parent order,
+renumbered to $0,\ldots,9$. The pure modular checker
+\texttt{gf5minors.matroid.verify\_representation} can check
+these matrices directly from the basis records, independently
+of the search and the represented catalogues.
+
+The completed computation records Sage 10.9 and, in a separate
+environment, Python 3.11.16, python-sat 1.9.dev15, and NumPy
+2.4.6. Sage supplies represented extensions, isomorphism,
+and graph operations \cite{sage}. The proof checker is pinned
+to DRAT-trim commit
+\texttt{2e3b2dc0ecf938addbd779d42877b6ed69d9a985}.
+The computational proof relies on the correctness of parent
+generation, representation orbits, table construction,
+exhaustive enumeration, and isomorphism handling. The DRAT
+checks certify the final determinant formulas; coverage of the
+classification is supplied by the exhaustive construction.
+
+On the original cluster, run computation through Slurm with
+the existing \texttt{my-sage} and \texttt{matroid1}
+environments. \path{slurm/research.slurm} selects the environment
+and caps numerical-library threads at one. Full reproduction
+commands, in dependency order, are given in
+\path{docs/REPRODUCING.md}. Use fresh output directories for new
+runs. The reproducibility archive
+\path{results/r4-n11-reproducibility.tar.gz} and its adjacent
+JSON manifest preserve the original result and its inputs;
+that archive predates this exposition.
 
 \begin{thebibliography}{9}
 
