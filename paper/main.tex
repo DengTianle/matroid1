@@ -207,57 +207,124 @@ $\mathcal D(N)$ completely, and apply the contraction test. In
 particular, a parent may be discarded for being disconnected, but
 not merely for failing to be 3-connected.
 
-\subsection{Generating a complete represented catalogue}
+\subsection{Generating all simple quinary parents}
 
-A full-rank $r\times k$ matrix over $\F$ represents a matroid whose
-bases are its nonsingular $r$-column submatrices. In a simple
-representation, its columns specify distinct points of
-$\PG(r-1,5)$ and span the ambient space. We represent a projective
-point by the vector whose first nonzero entry is 1. There are
-$(5^r-1)/4$ such points, in particular 156 in rank four.
+The aim is to list, up to matroid isomorphism, all simple rank-four
+quinary matroids on ten elements, and then retain the connected
+ones. We describe the construction for a general rank $r$ and target
+size $m$; here $r=4$ and $m=10$. Throughout this construction, $k$
+denotes the current number of elements, ranging from $r$ to $m$.
 
-Starting with $I_r$, append every projective point not already used,
-and repeat until the required size is reached. Isomorphic repetitions
-can be removed during growth, provided the equivalence used respects
-the \emph{representation}. Two matrices are \emph{field-isomorphic}
-when one can be obtained from the other by invertible row operations,
-nonzero column scalings, and a permutation of columns. Abstractly
-isomorphic matroids can have representations that are not
-field-isomorphic. All such represented classes must be retained.
+A rank-$r$ quinary matroid on $k$ elements has a full-rank
+$r\times k$ representation over $\F$, with one column per element.
+Simplicity means that no column is zero and no two columns are
+scalar multiples. Thus its columns specify distinct points of
+$\PG(r-1,5)$. We represent each projective point by the vector whose
+first nonzero entry is 1. There are $(5^r-1)/4$ such points, in
+particular 156 in rank four.
+
+Two matrices are \emph{field-isomorphic} if one can be obtained from
+the other by invertible row operations, nonzero column scalings,
+and a permutation of columns. Field-isomorphic matrices represent
+isomorphic matroids (but the converse can fail). During growth we
+retain one matrix from every field-isomorphism class. %,
+%even when several such classes represent the same abstract matroid.
+%The proof below explains why field isomorphism permits safe removal
+%of repetitions: it preserves all possibilities for adding a column.
+
+Every full-rank representation contains $r$ columns forming a basis.
+Move them to the front and apply row operations to make them $I_r$.
+This explains both the starting matrix and the growth procedure:
+\begin{enumerate}
+\item Start at size $k=r$ with the single matrix $I_r$.
+\item From every retained $r\times k$ matrix, append each projective
+point not already among its columns. These are all its simple
+represented extensions of rank $r$ and size $k+1$.
+\item Among all matrices produced at size $k+1$, retain one per
+field-isomorphism class. Repeat until size $m$ is complete.
+\end{enumerate}
+%There are no levels $k<r$: a rank-$r$ matroid needs at least $r$
+%elements. 
+The smaller levels $r,\ldots,m-1$ are the intermediate
+stages used to construct the target level, rather than enumerating
+all sets of $m$ projective points directly.
+
+The implementation tests field isomorphism using Sage's
+\texttt{is\_field\_isomorphic}. %It searches for a column bijection
+%under which the representations agree up to row operations and
+%column scaling. For a proposed bijection, corresponding bases are
+%reduced to identity form, after which consistency of row and column
+%scalings can be checked over $\F$. Candidates are first grouped by
+%an invariant of their basis families to reduce comparisons; matching
+%invariants alone never causes a matrix to be discarded.
 
 \begin{proposition}[Completeness of represented generation]\label{prop:generation}
-The procedure just described, retaining one matrix from each
-field-isomorphism class at each size, generates every simple
-rank-$r$ quinary representation up to field isomorphism.
+For every $k=r,\ldots,m$, the procedure retains a matrix from every
+field-isomorphism class of simple rank-$r$ quinary representations
+on $k$ elements. Consequently, their underlying matroids include
+every simple rank-$r$, $k$-element quinary matroid up to isomorphism.
 \end{proposition}
 \begin{proof}
-Take any simple rank-$r$ representation. Choose $r$ columns forming
-a basis, transform them to $I_r$, and order the remaining columns.
-Appending those columns in that order gives a chain of simple
-rank-preserving represented extensions from $I_r$ to the chosen
-matrix. Inductively, each intermediate representation is
-field-isomorphic to a retained one. Such an isomorphism carries all
-possible appended projective points bijectively to possible appended
-points of the retained representation, and extends the permutation
-of old labels by fixing the new label. Thus replacing an intermediate
-matrix by its retained representative cannot lose any later
-represented extension class. Induction on the number of columns
-proves the assertion.
+Fix a simple rank-$r$ representation $A$ on $s\leq m$ elements.
+Choose a basis, move its columns to the front, and transform them
+to $I_r$. Order the remaining columns, and let $A_k$ be the first
+$k$ columns, for $r\leq k\leq s$. Thus $A_r=I_r$ and $A_s=A$.
+
+We prove by induction on $k$ that the retained level at size $k$
+contains a matrix field-isomorphic to $A_k$. At size $r$ this is
+the starting matrix $I_r$. Suppose the claim holds at size $k<s$,
+and let $B_k$ be a retained matrix field-isomorphic to $A_k$.
+Write $A_{k+1}=[A_k\mid v]$. Let $T$ be the invertible row
+transformation in an equivalence taking $A_k$ to $B_k$, the other
+operations being scalings and a permutation of its old columns.
+Then
+\[
+ [B_k\mid Tv]\quad\text{is field-isomorphic to}\quad[A_k\mid v].
+\]
+Indeed, apply the same row transformation to the extended matrix,
+and extend the old column operations by leaving the new column
+fixed. Normalize $Tv$ to represent its projective point. This
+point is unused in $B_k$: otherwise invertibility of $T$ would
+imply that $v$ is parallel to an old column of $A_k$, contrary to
+simplicity.
+
+The procedure tries every unused projective point, so it generates
+this extension of $B_k$. Deduplication retains either that matrix
+or a field-isomorphic one. This proves the induction step and hence
+the claim at size $s$. Since $A$ and $s$ were arbitrary, the
+assertion follows.
 \end{proof}
 
-After a represented level is complete, forgetting the matrices and
-deduplicating by abstract matroid isomorphism gives the required
-parent classes. We generate all simple rank-four represented levels
-through size ten in this way, then retain the connected ten-element
-parents for $\mathcal P$. The same procedure in rank three provides
-the catalogue that will be needed to test contractions in
-Section~\ref{sec:finish}.
+To obtain the abstract catalogue from a completed represented level,
+replace each matrix $A$ by its basis family
+\[
+ \B(A)=\{S\subseteq\{0,\ldots,k-1\}:|S|=r,\ \det(A_S)\neq0\},
+\]
+where $A_S$ consists of the columns indexed by $S$. A basis family
+specifies the whole matroid without using coordinates. Two such
+families define isomorphic matroids exactly when a permutation of
+the elements takes one family to the other. Sage's exact
+\texttt{is\_isomorphic} test on basis matroids removes these abstract
+repetitions.
+Each retained abstract matroid is stored as one bit for each
+$r$-subset in lexicographic order, recording whether it is a basis;
+for a ten-element rank-four parent this uses $\binom{10}{4}=210$
+bits, stored in hexadecimal.
+
+The matrix catalogue is saved separately and remains the input for
+further represented growth and the labelled representation lists
+in Section~\ref{sec:tables}. %Thus abstract deduplication does not
+%discard any represented class. 
+At size ten, we retain the connected
+abstract rank-four matroids as $\mathcal P$. The same generation
+procedure in rank three supplies the catalogue used to test
+contractions in Section~\ref{sec:finish}.
 
 Step 1 is now justified: every possible deletion of an excluded minor
 occurs in $\mathcal P$. We next explain how to recover its possible
-nonquinary extensions. This requires more than appending columns to
-the parent itself; it requires matching the representable deletions
-of the prospective extension.
+nonquinary extensions. %This requires more than appending columns to
+%the parent itself; it requires matching the representable deletions
+%of the prospective extension.
 
 \section{Step 2: recovering an extension from its deletions}\label{sec:local}
 

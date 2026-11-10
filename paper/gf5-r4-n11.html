@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="pandoc 3.11" />
+  <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>The rank-four, eleven-element excluded minors for representability over \mathbb F_5</title>
   <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     html {
       color: #1a1a1a;
       background-color: #fdfdfd;
@@ -41,6 +38,7 @@
       body {
         background-color: transparent;
         color: black;
+        font-size: 12pt;
       }
       p, h2, h3 {
         orphans: 3;
@@ -101,7 +99,6 @@
       margin-bottom: 0.5em;
     }
     code {
-      white-space: pre-wrap;
       font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
       font-size: 85%;
       margin: 0;
@@ -121,8 +118,8 @@
      overflow: visible;
     }
     hr {
+      background-color: #1a1a1a;
       border: none;
-      border-top: 1px solid #1a1a1a;
       height: 1px;
       margin: 1em 0;
     }
@@ -165,13 +162,10 @@
     #TOC a:not(:hover) {
       text-decoration: none;
     }
+    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: 1.5em;}
-    div.column{flex: auto;}
-    @media screen {
-    div.columns{gap: min(4vw, 1.5em);}
-    div.column{overflow-x: auto;}
-    }
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     /* The extra [class] is a hack that increases specificity enough to
        override a similar rule in reveal.js */
@@ -226,14 +220,14 @@
 <header id="title-block-header">
 <h1 class="title">The rank-four, eleven-element excluded minors<br />
 for representability over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="double-struck">𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math></h1>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math></h1>
 <p class="date">A computational classification<br />
 Revised exposition, 5 November 2026</p>
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 <p>There are exactly 35 isomorphism classes of rank-four, eleven-element
 excluded minors for representability over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="double-struck">𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>.
 The proof is an exhaustive construction. Every such matroid has a
 representable ten-element deletion. For each possible deletion, we
 recover all nonrepresentable extensions whose other deletions are
@@ -260,9 +254,9 @@ possible parent</a>
 <li><a href="#why-connected-simple-parents-suffice"
 id="toc-why-connected-simple-parents-suffice">2.1. Why connected simple
 parents suffice</a></li>
-<li><a href="#generating-a-complete-represented-catalogue"
-id="toc-generating-a-complete-represented-catalogue">2.2. Generating a
-complete represented catalogue</a></li>
+<li><a href="#generating-all-simple-quinary-parents"
+id="toc-generating-all-simple-quinary-parents">2.2. Generating all
+simple quinary parents</a></li>
 </ul></li>
 <li><a href="#step-2-recovering-an-extension-from-its-deletions"
 id="toc-step-2-recovering-an-extension-from-its-deletions">3. Step 2:
@@ -350,7 +344,7 @@ the structure of its proof</h1>
 
 </div>
 <p>A matroid is <em>quinary</em> if it is representable over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="double-struck">𝔽</mi><mn>5</mn></msub><mo>=</mo><mi mathvariant="double-struck">ℤ</mi><mi>/</mi><mn>5</mn><mi mathvariant="double-struck">ℤ</mi></mrow><annotation encoding="application/x-tex">\mathbb F_5=\mathbb Z/5\mathbb Z</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>𝔽</mi><mn>5</mn></msub><mo>=</mo><mi>ℤ</mi><mi>/</mi><mn>5</mn><mi>ℤ</mi></mrow><annotation encoding="application/x-tex">\mathbb F_5=\mathbb Z/5\mathbb Z</annotation></semantics></math>.
 An <em>excluded minor</em> for quinary matroids is a nonquinary matroid
 every proper minor of which is quinary. We classify these obstructions
 at one specified rank and size.</p>
@@ -358,7 +352,7 @@ at one specified rank and size.</p>
 <p><strong>Theorem 1.1 (Computational classification).</strong> <span
 id="thm:main"></span> There are exactly 35 isomorphism classes of
 rank-four, eleven-element excluded minors for representability over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="double-struck">𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>.
 Representatives
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>M</mi><mn>35</mn></msub></mrow><annotation encoding="application/x-tex">M_1,\ldots,M_{35}</annotation></semantics></math>
 are specified in Appendix <a href="#sec:catalogue">B</a>.</p>
@@ -366,7 +360,7 @@ are specified in Appendix <a href="#sec:catalogue">B</a>.</p>
 <p>The defining condition has a useful finite form. A matroid
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 is an excluded minor precisely when
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is nonquinary</mtext></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo>\</mo><mi>a</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and </mtext><mspace width="0.333em"></mspace></mrow><mi>M</mi><mi>/</mi><mi>a</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> are quinary for every </mtext><mspace width="0.333em"></mspace></mrow><mi>a</mi><mo>∈</mo><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">M\text{ is nonquinary},\qquad
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is nonquinary</mtext></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>M</mi><mo>\</mo><mi>a</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> and </mtext><mspace width="0.333em"></mspace></mrow><mi>M</mi><mi>/</mi><mi>a</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> are quinary for every </mtext><mspace width="0.333em"></mspace></mrow><mi>a</mi><mo>∈</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">M\text{ is nonquinary},\qquad
  M\setminus a\text{ and }M/a\text{ are quinary for every }a\in E(M).</annotation></semantics></math>
 Indeed, every proper minor is a minor of one of these immediate
 deletions or contractions, and field representability is closed under
@@ -452,9 +446,9 @@ represented generation procedure reaches all of them.</p>
 <h2 id="why-connected-simple-parents-suffice">2.1. Why connected simple
 parents suffice</h2>
 <p>We use the standard notation
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>X</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r_M(X)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>M</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">r_M(X)</annotation></semantics></math>
 for the rank of a subset and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal B(M)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal B(M)</annotation></semantics></math>
 for the bases of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.
 All matroids are finite. A simple matroid has no loops or parallel
@@ -465,7 +459,7 @@ id="lem:parents"></span> If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 is a rank-four, eleven-element excluded minor for quinary matroids, then
 for every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>∈</mo><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">e\in E(M)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>∈</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">e\in E(M)</annotation></semantics></math>
 the deletion
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>\</mo><mi>e</mi></mrow><annotation encoding="application/x-tex">M\setminus e</annotation></semantics></math>
 is a connected simple rank-four quinary matroid on ten elements.</p>
@@ -489,13 +483,13 @@ is simple and has rank four. It is quinary by minor-minimality. It
 remains to prove that
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
 is connected. If
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>A</mi><mover><mo>∪</mo><mo accent="true">̇</mo></mover><mi>B</mi></mrow><annotation encoding="application/x-tex">E(N)=A\mathbin{\dot\cup}B</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>A</mi><mover><mo>∪</mo><mo accent="true">̇</mo></mover><mi>B</mi></mrow><annotation encoding="application/x-tex">E(N)=A\mathbin{\dot\cup}B</annotation></semantics></math>
 were a nontrivial direct-sum partition, choose the names so that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>A</mi><mo stretchy="false" form="prefix">|</mo><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|A|\geq2</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>A</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>≥</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">|A|\geq2</annotation></semantics></math>.
 Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r(N)=r(M)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">r(N)=r(M)</annotation></semantics></math>,
 we would have
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>r</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>r</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>r</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>e</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>r</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">r_M(A)+r_M(B)=r(M),\qquad
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>M</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>A</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>r</mi><mi>M</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>B</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>r</mi><mi>M</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>A</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>r</mi><mi>M</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>B</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>e</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">)</mo></mrow><mo>−</mo><mi>r</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mn>1</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">r_M(A)+r_M(B)=r(M),\qquad
  r_M(A)+r_M(B\cup\{e\})-r(M)\leq1.</annotation></semantics></math> Both
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
 and
@@ -508,14 +502,14 @@ have at least two elements. This contradicts 3-connectivity of
 and take a new label
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">e=10</annotation></semantics></math>.
 Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>
 contain one labelled representative on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math>
 of each connected simple rank-four quinary matroid on ten elements. For
 each
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>∈</mo><mi mathvariant="script">𝒫</mi></mrow><annotation encoding="application/x-tex">N\in\mathcal P</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>∈</mo><mi>𝒫</mi></mrow><annotation encoding="application/x-tex">N\in\mathcal P</annotation></semantics></math>,
 define
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>
 to be the set of simple rank-four matroids
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 on
@@ -533,7 +527,7 @@ tested.</p>
 <p><strong>Proposition 2.2 (Reduction of the classification).</strong>
 <span id="prop:reduction"></span> The rank-four, eleven-element quinary
 excluded minors are exactly, up to isomorphism, the members of
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>⋃</mo><mrow><mi>N</mi><mo>∈</mo><mi mathvariant="script">𝒫</mi></mrow></munder><mo stretchy="false" form="prefix">{</mo><mi>M</mi><mo>∈</mo><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi>M</mi><mi>/</mi><mi>a</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is quinary for every </mtext><mspace width="0.333em"></mspace></mrow><mi>a</mi><mo>∈</mo><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\bigcup_{N\in\mathcal P}
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>⋃</mo><mrow><mi>N</mi><mo>∈</mo><mi>𝒫</mi></mrow></munder><mo stretchy="false" form="prefix">{</mo><mi>M</mi><mo>∈</mo><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>:</mo><mi>M</mi><mi>/</mi><mi>a</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is quinary for every </mtext><mspace width="0.333em"></mspace></mrow><mi>a</mi><mo>∈</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\bigcup_{N\in\mathcal P}
  \{M\in\mathcal D(N):M/a\text{ is quinary for every }a\in E(M)\}.</annotation></semantics></math></p>
 </blockquote>
 <p><em>Proof.</em> Every matroid in the displayed set is nonquinary and
@@ -546,85 +540,230 @@ href="#lem:parents">2.1</a>, a deletion
 is isomorphic to a member
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
 of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>.
 Relabel this deletion as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
 and its missing element as
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>.
 The resulting matroid belongs to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>,
 and all its contractions are quinary. Its isomorphism class therefore
 occurs in the displayed set.
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>▫</mi><annotation encoding="application/x-tex">\square</annotation></semantics></math></p>
 <p>This proposition specifies exactly what the rest of the computation
 must produce. It suffices to construct
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>,
 compute each
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>
 completely, and apply the contraction test. In particular, a parent may
 be discarded for being disconnected, but not merely for failing to be
 3-connected.</p>
-<h2 id="generating-a-complete-represented-catalogue">2.2. Generating a
-complete represented catalogue</h2>
-<p>A full-rank
+<h2 id="generating-all-simple-quinary-parents">2.2. Generating all
+simple quinary parents</h2>
+<p>The aim is to list, up to matroid isomorphism, all simple rank-four
+quinary matroids on ten elements, and then retain the connected ones. We
+describe the construction for a general rank
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+and target size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>;
+here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">r=4</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">m=10</annotation></semantics></math>.
+Throughout this construction,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+denotes the current number of elements, ranging from
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>.
+The eleven-element nonquinary extensions are constructed in Step 2, not
+by this matrix enumeration.</p>
+<p>A
+rank-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+quinary matroid on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+elements has a full-rank
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>×</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">r\times k</annotation></semantics></math>
-matrix over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="double-struck">𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>
-represents a matroid whose bases are its nonsingular
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>-column
-submatrices. In a simple representation, its columns specify distinct
+representation over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>,
+with one column per element. Simplicity means that no column is zero and
+no two columns are scalar multiples. Thus its columns specify distinct
 points of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">PG</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>r</mi><mo>−</mo><mn>1</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{PG}(r-1,5)</annotation></semantics></math>
-and span the ambient space. We represent a projective point by the
-vector whose first nonzero entry is 1. There are
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><msup><mn>5</mn><mi>r</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">(5^r-1)/4</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>PG</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>r</mi><mo>−</mo><mn>1</mn><mo>,</mo><mn>5</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\operatorname{PG}(r-1,5)</annotation></semantics></math>.
+We represent each projective point by the vector whose first nonzero
+entry is 1. There are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><msup><mn>5</mn><mi>r</mi></msup><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">(5^r-1)/4</annotation></semantics></math>
 such points, in particular 156 in rank four.</p>
-<p>Starting with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>r</mi></msub><annotation encoding="application/x-tex">I_r</annotation></semantics></math>,
-append every projective point not already used, and repeat until the
-required size is reached. Isomorphic repetitions can be removed during
-growth, provided the equivalence used respects the
-<em>representation</em>. Two matrices are <em>field-isomorphic</em> when
-one can be obtained from the other by invertible row operations, nonzero
-column scalings, and a permutation of columns. Abstractly isomorphic
-matroids can have representations that are not field-isomorphic. All
-such represented classes must be retained.</p>
+<p>Two matrices are <em>field-isomorphic</em> if one can be obtained
+from the other by invertible row operations, nonzero column scalings,
+and a permutation of columns. Field-isomorphic matrices represent
+isomorphic matroids, but the converse can fail. During growth we must
+retain one matrix from <em>every field-isomorphism class</em>, even when
+several such classes represent the same abstract matroid. The proof
+below explains why field isomorphism permits safe removal of
+repetitions: it preserves all possibilities for adding a column.</p>
+<p>Every full-rank representation contains
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+columns forming a basis. Move them to the front and apply row operations
+to make them
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>r</mi></msub><annotation encoding="application/x-tex">I_r</annotation></semantics></math>.
+This explains both the starting matrix and the growth procedure:</p>
+<ol>
+<li><p>Start at size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">k=r</annotation></semantics></math>
+with the single matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>r</mi></msub><annotation encoding="application/x-tex">I_r</annotation></semantics></math>.</p></li>
+<li><p>From every retained
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>×</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">r\times k</annotation></semantics></math>
+matrix, append each projective point not already among its columns.
+These are all its simple represented extensions of rank
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+and size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k+1</annotation></semantics></math>.</p></li>
+<li><p>Among all matrices produced at size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k+1</annotation></semantics></math>,
+retain one per field-isomorphism class. Repeat until size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+is complete.</p></li>
+</ol>
+<p>There are no levels
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&lt;</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">k&lt;r</annotation></semantics></math>:
+a
+rank-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+matroid needs at least
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
+elements. The smaller levels
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>,</mo><mi>…</mi><mo>,</mo><mi>m</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">r,\ldots,m-1</annotation></semantics></math>
+are the intermediate stages used to construct the target level, rather
+than enumerating all sets of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>
+projective points directly.</p>
+<p>The implementation tests field isomorphism using Sage’s
+<code>is_field_isomorphic</code>. It searches for a column bijection
+under which the representations agree up to row operations and column
+scaling. For a proposed bijection, corresponding bases are reduced to
+identity form, after which consistency of row and column scalings can be
+checked over
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>.
+Candidates are first grouped by an invariant of their basis families to
+reduce comparisons; matching invariants alone never causes a matrix to
+be discarded.</p>
 <blockquote>
 <p><strong>Proposition 2.3 (Completeness of represented
-generation).</strong> <span id="prop:generation"></span> The procedure
-just described, retaining one matrix from each field-isomorphism class
-at each size, generates every simple
+generation).</strong> <span id="prop:generation"></span> For every
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mi>r</mi><mo>,</mo><mi>…</mi><mo>,</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">k=r,\ldots,m</annotation></semantics></math>,
+the procedure retains a matrix from every field-isomorphism class of
+simple
 rank-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
-quinary representation up to field isomorphism.</p>
+quinary representations on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+elements. Consequently, their underlying matroids include every simple
+rank-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-element
+quinary matroid up to isomorphism.</p>
 </blockquote>
-<p><em>Proof.</em> Take any simple
+<p><em>Proof.</em> Fix a simple
 rank-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
-representation. Choose
+representation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>≤</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">s\leq m</annotation></semantics></math>
+elements. Choose a basis, move its columns to the front, and transform
+them to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>r</mi></msub><annotation encoding="application/x-tex">I_r</annotation></semantics></math>.
+Order the remaining columns, and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>k</mi></msub><annotation encoding="application/x-tex">A_k</annotation></semantics></math>
+be the first
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+columns, for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>≤</mo><mi>k</mi><mo>≤</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">r\leq k\leq s</annotation></semantics></math>.
+Thus
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>r</mi></msub><mo>=</mo><msub><mi>I</mi><mi>r</mi></msub></mrow><annotation encoding="application/x-tex">A_r=I_r</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>s</mi></msub><mo>=</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">A_s=A</annotation></semantics></math>.</p>
+<p>We prove by induction on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+that the retained level at size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+contains a matrix field-isomorphic to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>k</mi></msub><annotation encoding="application/x-tex">A_k</annotation></semantics></math>.
+At size
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
-columns forming a basis, transform them to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>r</mi></msub><annotation encoding="application/x-tex">I_r</annotation></semantics></math>,
-and order the remaining columns. Appending those columns in that order
-gives a chain of simple rank-preserving represented extensions from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>r</mi></msub><annotation encoding="application/x-tex">I_r</annotation></semantics></math>
-to the chosen matrix. Inductively, each intermediate representation is
-field-isomorphic to a retained one. Such an isomorphism carries all
-possible appended projective points bijectively to possible appended
-points of the retained representation, and extends the permutation of
-old labels by fixing the new label. Thus replacing an intermediate
-matrix by its retained representative cannot lose any later represented
-extension class. Induction on the number of columns proves the
-assertion.
+this is the starting matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>I</mi><mi>r</mi></msub><annotation encoding="application/x-tex">I_r</annotation></semantics></math>.
+Suppose the claim holds at size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&lt;</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">k&lt;s</annotation></semantics></math>,
+and let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>k</mi></msub><annotation encoding="application/x-tex">B_k</annotation></semantics></math>
+be a retained matrix field-isomorphic to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>k</mi></msub><annotation encoding="application/x-tex">A_k</annotation></semantics></math>.
+Write
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>A</mi><mi>k</mi></msub><mo>∣</mo><mi>v</mi><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">A_{k+1}=[A_k\mid v]</annotation></semantics></math>.
+Let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+be the invertible row transformation in an equivalence taking
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>k</mi></msub><annotation encoding="application/x-tex">A_k</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>k</mi></msub><annotation encoding="application/x-tex">B_k</annotation></semantics></math>,
+the other operations being scalings and a permutation of its old
+columns. Then
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>B</mi><mi>k</mi></msub><mo>∣</mo><mi>T</mi><mi>v</mi><mo stretchy="true" form="postfix">]</mo></mrow><mspace width="1.0em"></mspace><mtext mathvariant="normal">is field-isomorphic to</mtext><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>A</mi><mi>k</mi></msub><mo>∣</mo><mi>v</mi><mo stretchy="true" form="postfix">]</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">[B_k\mid Tv]\quad\text{is field-isomorphic to}\quad[A_k\mid v].</annotation></semantics></math>
+Indeed, apply the same row transformation to the extended matrix, and
+extend the old column operations by leaving the new column fixed.
+Normalize
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mi>v</mi></mrow><annotation encoding="application/x-tex">Tv</annotation></semantics></math>
+to represent its projective point. This point is unused in
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>k</mi></msub><annotation encoding="application/x-tex">B_k</annotation></semantics></math>:
+otherwise invertibility of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
+would imply that
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
+is parallel to an old column of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>k</mi></msub><annotation encoding="application/x-tex">A_k</annotation></semantics></math>,
+contrary to simplicity.</p>
+<p>The procedure tries every unused projective point, so it generates
+this extension of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>B</mi><mi>k</mi></msub><annotation encoding="application/x-tex">B_k</annotation></semantics></math>.
+Deduplication retains either that matrix or a field-isomorphic one. This
+proves the induction step and hence the claim at size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>.
+Since
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
+were arbitrary, the assertion follows.
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>▫</mi><annotation encoding="application/x-tex">\square</annotation></semantics></math></p>
-<p>After a represented level is complete, forgetting the matrices and
-deduplicating by abstract matroid isomorphism gives the required parent
-classes. We generate all simple rank-four represented levels through
-size ten in this way, then retain the connected ten-element parents for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>.
-The same procedure in rank three provides the catalogue that will be
-needed to test contractions in Section <a href="#sec:finish">5</a>.</p>
+<p>To obtain the abstract catalogue from a completed represented level,
+replace each matrix
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
+by its basis family
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>A</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>S</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mi>…</mi><mo>,</mo><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mo>:</mo><mrow><mo stretchy="true" form="prefix">|</mo><mi>S</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mi>r</mi><mo>,</mo><mspace width="0.222em"></mspace><mo>det</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>A</mi><mi>S</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>≠</mo><mn>0</mn><mo stretchy="false" form="postfix">}</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathcal B(A)=\{S\subseteq\{0,\ldots,k-1\}:|S|=r,\ \det(A_S)\neq0\},</annotation></semantics></math>
+where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>A</mi><mi>S</mi></msub><annotation encoding="application/x-tex">A_S</annotation></semantics></math>
+consists of the columns indexed by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>.
+A basis family specifies the whole matroid without using coordinates.
+Two such families define isomorphic matroids exactly when a permutation
+of the elements takes one family to the other. Sage’s exact
+<code>is_isomorphic</code> test on basis matroids removes these abstract
+repetitions, again using basis invariants only to group comparisons.
+Each retained abstract matroid is stored as one bit for each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>-subset
+in lexicographic order, recording whether it is a basis; for a
+ten-element rank-four parent this uses
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mn>10</mn><mn>4</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>210</mn></mrow><annotation encoding="application/x-tex">\binom{10}{4}=210</annotation></semantics></math>
+bits, stored in hexadecimal.</p>
+<p>The matrix catalogue is saved separately and remains the input for
+further represented growth and the labelled representation lists in
+Section <a href="#sec:tables">4</a>. Thus abstract deduplication does
+not discard any represented class. At size ten, we retain the connected
+abstract rank-four matroids as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>.
+The same generation procedure in rank three supplies the catalogue used
+to test contractions in Section <a href="#sec:finish">5</a>.</p>
 <p>Step 1 is now justified: every possible deletion of an excluded minor
 occurs in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>.
 We next explain how to recover its possible nonquinary extensions. This
 requires more than appending columns to the parent itself; it requires
 matching the representable deletions of the prospective extension.</p>
@@ -634,9 +773,9 @@ recovering an extension from its deletions</h1>
 
 </div>
 <p>Fix one parent
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>∈</mo><mi mathvariant="script">𝒫</mi></mrow><annotation encoding="application/x-tex">N\in\mathcal P</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>∈</mo><mi>𝒫</mi></mrow><annotation encoding="application/x-tex">N\in\mathcal P</annotation></semantics></math>.
 Our goal in this section is an exact description of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>
 that can be computed from finite lists of quinary matroids. We first
 describe the unknown data of an extension, then express the conditions
 on its deletions in those data. The main proposition will show that
@@ -665,7 +804,7 @@ meaning that
 is a basis. An assignment
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
 specifies a nonempty four-subset family
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">ℬ</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>T</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>e</mi><mo stretchy="false" form="postfix">}</mo><mo>:</mo><mi>T</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>P</mi><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="0.222em"></mspace><msub><mi>x</mi><mi>T</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal B_N(x)=\mathcal B(N)\ \cup
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ℬ</mi><mi>N</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.222em"></mspace><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>T</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>e</mi><mo stretchy="false" form="postfix">}</mo><mo>:</mo><mi>T</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>P</mi><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="0.222em"></mspace><msub><mi>x</mi><mi>T</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal B_N(x)=\mathcal B(N)\ \cup
           \{T\cup\{e\}:T\in\binom P3,\ x_T=1\}.</annotation></semantics></math>
 For the moment this is only a proposed basis family; an arbitrary
 assignment need not define a matroid.</p>
@@ -678,7 +817,7 @@ that contain
 are indexed by the triples avoiding
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>.
 Write
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>x</mi><msub><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">|</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>P</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mi>f</mi><mo stretchy="false" form="postfix">}</mo></mrow><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">\pi_f(x)=x\big|_{\binom{P\setminus\{f\}}3}</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>f</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>x</mi><msub><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">|</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>P</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mi>f</mi><mo stretchy="false" form="postfix">}</mo></mrow><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></msub></mrow><annotation encoding="application/x-tex">\pi_f(x)=x\big|_{\binom{P\setminus\{f\}}3}</annotation></semantics></math>
 for the restriction to those coordinates. The four-sets avoiding both
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
 and
@@ -686,7 +825,7 @@ and
 are already determined by
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>\</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">N\setminus f</annotation></semantics></math>.
 Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pi_f(x)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>f</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\pi_f(x)</annotation></semantics></math>
 is exactly the extra basis data needed to specify
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>\</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">M\setminus f</annotation></semantics></math>
 as an extension of
@@ -706,13 +845,13 @@ enforces agreement on every such shared four-set at once.</p>
 be any fixed labelled simple rank-four quinary matroid on a set
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>.
 Define its <em>represented extension table</em>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>
 to be the set of Boolean patterns
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>
 on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>U</mi><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\binom U3</annotation></semantics></math>
 for which
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.222em"></mspace><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>T</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>e</mi><mo stretchy="false" form="postfix">}</mo><mo>:</mo><msub><mi>z</mi><mi>T</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathcal B(Q)\ \cup\{T\cup\{e\}:z_T=1\}</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.222em"></mspace><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>T</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>e</mi><mo stretchy="false" form="postfix">}</mo><mo>:</mo><msub><mi>z</mi><mi>T</mi></msub><mo>=</mo><mn>1</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\mathcal B(Q)\ \cup\{T\cup\{e\}:z_T=1\}</annotation></semantics></math>
 is the basis family of a simple rank-four quinary extension of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.
 All labels in this definition are fixed. In Section <a
@@ -721,11 +860,11 @@ representations of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.</p>
 <p>The meaning of table membership is now precise:</p>
 <ul>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>\</mo><mi>f</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pi_f(x)\in\mathcal R(N\setminus f)</annotation></semantics></math>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>f</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo>\</mo><mi>f</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\pi_f(x)\in\mathcal R(N\setminus f)</annotation></semantics></math>
 says that the proposed deletion avoiding
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 is simple, rank four, and quinary;</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x\in\mathcal R(N)</annotation></semantics></math>
+<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">x\in\mathcal R(N)</annotation></semantics></math>
 says that the proposed full extension of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>
 is itself simple, rank four, and quinary.</p></li>
@@ -735,7 +874,7 @@ coloops, so every
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>\</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">N\setminus f</annotation></semantics></math>
 still has rank four.</p>
 <p>Consequently the assignments we want should form the finite set
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒮</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">{</mo><mi>x</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">}</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>P</mi><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></msup><mo>:</mo><msub><mi>π</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>\</mo><mi>f</mi><mo stretchy="false" form="postfix">)</mo><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> for every </mtext><mspace width="0.333em"></mspace></mrow><mi>f</mi><mo>∈</mo><mi>P</mi><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">}</mo><mo>\</mo><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal S(N)=
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒮</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo minsize="1.2" maxsize="1.2" stretchy="false" form="prefix">{</mo><mi>x</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">}</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>P</mi><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></msup><mo>:</mo><msub><mi>π</mi><mi>f</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo>\</mo><mi>f</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> for every </mtext><mspace width="0.333em"></mspace></mrow><mi>f</mi><mo>∈</mo><mi>P</mi><mo minsize="1.2" maxsize="1.2" stretchy="false" form="postfix">}</mo><mo>\</mo><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal S(N)=
  \bigl\{x\in\{0,1\}^{\binom P3}:
        \pi_f(x)\in\mathcal R(N\setminus f)\text{ for every }f\in P\bigr\}
        \setminus\mathcal R(N).</annotation></semantics></math> The
@@ -753,13 +892,13 @@ local-to-global principle.</p>
 <blockquote>
 <p><strong>Lemma 3.1 (Deletion compatibility).</strong> <span
 id="lem:deletion"></span> Let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>E</mi><mo stretchy="false" form="prefix">|</mo><mo>=</mo><mi>n</mi><mo>&gt;</mo><mn>2</mn><mi>r</mi></mrow><annotation encoding="application/x-tex">|E|=n&gt;2r</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>E</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>=</mo><mi>n</mi><mo>&gt;</mo><mn>2</mn><mi>r</mi></mrow><annotation encoding="application/x-tex">|E|=n&gt;2r</annotation></semantics></math>
 and let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>⌀</mi><mo>≠</mo><mi mathvariant="script">ℬ</mi><mo>⊆</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>E</mi><mi>r</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\varnothing\ne\mathcal B\subseteq\binom Er</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>⌀</mi><mo>≠</mo><mi>ℬ</mi><mo>⊆</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>E</mi><mi>r</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\varnothing\ne\mathcal B\subseteq\binom Er</annotation></semantics></math>.
 Suppose that for each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">a\in E</annotation></semantics></math>
 the family of members of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>
 avoiding
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math>
 is the basis family of a
@@ -767,22 +906,22 @@ rank-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantic
 matroid on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mi>a</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">E\setminus\{a\}</annotation></semantics></math>.
 Then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>
 is the basis family of a
 rank-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>
 matroid on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>.</p>
 </blockquote>
 <p><em>Proof.</em> Take
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi><mo>∈</mo><mi mathvariant="script">ℬ</mi></mrow><annotation encoding="application/x-tex">A,B\in\mathcal B</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>,</mo><mi>B</mi><mo>∈</mo><mi>ℬ</mi></mrow><annotation encoding="application/x-tex">A,B\in\mathcal B</annotation></semantics></math>
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>∈</mo><mi>A</mi><mo>\</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">b\in A\setminus B</annotation></semantics></math>.
 We must find
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>∈</mo><mi>B</mi><mo>\</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">c\in B\setminus A</annotation></semantics></math>
 such that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>A</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mi>b</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo><mo>∈</mo><mi mathvariant="script">ℬ</mi></mrow><annotation encoding="application/x-tex">(A\setminus\{b\})\cup\{c\}\in\mathcal B</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>A</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mi>b</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">)</mo></mrow><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>c</mi><mo stretchy="false" form="postfix">}</mo><mo>∈</mo><mi>ℬ</mi></mrow><annotation encoding="application/x-tex">(A\setminus\{b\})\cup\{c\}\in\mathcal B</annotation></semantics></math>.
 Since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">|</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo stretchy="false" form="prefix">|</mo><mo>≤</mo><mn>2</mn><mi>r</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">|A\cup B|\leq2r&lt;n</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">|</mo><mi>A</mi><mo>∪</mo><mi>B</mi><mo stretchy="true" form="postfix">|</mo></mrow><mo>≤</mo><mn>2</mn><mi>r</mi><mo>&lt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">|A\cup B|\leq2r&lt;n</annotation></semantics></math>,
 there is an element
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∉</mo><mi>A</mi><mo>∪</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">a\notin A\cup B</annotation></semantics></math>.
 Both
@@ -794,10 +933,10 @@ are bases of the specified deletion avoiding
 Basis exchange in that matroid supplies the required
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math>,
 and its exchanged basis also belongs to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>.
 This proves every ordered instance of basis exchange. Together with
 nonemptiness and the common size of the members, it proves that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ℬ</mi><annotation encoding="application/x-tex">\mathcal B</annotation></semantics></math>
 is a matroid basis family.
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>▫</mi><annotation encoding="application/x-tex">\square</annotation></semantics></math></p>
 <p>Here
@@ -808,26 +947,26 @@ so the lemma applies. In particular, the representations witnessing
 different deletions do not have to fit together as matrices. They need
 only prescribe compatible bases. The lemma then supplies the abstract
 matroid, even when it has no representation over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="double-struck">𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>.</p>
 <blockquote>
 <p><strong>Proposition 3.2 (Exact recovery of deletion-minimal
 extensions).</strong> <span id="prop:local"></span> For a fixed parent
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>∈</mo><mi mathvariant="script">𝒫</mi></mrow><annotation encoding="application/x-tex">N\in\mathcal P</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>∈</mo><mi>𝒫</mi></mrow><annotation encoding="application/x-tex">N\in\mathcal P</annotation></semantics></math>,
 the map
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>↦</mo><msub><mi>M</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">x\mapsto M_x</annotation></semantics></math>,
 where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>M</mi><mi>x</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi mathvariant="script">ℬ</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal B(M_x)=\mathcal B_N(x)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>M</mi><mi>x</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mi>ℬ</mi><mi>N</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal B(M_x)=\mathcal B_N(x)</annotation></semantics></math>,
 is a bijection from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒮</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒮</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>
 to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>.</p>
 </blockquote>
 <p><em>Proof.</em> First take
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mi mathvariant="script">𝒮</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x\in\mathcal S(N)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>𝒮</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">x\in\mathcal S(N)</annotation></semantics></math>.
 The proposed basis family
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">ℬ</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal B_N(x)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ℬ</mi><mi>N</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal B_N(x)</annotation></semantics></math>
 is nonempty because it contains
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal B(N)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal B(N)</annotation></semantics></math>.
 Its deletion avoiding
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
 is the rank-four quinary matroid
@@ -835,12 +974,12 @@ is the rank-four quinary matroid
 For each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>∈</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">f\in P</annotation></semantics></math>,
 the condition
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>\</mo><mi>f</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pi_f(x)\in\mathcal R(N\setminus f)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>f</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo>\</mo><mi>f</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\pi_f(x)\in\mathcal R(N\setminus f)</annotation></semantics></math>
 says that its deletion avoiding
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>
 is also the basis family of a simple rank-four quinary matroid. Lemma <a
 href="#lem:deletion">3.1</a> therefore makes
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">ℬ</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal B_N(x)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ℬ</mi><mi>N</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal B_N(x)</annotation></semantics></math>
 a matroid basis family.</p>
 <p>Call this matroid
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>x</mi></msub><annotation encoding="application/x-tex">M_x</annotation></semantics></math>.
@@ -849,13 +988,13 @@ Each pair of elements lies in one of its simple deletions, so
 is simple. All its deletions are quinary by construction. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>x</mi></msub><annotation encoding="application/x-tex">M_x</annotation></semantics></math>
 were quinary, its pattern would belong to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal R(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal R(N)</annotation></semantics></math>
 by the definition of that table, contrary to the subtraction in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒮</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒮</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>.
 Hence
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>x</mi></msub><mo>∈</mo><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M_x\in\mathcal D(N)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>M</mi><mi>x</mi></msub><mo>∈</mo><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">M_x\in\mathcal D(N)</annotation></semantics></math>.</p>
 <p>Conversely, take
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M\in\mathcal D(N)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">M\in\mathcal D(N)</annotation></semantics></math>.
 Its bases containing
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>e</mi><annotation encoding="application/x-tex">e</annotation></semantics></math>
 give a unique pattern
@@ -869,13 +1008,13 @@ is a simple quinary extension of
 it has rank four since it contains the rank-four restriction
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>\</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">N\setminus f</annotation></semantics></math>.
 Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>f</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>∈</mo><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>\</mo><mi>f</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\pi_f(x)\in\mathcal R(N\setminus f)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>π</mi><mi>f</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∈</mo><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo>\</mo><mi>f</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\pi_f(x)\in\mathcal R(N\setminus f)</annotation></semantics></math>.
 Since
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 is nonquinary,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∉</mo><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x\notin\mathcal R(N)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∉</mo><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">x\notin\mathcal R(N)</annotation></semantics></math>.
 Therefore
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mi mathvariant="script">𝒮</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">x\in\mathcal S(N)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>∈</mo><mi>𝒮</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">x\in\mathcal S(N)</annotation></semantics></math>,
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><msub><mi>M</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">M=M_x</annotation></semantics></math>.
 Finally, different patterns give different basis families, proving
@@ -886,9 +1025,9 @@ the computation. It accounts for all four requirements on an output:
 validity as a matroid, simplicity, representability of every deletion,
 and nonrepresentability of the full matroid. To finish Step 2, it
 remains to build the tables
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>
 without omissions and exhaust the finite conditions defining
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒮</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒮</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>.</p>
 <h1 id="constructing-and-exhausting-the-extension-tables">4.
 Constructing and exhausting the extension tables</h1>
 <div id="sec:tables">
@@ -903,7 +1042,7 @@ conditions must be considered. We address them in that order.</p>
 all representations on the required labels</h2>
 <p>The represented catalogues of Section <a href="#sec:parents">2</a>
 retain all field-isomorphism classes. A table
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>,
 however, describes extensions of one <em>labelled</em> matroid
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.
 To use the catalogue for this purpose, we need all representations on
@@ -925,7 +1064,7 @@ class representing
 with the fixed labels of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>,
 and close the resulting set under
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Aut</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{Aut}(Q)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Aut</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\operatorname{Aut}(Q)</annotation></semantics></math>.
 Up to labelled projective equivalence, this gives every representation
 of the labelled matroid
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.</p>
@@ -948,20 +1087,20 @@ matrix normalization. The normalization and its proof are given in
 Appendix <a href="#sec:normalization">A.1</a>; its purpose is to remove
 repetitions without discarding a representation class. Denote the
 resulting complete labelled set of matrices by
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℒ</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal L(Q)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℒ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal L(Q)</annotation></semantics></math>.</p>
 <h2 id="building-a-table-by-appending-projective-points">4.2. Building a
 table by appending projective points</h2>
 <p>For each
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>∈</mo><mi mathvariant="script">ℒ</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">V\in\mathcal L(Q)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi><mo>∈</mo><mi>ℒ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">V\in\mathcal L(Q)</annotation></semantics></math>
 append every point
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
 of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">PG</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{PG}(3,5)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>PG</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>3</mn><mo>,</mo><mn>5</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\operatorname{PG}(3,5)</annotation></semantics></math>
 whose direction is not already a column of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>.
 The resulting matrix has rank four, and its column matroid is simple.
 Record the pattern
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo stretchy="false" form="prefix">(</mo><mi>V</mi><mo>,</mo><mi>v</mi><msub><mo stretchy="false" form="postfix">)</mo><mi>T</mi></msub><mo>=</mo><mn>1</mn><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">[</mo><mspace width="0.167em"></mspace><msub><mi>V</mi><mi>T</mi></msub><mo>∣</mo><mi>v</mi><mspace width="0.167em"></mspace><mo stretchy="false" form="postfix">]</mo><mo>≠</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mi>T</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\rho(V,v)_T=1\quad\Longleftrightarrow\quad
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>V</mi><mo>,</mo><mi>v</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>T</mi></msub><mo>=</mo><mn>1</mn><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo>det</mo><mrow><mo stretchy="true" form="prefix">[</mo><mspace width="0.167em"></mspace><msub><mi>V</mi><mi>T</mi></msub><mo>∣</mo><mi>v</mi><mspace width="0.167em"></mspace><mo stretchy="true" form="postfix">]</mo></mrow><mo>≠</mo><mn>0</mn><mo>,</mo><mspace width="2.0em"></mspace><mi>T</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\rho(V,v)_T=1\quad\Longleftrightarrow\quad
              \det[\,V_T\mid v\,]\ne0,
              \qquad T\in\binom{E(Q)}3,</annotation></semantics></math>
 where
@@ -973,19 +1112,19 @@ Collect all these rows, merging duplicates.</p>
 <p><strong>Proposition 4.2 (Completeness of the extension
 table).</strong> <span id="prop:tables"></span> The rows obtained in
 this way are exactly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>.</p>
 </blockquote>
 <p><em>Proof.</em> Every appended point gives a simple rank-four quinary
 extension, so every constructed row belongs to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>.
 Conversely, take any extension represented by a row of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal R(Q)</annotation></semantics></math>,
 and choose a matrix representing it. Its restriction to
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>
 is labelled projectively equivalent to a member
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math>
 of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℒ</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal L(Q)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℒ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal L(Q)</annotation></semantics></math>,
 by Lemma <a href="#lem:labelled">4.1</a>. Apply that equivalence to the
 entire matrix. The new column is a nonzero projective point not already
 used, since the extension is simple. That point is among those appended
@@ -1003,7 +1142,7 @@ before its table is formed. Equality of bits in different tables
 consequently refers to the same elements, as required by Proposition <a
 href="#prop:local">3.2</a>.</p>
 <p>All determinant calculations take place in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="double-struck">𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>.
 For a fixed old triple the determinant is a linear form in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>,
 so its cofactors allow all 156 projective points to be tested in one
@@ -1023,19 +1162,19 @@ If a triple
 is dependent in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>N</mi><annotation encoding="application/x-tex">N</annotation></semantics></math>,
 then
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>e</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">r_M(T\cup\{e\})\leq3</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>M</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>e</mi><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">)</mo></mrow><mo>≤</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">r_M(T\cup\{e\})\leq3</annotation></semantics></math>,
 so its bit is zero. If
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
 is independent and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><msub><mrow><mi mathvariant="normal">cl</mi><mo>&#8289;</mo></mrow><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">H=\operatorname{cl}_N(T)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo>=</mo><msub><mo>cl</mo><mi>N</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">H=\operatorname{cl}_N(T)</annotation></semantics></math>,
 then
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
 is a rank-three hyperplane and
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">cl</mi><mo>&#8289;</mo></mrow><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mrow><mi mathvariant="normal">cl</mi><mo>&#8289;</mo></mrow><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{cl}_M(T)=\operatorname{cl}_M(H).</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>cl</mo><mi>M</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><msub><mo>cl</mo><mi>M</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>H</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\operatorname{cl}_M(T)=\operatorname{cl}_M(H).</annotation></semantics></math>
 Indeed,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>⊆</mo><mi>H</mi><mo>⊆</mo><msub><mrow><mi mathvariant="normal">cl</mi><mo>&#8289;</mo></mrow><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T\subseteq H\subseteq\operatorname{cl}_M(T)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>⊆</mo><mi>H</mi><mo>⊆</mo><msub><mo>cl</mo><mi>M</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">T\subseteq H\subseteq\operatorname{cl}_M(T)</annotation></semantics></math>,
 which proves both closure inclusions. Hence
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>e</mi><mo stretchy="false" form="postfix">}</mo><mo>∈</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mi>e</mi><mo>∉</mo><msub><mrow><mi mathvariant="normal">cl</mi><mo>&#8289;</mo></mrow><mi>M</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>H</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">T\cup\{e\}\in\mathcal B(M)
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>e</mi><mo stretchy="false" form="postfix">}</mo><mo>∈</mo><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mi>e</mi><mo>∉</mo><msub><mo>cl</mo><mi>M</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>H</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">T\cup\{e\}\in\mathcal B(M)
  \quad\Longleftrightarrow\quad e\notin\operatorname{cl}_M(H).</annotation></semantics></math>
 Thus independent triples spanning the same hyperplane have the same bit.
 Since every hyperplane has a spanning triple, one bit
@@ -1044,29 +1183,29 @@ for each rank-three hyperplane
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>
 determines all the triple bits of a genuine extension.</p>
 <p>Write
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℋ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal H(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℋ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal H(N)</annotation></semantics></math>
 for these hyperplanes. In a table for the deletion of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math>,
 the visible hyperplanes are
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>f</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mrow><mi mathvariant="normal">cl</mi><mo>&#8289;</mo></mrow><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mi>T</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>P</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mi>f</mi><mo stretchy="false" form="postfix">}</mo></mrow><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="0.222em"></mspace><msub><mi>r</mi><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">C_f=\{\operatorname{cl}_N(T):T\in\binom{P\setminus\{f\}}3,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>f</mi></msub><mo>=</mo><mo stretchy="false" form="prefix">{</mo><msub><mo>cl</mo><mi>N</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>:</mo><mi>T</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>P</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mi>f</mi><mo stretchy="false" form="postfix">}</mo></mrow><mn>3</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="0.222em"></mspace><msub><mi>r</mi><mi>N</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mn>3</mn><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">C_f=\{\operatorname{cl}_N(T):T\in\binom{P\setminus\{f\}}3,
                               \ r_N(T)=3\}.</annotation></semantics></math>
 The closure of such a triple in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>\</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">N\setminus f</annotation></semantics></math>
 is
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow><mi mathvariant="normal">cl</mi><mo>&#8289;</mo></mrow><mi>N</mi></msub><mo stretchy="false" form="prefix">(</mo><mi>T</mi><mo stretchy="false" form="postfix">)</mo><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mi>f</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\operatorname{cl}_N(T)\setminus\{f\}</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>cl</mo><mi>N</mi></msub><mrow><mo stretchy="true" form="prefix">(</mo><mi>T</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>\</mo><mo stretchy="false" form="prefix">{</mo><mi>f</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\operatorname{cl}_N(T)\setminus\{f\}</annotation></semantics></math>.
 Consequently every row of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>\</mo><mi>f</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal R(N\setminus f)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo>\</mo><mi>f</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal R(N\setminus f)</annotation></semantics></math>
 is constant on triples assigned the same coordinate in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>f</mi></msub><annotation encoding="application/x-tex">C_f</annotation></semantics></math>,
 and is zero on dependent triples. Projecting onto one bit per visible
 hyperplane therefore loses no row information. Let
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>A</mi><mi>f</mi></msub><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">}</mo><msub><mi>C</mi><mi>f</mi></msub></msup></mrow><annotation encoding="application/x-tex">A_f\subseteq\{0,1\}^{C_f}</annotation></semantics></math>
 be this projected table, and let
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">}</mo><mrow><mi mathvariant="script">ℋ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup></mrow><annotation encoding="application/x-tex">A\subseteq\{0,1\}^{\mathcal H(N)}</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⊆</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">}</mo><mrow><mi>ℋ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msup></mrow><annotation encoding="application/x-tex">A\subseteq\{0,1\}^{\mathcal H(N)}</annotation></semantics></math>
 be the analogous projection of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℛ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal R(N)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℛ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal R(N)</annotation></semantics></math>.</p>
 <p>The problem actually solved is
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi mathvariant="script">𝒮</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>y</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">}</mo><mrow><mi mathvariant="script">ℋ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow></msup><mo>:</mo><mi>y</mi><msub><mo stretchy="false" form="prefix">|</mo><msub><mi>C</mi><mi>f</mi></msub></msub><mo>∈</mo><msub><mi>A</mi><mi>f</mi></msub><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> for every </mtext><mspace width="0.333em"></mspace></mrow><mi>f</mi><mo>∈</mo><mi>P</mi><mo stretchy="false" form="postfix">}</mo><mo>\</mo><mi>A</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\widehat{\mathcal S}(N)=
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>𝒮</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>y</mi><mo>∈</mo><mo stretchy="false" form="prefix">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><msup><mo stretchy="false" form="postfix">}</mo><mrow><mi>ℋ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow></msup><mo>:</mo><mi>y</mi><msub><mo stretchy="false" form="prefix">|</mo><msub><mi>C</mi><mi>f</mi></msub></msub><mo>∈</mo><msub><mi>A</mi><mi>f</mi></msub><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> for every </mtext><mspace width="0.333em"></mspace></mrow><mi>f</mi><mo>∈</mo><mi>P</mi><mo stretchy="false" form="postfix">}</mo><mo>\</mo><mi>A</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">\widehat{\mathcal S}(N)=
  \{y\in\{0,1\}^{\mathcal H(N)}:
                   y|_{C_f}\in A_f\text{ for every }f\in P\}
                   \setminus A.</annotation></semantics></math> Expanding
@@ -1074,15 +1213,15 @@ be the analogous projection of
 back to every independent triple spanning
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>H</mi><annotation encoding="application/x-tex">H</annotation></semantics></math>,
 and inserting zeros on dependent triples, takes each solution to one in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒮</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒮</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>.
 Conversely, Proposition <a href="#prop:local">3.2</a> makes every
 solution of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒮</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒮</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>
 a genuine matroid extension, so the closure argument above shows that it
 has a unique such compression. Thus
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi mathvariant="script">𝒮</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\widehat{\mathcal S}(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>𝒮</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\widehat{\mathcal S}(N)</annotation></semantics></math>
 and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒮</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒮</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal S(N)</annotation></semantics></math>
 have exactly the same solutions in different coordinates.</p>
 <p>Every hyperplane coordinate is seen by at least one deletion: choose
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>∉</mo><mi>H</mi></mrow><annotation encoding="application/x-tex">f\notin H</annotation></semantics></math>
@@ -1095,7 +1234,7 @@ so
 The union of the coordinate sets
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>f</mi></msub><annotation encoding="application/x-tex">C_f</annotation></semantics></math>
 is therefore all of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℋ</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal H(N)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℋ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal H(N)</annotation></semantics></math>.</p>
 <h2 id="why-the-finite-join-is-exhaustive">4.4. Why the finite join is
 exhaustive</h2>
 <p>It remains to impose all the tables simultaneously. For relations
@@ -1107,7 +1246,7 @@ on coordinate sets
 and
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>,
 their <em>natural join</em> is the finite relation
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>⋈</mo><mi>V</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>u</mi><mo>∪</mo><mi>v</mi><mo>:</mo><mi>u</mi><mo>∈</mo><mi>U</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>v</mi><mo>∈</mo><mi>V</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>u</mi><msub><mo stretchy="false" form="prefix">|</mo><mrow><mi>S</mi><mo>∩</mo><mi>T</mi></mrow></msub><mo>=</mo><mi>v</mi><msub><mo stretchy="false" form="prefix">|</mo><mrow><mi>S</mi><mo>∩</mo><mi>T</mi></mrow></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">U\Join V=\{u\cup v:u\in U,\ v\in V,
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>U</mi><mo>⋈</mo><mi>V</mi><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>u</mi><mo>∪</mo><mi>v</mi><mo>:</mo><mi>u</mi><mo>∈</mo><mi>U</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>v</mi><mo>∈</mo><mi>V</mi><mo>,</mo><mspace width="0.222em"></mspace><mi>u</mi><msub><mrow><mo stretchy="true" form="prefix">|</mo><msub><mi></mi><mrow><mi>S</mi><mo>∩</mo><mi>T</mi></mrow></msub><mo>=</mo><mi>v</mi><mo stretchy="true" form="postfix">|</mo></mrow><mrow><mi>S</mi><mo>∩</mo><mi>T</mi></mrow></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">U\Join V=\{u\cup v:u\in U,\ v\in V,
                             \ u|_{S\cap T}=v|_{S\cap T}\}.</annotation></semantics></math>
 In words, take every pair of rows that agree on their shared coordinates
 and combine them into a row on
@@ -1125,9 +1264,9 @@ coordinate has been seen, so the rows are exactly
 Removing the rows in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
 now gives
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi mathvariant="script">𝒮</mi><mo accent="true">̂</mo></mover><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\widehat{\mathcal S}(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>𝒮</mi><mo accent="true">̂</mo></mover><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\widehat{\mathcal S}(N)</annotation></semantics></math>
 and hence, by the recovery theorem, every member of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>.</p>
 <p>The implementation may change the join order and remove rows of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>
 as soon as all coordinates have appeared. Neither change alters the
@@ -1140,7 +1279,7 @@ second method solves the same finite relations using SAT; its encoding
 is described in Appendix <a href="#sec:sat">A.3</a>.</p>
 <p>Step 2 is therefore justified: complete representation lists give
 complete tables, and completed joins give exactly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>.
 At this stage every output is nonquinary and all its deletions are
 quinary. The sole remaining minor conditions are the contractions.</p>
 <h1 id="step-3-testing-contractions-and-certifying-the-list">5. Step 3:
@@ -1150,7 +1289,7 @@ testing contractions and certifying the list</h1>
 </div>
 <p>Proposition <a href="#prop:reduction">2.2</a> tells us how to finish
 the classification once the sets
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>
 have been recovered. We must test every contraction and then pass from
 labelled matroids to isomorphism classes. We also verify each final
 object by certificates that can be checked without rerunning the
@@ -1163,16 +1302,16 @@ every contraction
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mi>/</mi><mi>a</mi></mrow><annotation encoding="application/x-tex">M/a</annotation></semantics></math>
 has rank three. It may have parallel elements. Its
 <em>simplification</em>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">si</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mi>/</mi><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{si}(M/a)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>si</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mi>/</mi><mi>a</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\operatorname{si}(M/a)</annotation></semantics></math>
 deletes loops and keeps one element of each parallel class.</p>
 <blockquote>
 <p><strong>Lemma 5.1 (The contraction test).</strong> <span
 id="lem:contractions"></span> For
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M\in\mathcal D(N)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">M\in\mathcal D(N)</annotation></semantics></math>,
 the matroid
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 is an excluded minor if and only if every
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">si</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mi>/</mi><mi>a</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{si}(M/a)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>si</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mi>/</mi><mi>a</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\operatorname{si}(M/a)</annotation></semantics></math>
 is a quinary rank-three matroid.</p>
 </blockquote>
 <p><em>Proof.</em> A matroid is quinary if and only if its
@@ -1183,7 +1322,7 @@ for parallel elements. Thus the stated condition is equivalent to all
 contractions of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 being quinary. Membership in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal D(N)</annotation></semantics></math>
 already supplies nonrepresentability of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 and representability of all its deletions. The immediate-minor criterion
@@ -1215,7 +1354,7 @@ opposite inclusion, each final basis family is validated and given two
 kinds of evidence: representations of all its immediate minors, and a
 proof that the matroid itself has no representation.</p>
 <p>The positive evidence is direct. For each
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a\in E(M)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>∈</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">a\in E(M)</annotation></semantics></math>
 we save matrices for
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>\</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">M\setminus a</annotation></semantics></math>
 and
@@ -1229,17 +1368,17 @@ matrix check. These witnesses certify all the proper-minor conditions
 using only finite-field arithmetic.</p>
 <p>Nonrepresentability requires a different form of evidence. We turn
 existence of a representation into a finite propositional formula
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>M</mi></msub><annotation encoding="application/x-tex">\Phi_M</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Φ</mi><mi>M</mi></msub><annotation encoding="application/x-tex">\Phi_M</annotation></semantics></math>
 and check a certificate that this formula is unsatisfiable. Here is the
 mathematical condition encoded by the formula. Choose a basis
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>b</mi><mi>r</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B=(b_1,\ldots,b_r)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>b</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>b</mi><mi>r</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">B=(b_1,\ldots,b_r)</annotation></semantics></math>
 of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 and reduce its columns to the identity. The remaining entries form a
 block
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Z</mi><annotation encoding="application/x-tex">Z</annotation></semantics></math>,
 and fundamental exchanges prescribe its support:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>≠</mo><mn>0</mn><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>b</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>j</mi><mo stretchy="false" form="postfix">}</mo><mo>∈</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>j</mi><mo>∉</mo><mi>B</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">Z_{ij}\ne0\quad\Longleftrightarrow\quad
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>≠</mo><mn>0</mn><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mi>B</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>b</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">)</mo></mrow><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>j</mi><mo stretchy="false" form="postfix">}</mo><mo>∈</mo><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mi>j</mi><mo>∉</mo><mi>B</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">Z_{ij}\ne0\quad\Longleftrightarrow\quad
  (B\setminus\{b_i\})\cup\{j\}\in\mathcal B(M),\qquad j\notin B.</annotation></semantics></math>
 The unknown nonzero entries range over
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">{</mo><mn>1</mn><mo>,</mo><mn>2</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>4</mn><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">\{1,2,3,4\}</annotation></semantics></math>.
@@ -1249,13 +1388,13 @@ For every
 the determinant of the columns on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 must be nonzero exactly when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∈</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">S\in\mathcal B(M)</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>∈</mo><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">S\in\mathcal B(M)</annotation></semantics></math>.
 These conditions impose the entire basis family.</p>
 <blockquote>
 <p><strong>Proposition 5.2 (Meaning of the nonrepresentability
 certificate).</strong> <span id="prop:certificate"></span> The exact
 finite-field encoding
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>M</mi></msub><annotation encoding="application/x-tex">\Phi_M</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Φ</mi><mi>M</mi></msub><annotation encoding="application/x-tex">\Phi_M</annotation></semantics></math>
 of these determinant conditions is satisfiable if and only if
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 is quinary.</p>
@@ -1269,7 +1408,7 @@ satisfy every determinant condition, so they give a solution.
 Conversely, a solution supplies a full-rank matrix whose nonsingular
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>-column
 submatrices are exactly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathcal B(M)</annotation></semantics></math>;
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal B(M)</annotation></semantics></math>;
 this matrix represents
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>.
 The encoding uses exact addition and multiplication tables modulo five,
@@ -1278,7 +1417,7 @@ conditions. The harmless scaling normalization and the arithmetic
 clauses are justified in Appendix <a href="#sec:encoding">A</a>.
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>▫</mi><annotation encoding="application/x-tex">\square</annotation></semantics></math></p>
 <p>For each final matroid, the SAT solver produces a DRAT refutation of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>M</mi></msub><annotation encoding="application/x-tex">\Phi_M</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Φ</mi><mi>M</mi></msub><annotation encoding="application/x-tex">\Phi_M</annotation></semantics></math>.
 DRAT-trim checks this refutation against the saved formula <a
 href="#ref-drat">[5]</a>. By Proposition <a
 href="#prop:certificate">5.2</a>, a successful check proves that
@@ -1305,34 +1444,34 @@ mathematical set or operation in the preceding sections.</p>
 <table>
 <caption>The successive sets in the exhaustive classification.</caption>
 <thead>
-<tr>
+<tr class="header">
 <th style="text-align: left;">Stage</th>
 <th style="text-align: left;">Objects counted</th>
 <th style="text-align: right;">Number</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">Generation</td>
 <td style="text-align: left;">Simple rank-four quinary ten-element
 parent classes</td>
 <td style="text-align: right;">58,756</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">Step 1</td>
 <td style="text-align: left;">Connected parent classes in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math></td>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math></td>
 <td style="text-align: right;">58,672</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: left;">Step 2</td>
 <td style="text-align: left;">Labelled extensions, counted as pairs
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>,</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(N,M)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo>,</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(N,M)</annotation></semantics></math>
 with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M\in\mathcal D(N)</annotation></semantics></math></td>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">M\in\mathcal D(N)</annotation></semantics></math></td>
 <td style="text-align: right;">659</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: left;">Step 3</td>
 <td style="text-align: left;">Classes after all contraction tests and
 isomorphism deduplication</td>
@@ -1350,7 +1489,7 @@ classes at size ten. Abstract deduplication gives the 58,756 simple
 parent classes in the first row. Exactly 84 are disconnected and are
 discarded by Lemma <a href="#lem:parents">2.1</a>; the remaining 58,672
 form
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi mathvariant="script">𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>𝒫</mi><annotation encoding="application/x-tex">\mathcal P</annotation></semantics></math>.
 Aligning the represented classes and closing their automorphism orbits
 yields 71,547 labelled projective classes over the full ten-element
 parent catalogue. The complete nine-element labelled sets supply the
@@ -1363,9 +1502,9 @@ excluded for being disconnected or having its finite problem exhausted.
 The shards have matching input and critical-source fingerprints. By
 Propositions <a href="#prop:tables">4.2</a> and <a
 href="#prop:local">3.2</a>, this yields exactly the pairs
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo>,</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(N,M)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo>,</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">(N,M)</annotation></semantics></math>
 with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><mi mathvariant="script">𝒟</mi><mo stretchy="false" form="prefix">(</mo><mi>N</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M\in\mathcal D(N)</annotation></semantics></math>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>∈</mo><mi>𝒟</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>N</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">M\in\mathcal D(N)</annotation></semantics></math>:
 there are 659. This is a count of parent-labelled extensions; it is not
 yet a count of isomorphism classes of excluded minors.</p>
 <p>Testing all contractions using the complete rank-three catalogues,
@@ -1383,7 +1522,7 @@ excluded minor
 By Lemma <a href="#lem:parents">2.1</a>, a deletion of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>
 is isomorphic to a parent
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>∈</mo><mi mathvariant="script">𝒫</mi></mrow><annotation encoding="application/x-tex">N\in\mathcal P</annotation></semantics></math>.
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>∈</mo><mi>𝒫</mi></mrow><annotation encoding="application/x-tex">N\in\mathcal P</annotation></semantics></math>.
 The represented generation is complete by Proposition <a
 href="#prop:generation">2.3</a>. After aligning the labels, the recovery
 theorem, Proposition <a href="#prop:local">3.2</a>, places
@@ -1427,7 +1566,7 @@ the eleven-element target is exhausted by the join method.</p>
 <p><strong>Corollary 6.1.</strong> <span id="cor:dual"></span> There are
 exactly 35 isomorphism classes of rank-seven, eleven-element excluded
 minors for representability over
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="double-struck">𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>.</p>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>𝔽</mi><mn>5</mn></msub><annotation encoding="application/x-tex">\mathbb F_5</annotation></semantics></math>.</p>
 </blockquote>
 <p><em>Proof.</em> Field representability is closed under duality, and
 duality interchanges deletion and contraction. It therefore maps
@@ -1454,7 +1593,7 @@ form for labelled representations</h2>
 
 </div>
 <p>Fix an ordered basis
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>b</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>b</mi><mi>r</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B=(b_1,\ldots,b_r)</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>b</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>b</mi><mi>r</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">B=(b_1,\ldots,b_r)</annotation></semantics></math>
 of a labelled matroid
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Q</mi><annotation encoding="application/x-tex">Q</annotation></semantics></math>.
 Reduce a representation on
@@ -1466,7 +1605,7 @@ and call the remaining block
 The support of
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>Z</mi><annotation encoding="application/x-tex">Z</annotation></semantics></math>
 is determined by fundamental exchanges:
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>≠</mo><mn>0</mn><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mo stretchy="false" form="prefix">(</mo><mi>B</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>b</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">}</mo><mo stretchy="false" form="postfix">)</mo><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>j</mi><mo stretchy="false" form="postfix">}</mo><mo>∈</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">Z_{ij}\ne0\quad\Longleftrightarrow\quad
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>≠</mo><mn>0</mn><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mi>B</mi><mo>\</mo><mo stretchy="false" form="prefix">{</mo><msub><mi>b</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">}</mo><mo stretchy="true" form="postfix">)</mo></mrow><mo>∪</mo><mo stretchy="false" form="prefix">{</mo><mi>j</mi><mo stretchy="false" form="postfix">}</mo><mo>∈</mo><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">Z_{ij}\ne0\quad\Longleftrightarrow\quad
        (B\setminus\{b_i\})\cup\{j\}\in\mathcal B(Q).</annotation></semantics></math>
 Its support graph has one vertex for each row, one for each nonbasis
 column, and an edge for each nonzero entry. Fix a deterministic spanning
@@ -1505,15 +1644,15 @@ automorphism group of
 is obtained from the colored element–basis/nonbasis incidence graph
 described in Section <a href="#sec:finish">5</a>. Its action on element
 vertices is exactly
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Aut</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>Q</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{Aut}(Q)</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>Aut</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\operatorname{Aut}(Q)</annotation></semantics></math>,
 which supplies the generators used in the orbit calculation.</p>
 <h2 id="a.2.-compiling-the-determinant-conditions-to-a-formula">A.2.
 Compiling the determinant conditions to a formula</h2>
 <p>For the formula
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="normal">Φ</mi><mi>M</mi></msub><annotation encoding="application/x-tex">\Phi_M</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Φ</mi><mi>M</mi></msub><annotation encoding="application/x-tex">\Phi_M</annotation></semantics></math>
 in Proposition <a href="#prop:certificate">5.2</a>, choose a basis and
 form
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">[</mo><msub><mi>I</mi><mi>r</mi></msub><mo>∣</mo><mi>Z</mi><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[I_r\mid Z]</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="true" form="prefix">[</mo><msub><mi>I</mi><mi>r</mi></msub><mo>∣</mo><mi>Z</mi><mo stretchy="true" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">[I_r\mid Z]</annotation></semantics></math>
 as above. The support is fixed by the input matroid. Forest entries may
 be set to 1 by Lemma <a href="#lem:normalform">A.1</a>, so only the
 other nonzero entries need variables, each with domain
@@ -1523,14 +1662,14 @@ other nonzero entries need variables, each with domain
 be an
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>-subset
 of the ground set and put
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>i</mi><mo>:</mo><msub><mi>b</mi><mi>i</mi></msub><mo>∉</mo><mi>S</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>S</mi><mo>\</mo><mi>B</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">I(S)=\{i:b_i\notin S\},\qquad J(S)=S\setminus B.</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>S</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>i</mi><mo>:</mo><msub><mi>b</mi><mi>i</mi></msub><mo>∉</mo><mi>S</mi><mo stretchy="false" form="postfix">}</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>J</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>S</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mi>S</mi><mo>\</mo><mi>B</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">I(S)=\{i:b_i\notin S\},\qquad J(S)=S\setminus B.</annotation></semantics></math>
 These sets have the same size. Expansion on the identity columns shows
 that the full determinant on
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>S</mi><annotation encoding="application/x-tex">S</annotation></semantics></math>
 is, up to sign,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mi>Z</mi><mo stretchy="false" form="prefix">[</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo></mrow><annotation encoding="application/x-tex">\det Z[I(S),J(S)]</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>det</mo><mi>Z</mi><mrow><mo stretchy="true" form="prefix">[</mo><mi>I</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>S</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>J</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>S</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\det Z[I(S),J(S)]</annotation></semantics></math>,
 with the empty determinant equal to 1. It is therefore enough to impose
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">det</mi><mo>&#8289;</mo></mrow><mi>Z</mi><mo stretchy="false" form="prefix">[</mo><mi>I</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>S</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">]</mo><mo>≠</mo><mn>0</mn><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mi>S</mi><mo>∈</mo><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo><mspace width="2.0em"></mspace><mrow><mtext mathvariant="normal">for every </mtext><mspace width="0.333em"></mspace></mrow><mi>S</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo stretchy="false" form="postfix">)</mo></mrow><mi>r</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\det Z[I(S),J(S)]\ne0
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>det</mo><mi>Z</mi><mrow><mo stretchy="true" form="prefix">[</mo><mi>I</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>S</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mi>J</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>S</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow><mo>≠</mo><mn>0</mn><mspace width="1.0em"></mspace><mo>⇔</mo><mspace width="1.0em"></mspace><mi>S</mi><mo>∈</mo><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="2.0em"></mspace><mrow><mtext mathvariant="normal">for every </mtext><mspace width="0.333em"></mspace></mrow><mi>S</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mrow><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>M</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><mi>r</mi></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">\det Z[I(S),J(S)]\ne0
  \quad\Longleftrightarrow\quad S\in\mathcal B(M)
  \qquad\text{for every }S\in\binom{E(M)}r.</annotation></semantics></math>
 Every maximal minor is constrained, so these conditions determine the
@@ -1539,7 +1678,7 @@ full labelled matroid.</p>
 arithmetic. For an expression
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math>
 with allowed values
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>⊆</mo><msub><mi mathvariant="double-struck">𝔽</mi><mn>5</mn></msub></mrow><annotation encoding="application/x-tex">D\subseteq\mathbb F_5</annotation></semantics></math>,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi><mo>⊆</mo><msub><mi>𝔽</mi><mn>5</mn></msub></mrow><annotation encoding="application/x-tex">D\subseteq\mathbb F_5</annotation></semantics></math>,
 introduce indicators
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mrow><mi>u</mi><mo>,</mo><mi>a</mi></mrow></msub><annotation encoding="application/x-tex">p_{u,a}</annotation></semantics></math>
 for
@@ -1581,7 +1720,7 @@ and has low and high children
 its variable
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math>
 is constrained by
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mspace width="0.222em"></mspace><mo>⇔</mo><mspace width="0.222em"></mspace><mo stretchy="false" form="prefix">(</mo><mo stretchy="false" form="prefix">(</mo><mo>¬</mo><mi>y</mi><mo>∧</mo><mi>l</mi><mo stretchy="false" form="postfix">)</mo><mo>∨</mo><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo>∧</mo><mi>h</mi><mo stretchy="false" form="postfix">)</mo><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">v\ \Longleftrightarrow\ ((\neg y\land l)\lor(y\land h)).</annotation></semantics></math>
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mspace width="0.222em"></mspace><mo>⇔</mo><mspace width="0.222em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">(</mo><mo>¬</mo><mi>y</mi><mo>∧</mo><mi>l</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>∨</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo>∧</mo><mi>h</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">v\ \Longleftrightarrow\ ((\neg y\land l)\lor(y\land h)).</annotation></semantics></math>
 An exact four-clause encoding is
 <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="center" style="text-align: center"><mo>¬</mo><mi>v</mi><mo>∨</mo><mi>y</mi><mo>∨</mo><mi>l</mi><mo>,</mo><mspace width="2.0em"></mspace><mo>¬</mo><mi>v</mi><mo>∨</mo><mo>¬</mo><mi>y</mi><mo>∨</mo><mi>h</mi><mo>,</mo></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>v</mi><mo>∨</mo><mi>y</mi><mo>∨</mo><mo>¬</mo><mi>l</mi><mo>,</mo><mspace width="2.0em"></mspace><mi>v</mi><mo>∨</mo><mo>¬</mo><mi>y</mi><mo>∨</mo><mo>¬</mo><mi>h</mi><mi>.</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{gathered}
  \neg v\lor y\lor l,\qquad \neg v\lor\neg y\lor h,\\
@@ -1606,9 +1745,9 @@ procedures.</p>
 and rank four. Each
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>M</mi><mi>i</mi></msub><annotation encoding="application/x-tex">M_i</annotation></semantics></math>
 is specified by the listed family
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi mathvariant="script">ℋ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\mathcal H_i</annotation></semantics></math>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ℋ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\mathcal H_i</annotation></semantics></math>
 of hyperplanes of size at least four, according to the rule
-<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">ℬ</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>M</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>S</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>E</mi><mn>4</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>:</mo><mi>S</mi><mo>⊈</mo><mi>H</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> for every </mtext><mspace width="0.333em"></mspace></mrow><mi>H</mi><mo>∈</mo><msub><mi mathvariant="script">ℋ</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal B(M_i)=\{S\in\binom E4:
+<math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℬ</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>M</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mo stretchy="false" form="prefix">{</mo><mi>S</mi><mo>∈</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac linethickness="0"><mi>E</mi><mn>4</mn></mfrac><mo stretchy="true" form="postfix">)</mo></mrow><mo>:</mo><mi>S</mi><mo>⊈</mo><mi>H</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> for every </mtext><mspace width="0.333em"></mspace></mrow><mi>H</mi><mo>∈</mo><msub><mi>ℋ</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">}</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">\mathcal B(M_i)=\{S\in\binom E4:
                 S\not\subseteq H\text{ for every }H\in\mathcal H_i\}.</annotation></semantics></math>
 Thus a four-set is a nonbasis exactly when it is contained in a listed
 hyperplane. This specifies the whole basis family: every dependent
@@ -2491,7 +2630,7 @@ parent searches.</p>
 <caption>Complete simple represented catalogues. “Field” counts
 field-isomorphism classes; “abstract” counts matroid classes.</caption>
 <thead>
-<tr>
+<tr class="header">
 <th style="text-align: right;">Size</th>
 <th style="text-align: right;">Rank 3 field</th>
 <th style="text-align: right;">Rank 3 abstract</th>
@@ -2500,49 +2639,49 @@ field-isomorphism classes; “abstract” counts matroid classes.</caption>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">2</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: right;">5</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">4</td>
 <td style="text-align: right;">3</td>
 <td style="text-align: right;">3</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">11</td>
 <td style="text-align: right;">9</td>
 <td style="text-align: right;">12</td>
 <td style="text-align: right;">11</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">22</td>
 <td style="text-align: right;">18</td>
 <td style="text-align: right;">58</td>
 <td style="text-align: right;">44</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: right;">8</td>
 <td style="text-align: right;">42</td>
 <td style="text-align: right;">34</td>
 <td style="text-align: right;">460</td>
 <td style="text-align: right;">303</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: right;">9</td>
 <td style="text-align: right;">92</td>
 <td style="text-align: right;">82</td>
 <td style="text-align: right;">5,001</td>
 <td style="text-align: right;">3,763</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: right;">10</td>
 <td style="text-align: right;">174</td>
 <td style="text-align: right;">168</td>
@@ -2577,7 +2716,7 @@ fingerprints.</p>
 <caption>Exhaustive target-search ranges. Candidate counts precede
 contraction filtering and global isomorphism deduplication.</caption>
 <thead>
-<tr>
+<tr class="header">
 <th style="text-align: right;">Start</th>
 <th style="text-align: right;">Stop</th>
 <th style="text-align: right;">Parents</th>
@@ -2586,28 +2725,28 @@ contraction filtering and global isomorphism deduplication.</caption>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">14,689</td>
 <td style="text-align: right;">14,689</td>
 <td style="text-align: right;">514</td>
 <td style="text-align: right;">1794.54</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: right;">14,689</td>
 <td style="text-align: right;">29,378</td>
 <td style="text-align: right;">14,689</td>
 <td style="text-align: right;">106</td>
 <td style="text-align: right;">1629.19</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: right;">29,378</td>
 <td style="text-align: right;">44,067</td>
 <td style="text-align: right;">14,689</td>
 <td style="text-align: right;">29</td>
 <td style="text-align: right;">1430.24</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: right;">44,067</td>
 <td style="text-align: right;">58,756</td>
 <td style="text-align: right;">14,689</td>
@@ -2665,7 +2804,7 @@ archive predates this exposition.</p>
 
 </div>
 <p><strong>[1]</strong> N. Brettell, <em>The excluded minors for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">G</mi><mi mathvariant="normal">F</mi></mrow><mo stretchy="false" form="prefix">(</mo><mn>5</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{GF}(5)</annotation></semantics></math>-representable
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">G</mi><mi mathvariant="normal">F</mi></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>5</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{GF}(5)</annotation></semantics></math>-representable
 matroids on ten elements</em>, Advances in Applied Mathematics
 <strong>166</strong> (2025), 102864. <a
 href="https://doi.org/10.1016/j.aam.2025.102864">doi:10.1016/j.aam.2025.102864</a>.

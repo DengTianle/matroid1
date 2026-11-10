@@ -17,8 +17,8 @@
   "determinant_cnfs_regenerated_and_matched": 35,
   "drat_proofs_replayed": 35,
   "minor_matrices_rechecked": 770,
-  "html_sha256": "5133b90d3eb037288acd845f5c45ef5940e1e3d5679a1981b56ee6595cfb8de7",
+  "html_sha256": "68ac65e7191e4a886ccf232ddf1388b3e901cc76caa05701be10ffb3d1aa5349",
   "seconds": 14.207130766939372,
-  "paper_source_sha256": "b646befde751dd35a0a6038a04a79e032d71d92352672f5d4b2b392f99176e39",
+  "paper_source_sha256": "acbe74992478d80ce557250178970218ce16c66e251ef71858b98c2abfe83850",
   "html_refreshed_without_replaying_unchanged_certificates": true
 }
