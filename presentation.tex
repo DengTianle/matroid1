@@ -1,0 +1,101 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\B}{\mathcal B}
+%\newcommand{\HH}{\mathcal H}
+%\newcommand{\RR}{\mathcal R}
+\newcommand{\cl}{\operatorname{cl}}
+\newcommand{\si}{\operatorname{si}}
+\newcommand{\PG}{\operatorname{PG}}
+\newcommand{\Aut}{\operatorname{Aut}}
+
+\title{Sample title}
+\author{Anonymous}
+%\institute{Overleaf}
+\date{2026}
+
+\begin{document}
+
+\frame{\titlepage}
+
+%fill in the content described in the comments. Note audience is computer science instructors. 
+
+\begin{frame}
+\frametitle{Basic concepts}
+\begin{itemize}
+  \item %defintion of matroid
+  \item A canonical example is %describe vector matroid
+  \item However, not all matroids can be put into this form! Matroids that can be represented as such with a matrix with entries in $\F$ are called $\F$-representable. 
+  \item We need to introduce some concepts in order to state the problem. We would omit all proofs due to time constraint. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{itemize}
+    \item Analogous concepts from linear algebra still carry over: 
+      \begin{itemize}
+        \item basis: maximal independent set
+        \item rank: still true that all bases have the same size, called the rank
+      \end{itemize}
+    \item We often describe matroids using a labelled set and set of basis, e.g. $E=\{0, 1, 2\}$, $\B = \{\{1, 2\}, \{0, 2\}\}$. 
+    \item There is a notion of duality: %insert defintion
+    \item Two relevant fundamental operations:
+      \begin{itemize}
+        \item Deletion: %insert definition
+        \item Contraction: for a subset $T \subset E$, contraction $M/T = (M^* \setminus T)^*$. 
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Problem statement}
+  \begin{itemize}
+    \item The problem we solved: classify all rank $4$, $11$-element, excluded minor for $\F_5$ representability. 
+    \item We call a $\F_5$-representable matroid a \emph{quinary} matroid. 
+    \item An \emph{excluded minor for $\F_5$ representability} is a matroid $M$ which is not quinary, but for all $e \in E(M)$, both $M/e$ and $M \setminus e$ are quinary. 
+    \item These are in some sense, the `minimal' non-quinary matroids. 
+    \item The study of excluded minors is extremely important in matroid theory. 
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Comparison of methodology}
+  \begin{itemize}
+    \item We used LLM to solve the problem. 
+    \item However, directly asking the question does not lead to full resolution. 
+    \item Brute-force using computational tools is needed! Placing LLM in an equipped environment and asking it to use those tools leads to a complete resolution. 
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Proof outline}
+  \begin{itemize}
+    \item The proof can be broken down into the a few steps. 
+    \item The broad idea is to view a $11$-element excluded minor $M$ as an extension of a $10$-element quinary matroid $N = M \setminus e$. 
+    \item For each $N$, we want extensions $M$ which are non-quinary but all of whose deletions and contractions are quinary. 
+    \item First generate all appropriate $N$. 
+    \item Then exhaust all possible $M$ which are non-quinary but all of whose deletions are quinary. This is done by listing all appropriate quinary extensions (by $e$) of $N$ and $N \setminus f$ for all $f \in E$. 
+    \item Finally, pick those whose all contractions are quinary. Then deduplicate with respect to isomorphism.
+  \end{itemize}
+  We shall give a bit more details for the steps, especially the computations involved. 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Step 1}
+    \begin{enumerate}
+    \item Generate $10$-element quinary matroids. Due to a key result, we only need connected simple rank-$4$ ones up to isomorphism. Tool used for generation: SageMath. 
+  \end{enumerate}
+\end{frame}
+\begin{frame}
+  \frametitle{Step 2}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Step 3}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Future work}
+  We plan to settle the classification without the condition of rank $4$. By duality consideration and existing work, the only case left is rank $5$. 
+\end{frame}
+
+\end{document}
