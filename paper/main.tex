@@ -167,6 +167,8 @@ Both $A$ and $B\cup\{e\}$ have at least two elements. This contradicts
 3-connectivity of $M$.
 \end{proof}
 
+We call a matroid \emph{labelled} when its element names are fixed
+and its bases are specified as subsets of that named ground set.
 Let $P=\{0,\ldots,9\}$ and take a new label $e=10$. Let
 $\mathcal P$ contain one labelled representative on $P$ of each
 connected simple rank-four quinary matroid on ten elements. For each
@@ -217,6 +219,8 @@ denotes the current number of elements, ranging from $r$ to $m$.
 
 A rank-$r$ quinary matroid on $k$ elements has a full-rank
 $r\times k$ representation over $\F$, with one column per element.
+In a \emph{labelled representation}, the column indexed by $u$
+represents the element with label $u$.
 Simplicity means that no column is zero and no two columns are
 scalar multiples. Thus its columns specify distinct points of
 $\PG(r-1,5)$. We represent each projective point by the vector whose
@@ -376,15 +380,14 @@ four-set at once.
 
 To express which deletions are permitted, let $Q$ be any fixed
 labelled simple rank-four quinary matroid on a set $U$. Define its
-\emph{represented extension table} $\RR(Q)$ to be the set of Boolean
+\emph{representable extension table} $\RR(Q)$ to be the set of Boolean
 patterns $z$ on $\binom U3$ for which
 \[
  \B(Q)\ \cup\{T\cup\{e\}:z_T=1\}
 \]
-is the basis family of a simple rank-four quinary extension of $Q$.
-All labels in this definition are fixed. In
-Section~\ref{sec:tables} we will construct this table completely
-from representations of $Q$.
+is the basis family of a simple rank-four extension of $Q$
+that admits a representation over $\F$. We construct this table
+from representations of $Q$ in Section~\ref{sec:tables}.
 
 The meaning of table membership is now precise:
 \begin{itemize}
@@ -481,93 +484,139 @@ and exhaust the finite conditions defining $\mathcal S(N)$.
 
 \section{Constructing and exhausting the extension tables}\label{sec:tables}
 
-Proposition~\ref{prop:local} reduces each parent search to a finite
-problem about quinary extensions of nine- and ten-element matroids.
-There are two obligations: every represented extension must occur
-in its table, and every simultaneous solution of the table
-conditions must be considered. We address them in that order.
+For each $Q=N$ or $Q=N\setminus f$, we construct $\RR(Q)$ as a
+Boolean table with $\binom{|U|}{3}$ columns, one per triple of
+$U=E(Q)$.
+Write each triple in increasing label order and sort the triples
+lexicographically. Each row describes one representable extension
+of $Q$ by $e$. Its entry in column $T$ is 1 exactly when
+$T\cup\{e\}$ is a basis.
 
-\subsection{Putting all representations on the required labels}
+Each deletion inherits its labels from $P$. For example, the column
+for $\{1,2,3\}$ is first in $\RR(N\setminus 0)$ and occurs later in
+$\RR(N\setminus 4)$. Both entries record the status of the same
+four-set $\{1,2,3,e\}$, so the compatibility check compares entries
+by triple label.
 
-The represented catalogues of Section~\ref{sec:parents} retain all
-field-isomorphism classes. A table $\RR(Q)$, however, describes
-extensions of one \emph{labelled} matroid $Q$. To use the catalogue
-for this purpose, we need all representations on those labels, up
-to row operations and column scaling alone. We call the latter
-equivalence \emph{labelled projective equivalence}.
+\subsection{Complete labelled representation sets}\label{sec:normalization}
 
-First choose one matroid isomorphism aligning each unlabelled
-represented class of $Q$ with the chosen labels. There may be many
-alignments, and they can give different labelled extension patterns.
-The missing alignments are recovered by applying all automorphisms
-of $Q$ to the aligned matrices.
+Two labelled representations of $Q$ are \emph{labelled projectively
+equivalent} if invertible row operations and nonzero column
+scalings take one to the other, with each column retaining its
+label. We seek a set $\mathcal L(Q)$ containing exactly one matrix
+from each of these equivalence classes.
 
 \begin{lemma}[Complete labelled representations]\label{lem:labelled}
-Align one matrix from every field-isomorphism class representing
-$Q$ with the fixed labels of $Q$, and close the resulting set under
-$\Aut(Q)$. Up to labelled projective equivalence, this gives every
-representation of the labelled matroid $Q$.
+For each field-isomorphism class in the catalogue representing a
+matroid isomorphic to $Q$, choose one matrix and relabel its columns
+using one matroid isomorphism to $Q$. Apply every automorphism of
+$Q$ to the column labels of these matrices. The resulting set
+contains every labelled projective equivalence class of $Q$.
 \end{lemma}
 \begin{proof}
-Take any representation on those labels and forget its labels.
-It belongs to one of the represented classes in the complete
-catalogue. Choose a field isomorphism from the catalogue matrix
-to this representation. It induces an alignment of the underlying
-matroid with $Q$. The chosen alignment of that same catalogue
-matrix differs from it by an automorphism of $Q$. Applying that
-automorphism to the aligned matrix therefore reaches the desired
-representation, up to row operations and column scaling.
+Take any labelled representation of $Q$. Its field-isomorphism
+class occurs in the catalogue. A field isomorphism from the chosen
+catalogue matrix to this representation gives a bijection of its
+column labels with $U$. This bijection and the chosen relabelling
+to $Q$ are both matroid isomorphisms, so they differ by an
+automorphism of $Q$. Applying that automorphism therefore reaches
+the desired representation up to row operations and column scaling.
 \end{proof}
 
-The computation closes under generators of the full automorphism
-group, which reaches the same orbit as applying the entire group.
-Repeated labelled projective classes are recognized by a canonical
-matrix normalization. The normalization and its proof are given in
-Appendix~\ref{sec:normalization}; its purpose is to remove repetitions
-without discarding a representation class. Denote the resulting
-complete labelled set of matrices by $\mathcal L(Q)$.
+To remove repetitions, fix an ordered basis $B=(b_1,\ldots,b_r)$
+of $Q$ and use Gaussian elimination to make its columns $I_r$.
+Write $Z$ for the remaining columns, keeping their labels. Its
+zero pattern is fixed by $Q$, since
+\[
+ Z_{ij}\ne0\quad\Longleftrightarrow\quad
+       (B\setminus\{b_i\})\cup\{j\}\in\B(Q),\qquad j\in U\setminus B.
+\]
+Form the bipartite support graph with row vertices $i$, column
+vertices $j\in U\setminus B$, and edges at the nonzero entries of
+$Z$. Choose a fixed spanning forest of this graph. Row and column
+scalings can make every forest entry equal to 1; inverse scalings
+on the basis columns preserve $I_r$.
+
+\begin{lemma}[Normal form]\label{lem:normalform}
+With the ordered basis and support forest fixed, this normalization
+gives exactly one matrix per labelled projective equivalence class.
+\end{lemma}
+\begin{proof}
+For existence, choose a scale at one vertex of each tree and
+traverse its edges. Each edge uniquely determines the scale at
+its unvisited endpoint that makes its entry 1. A tree has no cycle,
+so these choices cannot conflict.
+
+For uniqueness, two equivalent matrices reduced on the same labelled
+basis differ only by row and column scalings: the row transformation
+must be diagonal to preserve each basis-column direction. If both
+matrices have forest entries 1, each forest edge forces the product
+of its endpoint multipliers to be 1. Within each component, all row
+multipliers are therefore equal and all column multipliers are
+their inverses. Every other edge has endpoints in the same
+component, so its entry is unchanged too. Isolated vertices affect
+no entry of $Z$. Thus the normalized matrices agree.
+\end{proof}
+
+The calculation now reduces to matroid isomorphism, graph
+automorphism, and matrix normalization. Sage supplies a relabelling
+to $Q$ for each catalogue matrix. To obtain $\Aut(Q)$, form the
+bipartite incidence graph of elements and bases (or nonbases),
+giving the two types of vertex different colors; its
+color-preserving automorphisms induce exactly $\Aut(Q)$ on $U$.
+Sage supplies generators of this group. Starting from the aligned
+matrices, repeatedly apply these generators, normalize each result,
+and retain it only if that normalized matrix is new. This finite
+orbit calculation yields $\mathcal L(Q)$ by the two lemmas above.
 
 \subsection{Building a table by appending projective points}
 
-For each $V\in\mathcal L(Q)$ append every point $v$ of $\PG(3,5)$
-whose direction is not already a column of $V$. The resulting
-matrix has rank four, and its column matroid is simple. Record the
-pattern
+For each $V\in\mathcal L(Q)$, append every normalized projective
+point $v\in\PG(3,5)$ whose direction is unused among the columns
+of $V$. The matrix $[V\mid v]$ represents a simple rank-four
+extension of $Q$ with the appended column indexed by $e$.
+
+Define its Boolean row $z(V,v)$ by
 \[
- \rho(V,v)_T=1\quad\Longleftrightarrow\quad
+ z(V,v)_T=1\quad\Longleftrightarrow\quad
              \det[\,V_T\mid v\,]\ne0,
-             \qquad T\in\binom{E(Q)}3,
+             \qquad T\in\binom U3,
 \]
-where $V_T$ consists of the three old columns indexed by $T$.
-Collect all these rows, merging duplicates.
+and set the bit to 0 otherwise. Here $V_T$ consists of the three
+old columns indexed by $T$. Different matrices can give the same
+row. Collect the distinct Boolean rows in the triple order given
+above.
 
 \begin{proposition}[Completeness of the extension table]\label{prop:tables}
 The rows obtained in this way are exactly $\RR(Q)$.
 \end{proposition}
 \begin{proof}
-Every appended point gives a simple rank-four quinary extension,
-so every constructed row belongs to $\RR(Q)$. Conversely, take
-any extension represented by a row of $\RR(Q)$, and choose a
-matrix representing it. Its restriction to $Q$ is labelled
-projectively equivalent to a member $V$ of $\mathcal L(Q)$, by
-Lemma~\ref{lem:labelled}. Apply that equivalence to the entire
-matrix. The new column is a nonzero projective point not already
-used, since the extension is simple. That point is among those
-appended to $V$, so the extension's row occurs in the construction.
+Every matrix $[V\mid v]$ gives a simple rank-four quinary
+extension, so its row belongs to $\RR(Q)$. Conversely, let
+$z\in\RR(Q)$. By definition of this table, the basis family
+\[
+ \B(Q)\ \cup\{T\cup\{e\}:z_T=1\}
+\]
+defines a simple rank-four quinary matroid $K$. Choose a matrix
+$[W\mid w]$ representing $K$, with old columns labelled by $U$
+and new column labelled $e$. The submatrix $W$ represents $Q$, so
+it is labelled projectively equivalent to some $V\in\mathcal L(Q)$.
+Apply the row transformation and old-column scalings to the whole
+matrix, giving $[V\mid v]$. Normalize $v$ by scaling its column.
+Since $K$ is simple, its direction is nonzero and unused in $V$.
+The construction therefore tries this pair $(V,v)$ and records
+exactly $z$.
 \end{proof}
 
-This proves the first obligation of the section. In particular, a
-deletion $N\setminus f$ is matched to its catalogue representative
-and all its matrices are aligned back to the actual labels
-$P\setminus\{f\}$ before its table is formed. Equality of bits in
-different tables consequently refers to the same elements, as
-required by Proposition~\ref{prop:local}.
-
-All determinant calculations take place in $\F$. For a fixed old
-triple the determinant is a linear form in $v$, so its cofactors
-allow all 156 projective points to be tested in one finite
-calculation. This speeds up table construction while computing
-exactly the determinant bits in the displayed definition.
+For a fixed $V$, these determinant tests reduce to one matrix
+product over $\F$. For each triple $T$, compute the signed
+cofactor vector $c_T\in\F^4$ so that
+$\det[V_T\mid v]=c_T^{\mathsf T}v$. Stack these vectors as the
+rows of a matrix $C$, and put the 156 normalized projective points
+in the columns of a matrix $D$. Each column of $CD$ gives all
+the determinant values for one point. Replace nonzero values by
+1 and zero values by 0, and omit points already used in $V$;
+the remaining columns are exactly the Boolean rows $z(V,v)$.
 
 \subsection{Compressing the coordinates without changing the solutions}
 
@@ -769,9 +818,9 @@ a solution supplies a full-rank matrix whose nonsingular
 $r$-column submatrices are exactly $\B(M)$; this matrix represents
 $M$. The encoding uses exact addition and multiplication tables
 modulo five, so its satisfying assignments are precisely the
-solutions of these field conditions. The harmless scaling
-normalization and the arithmetic clauses are justified in
-Appendix~\ref{sec:encoding}.
+solutions of these field conditions. The scaling normalization is
+justified by Lemma~\ref{lem:normalform}, and the arithmetic clauses
+are given in Appendix~\ref{sec:encoding}.
 \end{proof}
 
 For each final matroid, the SAT solver produces a DRAT refutation
@@ -911,68 +960,18 @@ Appendix~\ref{sec:catalogue}.
 \appendix
 \section{Details of the representation and SAT encodings}\label{sec:encoding}
 
-The main argument uses matrix normalization to enumerate complete
-labelled representation sets, and an exact field encoding to certify
-nonrepresentability. This appendix supplies the details of those
-two operations. The last subsection describes the alternative SAT
-enumeration used to cross-check the finite joins.
-
-\subsection{A normal form for labelled representations}\label{sec:normalization}
-
-Fix an ordered basis $B=(b_1,\ldots,b_r)$ of a labelled matroid
-$Q$. Reduce a representation on $B$ so that its basis columns
-form $I_r$, and call the remaining block $Z$. The support of
-$Z$ is determined by fundamental exchanges:
-\[
- Z_{ij}\ne0\quad\Longleftrightarrow\quad
-       (B\setminus\{b_i\})\cup\{j\}\in\B(Q).
-\]
-Its support graph has one vertex for each row, one for each
-nonbasis column, and an edge for each nonzero entry. Fix a
-deterministic spanning forest of this graph. By row and column
-scaling we make every forest entry equal to 1, compensating
-on basis columns to preserve $I_r$.
-
-\begin{lemma}[Normal form]\label{lem:normalform}
-With the basis and support forest fixed, this normalization gives
-one matrix for each labelled projective equivalence class.
-\end{lemma}
-\begin{proof}
-To establish existence, root each nontrivial tree at a row vertex
-and choose its scale. Traverse the tree: whenever the scale at
-one endpoint of an edge is known, the nonzero entry on that edge
-uniquely determines the scale at the other endpoint making the
-entry 1. There is no cycle in the tree, so no conflicting choice
-is imposed. Isolated vertices require no condition. Inverse
-scaling of the basis columns restores the identity.
-
-For uniqueness, two projectively equivalent representations
-reduced on the same labelled basis differ by row and column
-scalings: the row map must be diagonal because it fixes each
-basis-column direction. Suppose both have forest entries 1.
-On every tree edge, the row multiplier times the column
-multiplier must be 1. Connectivity then forces a common row
-multiplier throughout a component and its inverse on all column
-vertices in that component. Their product is also 1 on every
-nonforest edge, so all entries agree. This proves uniqueness,
-including when the support graph is disconnected.
-\end{proof}
-
-In the labelled-orbit calculation of
-Lemma~\ref{lem:labelled}, every new matrix is normalized before
-comparison with those already seen. The lemma proves that this
-comparison removes exactly projectively equivalent repetitions.
-The full automorphism group of $Q$ is obtained from the colored
-element--basis/nonbasis incidence graph described in
-Section~\ref{sec:finish}. Its action on element vertices is
-exactly $\Aut(Q)$, which supplies the generators used in the
-orbit calculation.
+This appendix gives the arithmetic encoding of the determinant
+conditions used to certify nonrepresentability. The last subsection
+describes the alternative SAT search used to cross-check the finite
+joins. Matrix normalization is established in
+Section~\ref{sec:normalization}.
 
 \subsection{Compiling the determinant conditions to a formula}
 
 For the formula $\Phi_M$ in Proposition~\ref{prop:certificate},
-choose a basis and form $[I_r\mid Z]$ as above. The support is
-fixed by the input matroid. Forest entries may be set to 1 by
+choose an ordered basis $B=(b_1,\ldots,b_r)$ and use the normal form of
+Section~\ref{sec:normalization} to write $[I_r\mid Z]$. The support
+is fixed by the input matroid. Forest entries may be set to 1 by
 Lemma~\ref{lem:normalform}, so only the other nonzero entries
 need variables, each with domain $\{1,2,3,4\}$.
 

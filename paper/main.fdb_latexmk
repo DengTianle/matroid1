@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1794326694 "/Users/dengtianle/Documents/nus/cs3263/matroid1/paper/main.tex" "main.pdf" "main" 1794326695 0
-  "/Users/dengtianle/Documents/nus/cs3263/matroid1/paper/main.tex" 1794326694 56257 d43e74f543d9dee16898a90fce597c31 ""
+["pdflatex"] 1794369591 "/Users/dengtianle/Documents/nus/cs3263/matroid1/paper/main.tex" "main.pdf" "main" 1794369592 0
+  "/Users/dengtianle/Documents/nus/cs3263/matroid1/paper/main.tex" 1794369522 56173 fb4251a59779af6f043b73fcd5742b3b ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -39,6 +39,8 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr17.tfm" 1136768653 1292 296a67155bdbfc32aa9c636f21e91433 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr6.tfm" 1136768653 1300 b62933e007d01cfd073f79b963c01526 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmr8.tfm" 1136768653 1292 21c1c5bfeaebccffdb478fd231a0997d ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmss10.tfm" 1136768653 1316 b636689f1933f24d1294acdf6041daaa ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmss8.tfm" 1136768653 1296 d77f431d10d47c8ea2cc18cf45346274 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
@@ -51,6 +53,7 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1248133631 32734 69e00a6b65cedb993666e42eedb3d48f ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb" 1248133631 24420 52dbb8e8aa0069a1b987309557f8d303 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb" 1248133631 32587 1788b0c1c5b39540c96f5e42ccd6dae8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1248133631 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
@@ -130,10 +133,10 @@
   "generated/parent-counts.tex" 1794292254 326 9cba4dba48b619e6400eea868adbe13d ""
   "generated/search-ranges.tex" 1794292254 285 73e635faa869d86f5e05b1ecf3bdfea4 ""
   "generated/triangle-counts.tex" 1794292254 147 23759bdce04663dfb9f5e2a82c13360f ""
-  "main.aux" 1794326695 11742 5f8cb861d4cc8f41140777f065b3bc39 "pdflatex"
-  "main.out" 1794326695 2399 2b0dc9a60d85588496e7ac6e323fe7b3 "pdflatex"
-  "main.tex" 1794326694 56257 d43e74f543d9dee16898a90fce597c31 ""
-  "main.toc" 1794326695 5467 e56bfab4845a7e3cc888f58852281a96 "pdflatex"
+  "main.aux" 1794369592 11573 94e1fc4394cba77ec62433c4616bd0ff "pdflatex"
+  "main.out" 1794369592 2399 2b0dc9a60d85588496e7ac6e323fe7b3 "pdflatex"
+  "main.tex" 1794369522 56173 fb4251a59779af6f043b73fcd5742b3b ""
+  "main.toc" 1794369592 5346 c0e7eb527ae6d95c70a39e22a3d226b0 "pdflatex"
   (generated)
   "main.aux"
   "main.log"
