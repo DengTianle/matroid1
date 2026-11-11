@@ -682,53 +682,51 @@ $x\in\mathcal S(N)$ describes a matroid extension by
 Proposition~\ref{prop:local}, so its triple bits compress to a
 unique $y$. The two sets of solutions are therefore in bijection.
 
-Every hyperplane coordinate is seen by at least one deletion:
-choose $f\notin H$ and a spanning triple of $H$. That triple avoids
-$f$, so $H\in C_f$. The union of the coordinate sets $C_f$ is
-therefore all of $\HH(N)$.
-
 \subsection{Searching the compressed tables}\label{sec:sat}
 
 Both search methods take the ten compressed deletion tables $A_f$
-and the full table $A$ as input. Each $A_f$ is a Boolean
-\emph{relation} on $C_f$, meaning a table of allowed rows whose
-columns are named by the hyperplanes in $C_f$. The goal is to find
-all full rows that restrict to an allowed row in every $A_f$, then
-exclude the full rows in $A$. The join combines partial rows
-directly, while the SAT method encodes their allowed values as
-clauses on the same variables $y_H$.
+and the full table $A$ as input. For a set of columns
+$C\subseteq\HH(N)$, a row is a function $C\to\{0,1\}$ assigning
+one bit to each column in $C$. A Boolean \emph{relation} on $C$
+is a set of such rows. In particular, $A_f$ is a relation on $C_f$,
+and each of its rows specifies the bits of one quinary extension
+of $N\setminus f$ on the hyperplanes visible in that deletion.
+The search seeks full assignments $y$ whose restrictions to
+each $C_f$ are allowed rows of $A_f$ and whose full row lies
+outside $A$.
 
 \paragraph{Natural join.}
-Take two tables and compare their rows on the columns they share.
-For each pair that agrees on every shared column, merge the two
-rows, keeping one copy of each shared entry. The set of merged
-rows is the \emph{natural join}. The following two tables share
-column $H_2$.
+For relations $R$ on $C$ and $S$ on $D$, their \emph{natural
+join} is the relation on $C\cup D$ given by
 \[
- \begin{array}{cc}
- H_1&H_2\\ \hline
- 0&0\\
- 1&1
- \end{array}
- \qquad
- \begin{array}{cc}
- H_2&H_3\\ \hline
- 0&1\\
- 1&0
- \end{array}
+ R\Join S
+ =
+ \{y\in\{0,1\}^{C\cup D} : y|_C\in R,\ y|_D\in S\}.
 \]
-The rows with $H_2=0$ merge to $(0,0,1)$ and those with $H_2=1$
-merge to $(1,1,0)$, both in column order $(H_1,H_2,H_3)$.
+Equivalently, a row of $R$ and a row of $S$ combine into a
+single assignment precisely when they agree on $C\cap D$.
+Agreement ensures that each shared column receives a single bit.
+Every row of the join arises from such a pair, given by its
+restrictions to $C$ and $D$.
 
-Start with one deletion table and join in each remaining table.
-At every stage a row is an assignment to the columns seen so far
-that satisfies all the deletions already processed. Adding the
-next table preserves this statement in both directions. Every
-merged row satisfies the old tables and the new one. Conversely,
-any assignment satisfying them restricts to an old row and a
-new row that agree on their shared columns, so the join produces it.
-After the last join the columns cover $\HH(N)$. Removing the
-rows in $A$ gives exactly $\widehat{\mathcal S}(N)$.
+Apply this operation to the deletion tables one at a time.
+For a nonempty set $I\subseteq P$ of deletions already included,
+write $C_I=\bigcup_{f\in I}C_f$. The accumulated relation is
+\[
+ J_I=\{y\in\{0,1\}^{C_I}:y|_{C_f}\in A_f
+                                  \text{ for every }f\in I\}.
+\]
+For a single deletion this is its table $A_f$. Joining $J_I$
+with the next deletion table requires both membership in $J_I$
+on the old columns and membership in the new table on its
+columns. Thus the formula holds after each join by induction.
+
+Every $H\in\HH(N)$ is a proper subset of $P$. Choose $f\in
+P\setminus H$ and an independent triple spanning $H$. This
+triple survives deletion of $f$, so $H\in C_f$. Hence
+$C_P=\HH(N)$ and each row of $J_P$ assigns one bit to every
+hyperplane. Removing the rows in $A$ gives
+$J_P\setminus A=\widehat{\mathcal S}(N)$.
 
 The program groups rows by their bits on the shared columns and
 chooses the next table to minimize the size of the intermediate
