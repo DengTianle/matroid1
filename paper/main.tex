@@ -498,6 +498,11 @@ $\RR(N\setminus 4)$. Both entries record the status of the same
 four-set $\{1,2,3,e\}$, so the compatibility check compares entries
 by triple label.
 
+We first collect the labelled representations $\mathcal L(Q)$ and
+use them to generate the rows of $\RR(Q)$. We then compress the
+columns of these tables and search for full rows whose restrictions
+occur in every deletion table.
+
 \subsection{Complete labelled representation sets}\label{sec:normalization}
 
 Two labelled representations of $Q$ are \emph{labelled projectively
@@ -618,11 +623,14 @@ the determinant values for one point. Replace nonzero values by
 1 and zero values by 0, and omit points already used in $V$;
 the remaining columns are exactly the Boolean rows $z(V,v)$.
 
-\subsection{Compressing the coordinates without changing the solutions}
+\subsection{Compressing the table columns}
 
-The 120 triple coordinates give the simplest proof of the recovery
-theorem, but many must agree. We now identify those repetitions to
-obtain the smaller problems actually solved by the program.
+The input to this step is the collection of Boolean tables
+$\RR(N)$ and $\RR(N\setminus f)$ from the preceding subsection.
+Within each table we drop columns for dependent triples and merge
+columns for independent triples spanning the same hyperplane.
+The resulting tables express the compatibility conditions in
+hyperplane coordinates.
 
 Let $M$ be any rank-preserving matroid extension of $N$. If a triple
 $T$ is dependent in $N$, then $r_M(T\cup\{e\})\leq3$, so its bit
@@ -657,70 +665,113 @@ information. Let $A_f\subseteq\{0,1\}^{C_f}$ be this projected
 table, and let $A\subseteq\{0,1\}^{\HH(N)}$ be the analogous
 projection of $\RR(N)$.
 
-The problem actually solved is
+In these coordinates the search for $\mathcal S(N)$ becomes the
+search for
 \[
  \widehat{\mathcal S}(N)=
  \{y\in\{0,1\}^{\HH(N)}:
                   y|_{C_f}\in A_f\text{ for every }f\in P\}
                   \setminus A.
 \]
-Expanding $y_H$ back to every independent triple spanning $H$,
-and inserting zeros on dependent triples, takes each solution to
-one in $\mathcal S(N)$. Conversely,
-Proposition~\ref{prop:local} makes every solution of
-$\mathcal S(N)$ a genuine matroid extension, so the closure
-argument above shows that it has a unique such compression.
-Thus $\widehat{\mathcal S}(N)$ and $\mathcal S(N)$ have exactly the
-same solutions in different coordinates.
+To recover the triple bits $x$, copy $y_H$ to every independent
+triple spanning $H$ and put zeros on dependent triples. This
+reverses the compression of each table, so $y|_{C_f}\in A_f$
+is equivalent to $\pi_f(x)\in\RR(N\setminus f)$, and $y\in A$
+is equivalent to $x\in\RR(N)$. Conversely, every
+$x\in\mathcal S(N)$ describes a matroid extension by
+Proposition~\ref{prop:local}, so its triple bits compress to a
+unique $y$. The two sets of solutions are therefore in bijection.
 
 Every hyperplane coordinate is seen by at least one deletion:
 choose $f\notin H$ and a spanning triple of $H$. That triple avoids
 $f$, so $H\in C_f$. The union of the coordinate sets $C_f$ is
 therefore all of $\HH(N)$.
 
-\subsection{Why the finite join is exhaustive}
+\subsection{Searching the compressed tables}\label{sec:sat}
 
-It remains to impose all the tables simultaneously. For relations
-$U$ and $V$ on coordinate sets $S$ and $T$, their \emph{natural join}
-is the finite relation
+Both search methods take the ten compressed deletion tables $A_f$
+and the full table $A$ as input. Each $A_f$ is a Boolean
+\emph{relation} on $C_f$, meaning a table of allowed rows whose
+columns are named by the hyperplanes in $C_f$. The goal is to find
+all full rows that restrict to an allowed row in every $A_f$, then
+exclude the full rows in $A$. The join combines partial rows
+directly, while the SAT method encodes their allowed values as
+clauses on the same variables $y_H$.
+
+\paragraph{Natural join.}
+Take two tables and compare their rows on the columns they share.
+For each pair that agrees on every shared column, merge the two
+rows, keeping one copy of each shared entry. The set of merged
+rows is the \emph{natural join}. The following two tables share
+column $H_2$.
 \[
- U\Join V=\{u\cup v:u\in U,\ v\in V,
-                            \ u|_{S\cap T}=v|_{S\cap T}\}.
+ \begin{array}{cc}
+ H_1&H_2\\ \hline
+ 0&0\\
+ 1&1
+ \end{array}
+ \qquad
+ \begin{array}{cc}
+ H_2&H_3\\ \hline
+ 0&1\\
+ 1&0
+ \end{array}
 \]
-In words, take every pair of rows that agree on their shared
-coordinates and combine them into a row on $S\cup T$. Grouping
-rows by their overlap values implements exactly this operation.
+The rows with $H_2=0$ merge to $(0,0,1)$ and those with $H_2=1$
+merge to $(1,1,0)$, both in column order $(H_1,H_2,H_3)$.
 
-Start with the single empty assignment and join the ten relations
-$A_f$, one at a time. After processing any collection of deletions,
-the current rows are exactly the assignments on the coordinates
-seen so far that satisfy all the processed relations. This is
-true initially, and the definition of join proves the induction
-step. After all ten joins, every coordinate has been seen, so
-the rows are exactly
+Start with one deletion table and join in each remaining table.
+At every stage a row is an assignment to the columns seen so far
+that satisfies all the deletions already processed. Adding the
+next table preserves this statement in both directions. Every
+merged row satisfies the old tables and the new one. Conversely,
+any assignment satisfying them restricts to an old row and a
+new row that agree on their shared columns, so the join produces it.
+After the last join the columns cover $\HH(N)$. Removing the
+rows in $A$ gives exactly $\widehat{\mathcal S}(N)$.
+
+The program groups rows by their bits on the shared columns and
+chooses the next table to minimize the size of the intermediate
+join. Once every column has appeared, the program can remove rows
+in $A$ immediately. Any remaining join can only filter those
+complete assignments.
+
+\paragraph{SAT enumeration.}
+Use one Boolean variable $y_H$ for each column of the full
+assignment. To encode membership in $A_f$, build a binary
+decision diagram by splitting its rows on successive columns
+in $C_f$. A branch with no allowed rows rejects the assignment.
+A branch that reaches the end with an allowed row accepts it.
+Share repeated subdiagrams to reduce the encoding.
+
+Give each decision node a Boolean value $v$ for whether it
+accepts the assignment. At a node testing $y_H$, let $l$ and $h$
+be the values of the branches for 0 and 1. The condition
+$v\leftrightarrow((\neg y_H\land l)\lor(y_H\land h))$ is encoded by
 \[
- \{y:y|_{C_f}\in A_f\text{ for every }f\in P\}.
+ \begin{gathered}
+ \neg v\lor y_H\lor l,\qquad \neg v\lor\neg y_H\lor h,\\
+ v\lor y_H\lor\neg l,\qquad v\lor\neg y_H\lor\neg h.
+ \end{gathered}
 \]
-Removing the rows in $A$ now gives
-$\widehat{\mathcal S}(N)$ and hence, by the recovery theorem,
-every member of $\mathcal D(N)$.
+Requiring each table's root to be true enforces
+$y|_{C_f}\in A_f$ for every $f$. For each full row $a\in A$,
+add the clause $\bigvee_{H\in\HH(N)}(y_H\ne a_H)$, which
+requires at least one bit to differ from $a$. The assignments
+to the $y_H$ variables that satisfy the resulting formula are
+exactly $\widehat{\mathcal S}(N)$.
 
-The implementation may change the join order and remove rows of
-$A$ as soon as all coordinates have appeared. Neither change
-alters the result: a completed assignment cannot be changed by
-later joins, only accepted or rejected. Resource limits are
-handled separately. An interrupted or bounded calculation is
-recorded as \texttt{UNKNOWN}, and cannot count as an exhaustive
-parent search. Only a finished calculation establishes that
-every solution has been considered. A second method solves the
-same finite relations using SAT; its encoding is described in
-Appendix~\ref{sec:sat}.
+Each time the solver finds an assignment to the $y_H$ variables,
+record it and add a clause of the same form to exclude it from
+later searches. When the solver returns UNSAT, every solution has
+been recorded. A search stopped by a resource limit returns
+\texttt{UNKNOWN} and does not establish exhaustion.
 
-Step 2 is therefore justified: complete representation lists give
-complete tables, and completed joins give exactly
-$\mathcal D(N)$. At this stage every output is nonquinary and all
-its deletions are quinary. The sole remaining minor conditions
-are the contractions.
+The eleven-element classification uses the natural join.
+The SAT cross-checks in Section~\ref{sec:computation} compare
+the solution sets obtained from the same compressed tables.
+Expanding the resulting rows gives $\mathcal S(N)$ and hence the
+extensions in $\mathcal D(N)$, which still require contraction tests.
 
 \section{Step 3: testing contractions and certifying the list}\label{sec:finish}
 
@@ -958,15 +1009,7 @@ counts accompany the exact descriptions in
 Appendix~\ref{sec:catalogue}.
 
 \appendix
-\section{Details of the representation and SAT encodings}\label{sec:encoding}
-
-This appendix gives the arithmetic encoding of the determinant
-conditions used to certify nonrepresentability. The last subsection
-describes the alternative SAT search used to cross-check the finite
-joins. Matrix normalization is established in
-Section~\ref{sec:normalization}.
-
-\subsection{Compiling the determinant conditions to a formula}
+\section{The determinant encoding for nonrepresentability}\label{sec:encoding}
 
 For the formula $\Phi_M$ in Proposition~\ref{prop:certificate},
 choose an ordered basis $B=(b_1,\ldots,b_r)$ and use the normal form of
@@ -1015,34 +1058,6 @@ a DRAT refutation, and the proof-checker's output. The successful
 refutation certifies the supplied formula's unsatisfiability;
 the equivalence with representability is supplied by the
 mathematical encoding above.
-
-\subsection{The alternative SAT enumeration of tables}\label{sec:sat}
-
-The natural-join search in Section~\ref{sec:tables} has an
-alternative implementation as a propositional satisfiability
-problem. It uses the same hyperplane coordinates and finite
-relations $A_f$. A reduced binary decision diagram expresses
-membership in each relation. If a node asks about $y$ and has
-low and high children $l,h$, its variable $v$ is constrained by
-\[
- v\ \Longleftrightarrow\ ((\neg y\land l)\lor(y\land h)).
-\]
-An exact four-clause encoding is
-\[
- \begin{gathered}
- \neg v\lor y\lor l,\qquad \neg v\lor\neg y\lor h,\\
- v\lor y\lor\neg l,\qquad v\lor\neg y\lor\neg h.
- \end{gathered}
-\]
-Requiring each root enforces all table memberships. A blocking
-clause excludes each represented full row in $A$. After an
-assignment to the hyperplane coordinates is found, another
-blocking clause excludes that assignment from subsequent
-enumeration. A final UNSAT answer then establishes exhaustion
-of this parent's solution set. A timeout is recorded as
-\texttt{UNKNOWN}. The SAT/table-join comparisons reported in
-Section~\ref{sec:computation} compare the complete assignments
-obtained by these two enumeration procedures.
 
 \section{Exact catalogue}\label{sec:catalogue}
 
