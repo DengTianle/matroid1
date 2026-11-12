@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1794408941 "/Users/dengtianle/Documents/nus/cs3263/matroid1/presentation.tex" "presentation.pdf" "presentation" 1794408942 0
-  "/Users/dengtianle/Documents/nus/cs3263/matroid1/presentation.tex" 1794408941 4160 68e7b1cbf85d5fe9f997c382acb297fa ""
+["pdflatex"] 1794482868 "/Users/dengtianle/Documents/nus/cs3263/matroid1/presentation.tex" "presentation.pdf" "presentation" 1794482870 0
+  "/Users/dengtianle/Documents/nus/cs3263/matroid1/presentation.tex" 1794482868 10493 43a7f793f1c0c889a5a9f0f964532140 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -29,8 +29,10 @@
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb" 1248133631 24393 3b7eb51a67a0a62aec5849271bdb9c2e ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb" 1248133631 24420 52dbb8e8aa0069a1b987309557f8d303 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb" 1248133631 25150 e0d09798d232ab9d00c5c0a8df6cc22d ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb" 1248133631 25168 33771b85f45c82138dd7745db7092d1c ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb" 1248133631 32716 08e384dc442464e7285e891af9f45947 ""
+  "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1248133631 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
   "/usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1461363279 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2023/texmf-dist/tex/generic/atbegshi/atbegshi.sty" 1575674566 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
@@ -200,10 +202,10 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1696416047 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1696416038 7883456 d69f4a99975d1719f6c1486499539869 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "presentation.aux" 1794408942 2114 a4a09d176936fbbefbc3e2366b47c2bc "pdflatex"
-  "presentation.nav" 1794408942 1109 07396102f9d82bf25877ba7d82798efb "pdflatex"
-  "presentation.out" 1794408941 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "presentation.tex" 1794408941 4160 68e7b1cbf85d5fe9f997c382acb297fa ""
+  "presentation.aux" 1794482869 3146 c98cb4ae3e7e992d9a690259d9ec5524 "pdflatex"
+  "presentation.nav" 1794482869 1853 3d3af853e0752fc75bf550a83110b9cc "pdflatex"
+  "presentation.out" 1794482869 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "presentation.tex" 1794482868 10493 43a7f793f1c0c889a5a9f0f964532140 ""
   (generated)
   "presentation.aux"
   "presentation.log"
