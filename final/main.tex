@@ -84,8 +84,9 @@ Deletion \(M\setminus a\) keeps the independent sets avoiding \(a\). For a repre
 Enumerate, up to matroid isomorphism, all matroids \(M\) with \(|E(M)|=11\) and \(r(M)=4\) such that \(M\) is nonquinary and both \(M\setminus a\) and \(M/a\) are quinary for every \(a\in E(M)\). The output is a list of exact basis families, together with evidence of excluded-minor status, pairwise distinctness, and completeness of the list.
 
 \section{Method}
+\label{sec:method}
 
-We view each target matroid \(M\) as a single-element extension of a ten-element quinary \emph{parent} \(N=M\setminus e\). The exhaustive search has three stages:
+We view each target matroid \(M\) as a single-element extension of a ten-element quinary \emph{parent} \(N=M\setminus e\). Following the classification paper \cite{classification-paper}, we use three stages.
 \begin{enumerate}
 \item Generate every possible parent up to matroid isomorphism.
 \item For each parent, enumerate all nonquinary extensions whose single-element deletions are quinary.
@@ -95,41 +96,92 @@ The second stage is a finite constraint satisfaction problem: each deletion supp
 
 \subsection{Step 1: generating deletion parents}
 
-Excluded minors for field representability of this size are 3-connected, using closure of representability under direct sums and 2-sums \cite{oxley}. Hence every deletion parent is connected, simple, quinary, and of rank four. Here connected means that the matroid cannot be split into a direct sum on two nonempty ground sets. In particular, a connected ten-element parent has no coloop (an element belonging to every basis), so deleting any further element still leaves rank four.
+\begin{lemma}[Possible deletion parents]
+\label{lem:method-parents}
+If \(M\) is a rank-four, eleven-element excluded minor for quinary representability, then for every \(e\in E(M)\), the deletion \(N=M\setminus e\) is a connected simple rank-four quinary matroid on ten elements.
+\end{lemma}
+\begin{proof}
+An excluded minor for representability over a field on at least four elements is 3-connected. A disconnected matroid decomposes as a direct sum, and a connected matroid with a 2-separation decomposes as a 2-sum. The summands are isomorphic to proper minors and hence are quinary. Direct sums preserve representability by taking block diagonal matrices. For a 2-sum, choose representations in which the common element is a unit vector, identify its one-dimensional span in the two vector spaces, and delete its column. Closure under these sums would make \(M\) quinary, contradicting the excluded-minor condition \cite{oxley}.
 
-A simple rank-four representation uses distinct points of \(\mathrm{PG}(3,5)\), the \((5^4-1)/(5-1)=156\) one-dimensional subspaces of \(\F^4\). We choose one vector per point by scaling its first nonzero entry to 1. Any basis can be reduced to the identity matrix \(I_4\). Starting from \(I_4\), we therefore append each unused projective point and, at each size, retain one matrix per \emph{field-isomorphism} class. Field isomorphism allows invertible row operations, nonzero column scalings, and column permutations. These transformations carry possible appended points to possible appended points, so discarding equivalent matrices preserves every extension class.
+Since \(M\) is 3-connected, it has no loops, parallel pairs, or coloops. Therefore \(N\) is simple and has rank four, and it is quinary by minor-minimality. If \(N\) were a direct sum on nonempty sets \(A,B\), name them so that \(|A|\geq 2\). Rank is unchanged by deletion on subsets of \(N\), so \(r_M(A)+r_M(B)=r(N)=r(M)\). Adding \(e\) increases the rank of \(B\) by at most one, giving
+\[
+ r_M(A)+r_M(B\cup\{e\})-r(M)\leq 1.
+\]
+Both sides of the partition \((A,B\cup\{e\})\) have at least two elements. This contradicts 3-connectivity of \(M\).
+\end{proof}
 
-At ten columns, we convert the matrices to basis families, deduplicate by matroid isomorphism, and keep the connected parents. The matrix catalogue is retained separately: a single abstract matroid may have several field-inequivalent representations with different possible extensions. Keeping just one matrix per matroid would therefore risk missing candidates.
+We search all connected simple rank-four quinary parents. Such a parent has no coloop, since a coloop would give a one-element direct summand. In particular, every further deletion of a parent still has rank four.
+
+\subsubsection{Completeness of represented generation}
+
+A simple rank-\(r\) representation uses distinct points of \(\mathrm{PG}(r-1,5)\), the \((5^r-1)/4\) one-dimensional subspaces of \(\F^r\). We choose one vector per point by scaling its first nonzero entry to 1. We start at \(I_r\), append every unused projective point to each retained matrix, and retain one matrix per \emph{field-isomorphism} class at each size. Field isomorphism allows invertible row operations, nonzero column scalings, and column permutations. SageMath tests this equivalence.
+
+\begin{proposition}[Coverage at each size]
+\label{prop:method-generation}
+At each generated size \(k\geq r\), the procedure retains a representative of every field-isomorphism class of simple rank-\(r\) quinary representations on \(k\) elements.
+\end{proposition}
+\begin{proof}
+Take any target representation \(W\), move a basis to the first \(r\) columns, and reduce it to \(I_r\). Let \(W_k\) be the first \(k\) columns of this matrix. The seed covers \(W_r\). If a retained matrix \(V_k\) is field-isomorphic to \(W_k\), write \(W_{k+1}=[W_k\mid w]\) and let \(G\) be the invertible row transformation used in that equivalence. Extending the old column operations to fix the new column shows that \([V_k\mid Gw]\) is field-isomorphic to \(W_{k+1}\). The direction of \(Gw\) is unused in \(V_k\), since otherwise \(w\) would be parallel to an old column of \(W_k\). The procedure therefore tries this point and retains its class. Induction reaches \(W\).
+\end{proof}
+
+For rank four, there are 156 projective points. At each size we can convert the matrices to basis families by testing all four-column determinants and deduplicate by exact matroid isomorphism. The abstract catalogue stores one bit per four-subset in lexicographic order, so a ten-element parent uses \(\binom{10}{4}=210\) bits. The represented catalogue is retained separately because a single abstract matroid can have several field-inequivalent representations with different possible extensions. We keep one labelled representative of each connected abstract class at size ten. We also retain the size-nine represented catalogue for the deletion tables and generate the simple rank-three catalogue through size ten for contraction tests.
 
 \subsection{Step 2: recovering extensions from compatible deletions}
 
-Fix parent labels \(P=\{0,\ldots,9\}\) and the new label \(e=10\). For each parent \(N\), let \(\mathcal{D}(N)\) be the simple rank-four matroids \(M\) on \(P\cup\{e\}\) such that \(M\setminus e=N\), \(M\) is nonquinary, and every single-element deletion of \(M\) is quinary. We keep these labels fixed throughout this stage.
+Fix a parent \(N\) on \(P=\{0,\ldots,9\}\) and give the new element the label \(e=10\). Let \(\mathcal{D}(N)\) be the set of simple rank-four matroids \(M\) on \(P\cup\{e\}\) such that \(M\setminus e=N\), \(M\) is nonquinary, and every single-element deletion of \(M\) is quinary. We call these the \emph{deletion-minimal nonquinary extensions} of \(N\).
 
-The bases avoiding \(e\) are already fixed by \(N\). For each triple \(T\in\binom{P}{3}\), introduce a Boolean variable
+The bases avoiding \(e\) are fixed by \(N\). The 120 Boolean variables \(x_T\), indexed by triples \(T\in\binom{P}{3}\), specify the remaining basis decisions. The proposed basis family is
 \[
- x_T=1\quad\Longleftrightarrow\quad T\cup\{e\}\in\B(M).
+ \B_N(x)=\B(N)\cup\bigl\{T\cup\{e\}:T\in\textstyle\binom{P}{3},\ x_T=1\bigr\}.
 \]
-For \(Q=N\) or \(N\setminus f\), let \(R(Q)\) contain the bit rows arising from all simple rank-four quinary extensions of \(Q\) by \(e\). Let \(\pi_f(x)\) retain the coordinates for triples avoiding \(f\). Then \(\pi_f(x)\in R(N\setminus f)\) ensures a quinary deletion at \(f\), while \(x\in R(N)\) would make the full extension quinary. Thus the desired rows are
+For \(Q=N\) or \(Q=N\setminus f\), let \(R(Q)\) contain the bit rows arising from all simple rank-four quinary extensions of \(Q\) by \(e\). Let \(\pi_f(x)\) retain the coordinates for triples avoiding \(f\). For instance, deletions of 3 and 4 must agree on \(x_{\{0,1,2\}}\), the status of \(\{0,1,2,10\}\). This bit is visible only in deletions outside that four-set. Requiring the proposed deletions to occur in their tables and excluding the full-parent rows gives
 \[
- S(N)=\bigl\{x:\pi_f(x)\in R(N\setminus f)\text{ for every }f\in P\bigr\}
+ S(N)=\bigl\{x\in\{0,1\}^{\binom{P}{3}}:
+ \pi_f(x)\in R(N\setminus f)\text{ for every }f\in P\bigr\}
        \setminus R(N).
 \]
 
-\paragraph{Sufficiency of deletion compatibility.}
-Every member of \(\mathcal{D}(N)\) yields a row in \(S(N)\). Conversely, a compatible row defines proposed bases whose restrictions to all deletions are bases of simple rank-four matroids. Take any two proposed bases \(U,V\). They use at most eight of the eleven elements, so some element \(a\) lies outside \(U\cup V\). For every \(u\in U\setminus V\), basis exchange in the deletion at \(a\) supplies \(v\in V\setminus U\) such that \((U\setminus\{u\})\cup\{v\}\) is a proposed basis. The full family therefore satisfies basis exchange and defines a matroid. Every pair of elements also survives in a simple deletion, ruling out loops and parallel pairs. Excluding \(R(N)\) makes the matroid nonquinary. Hence \(S(N)\) corresponds bijectively to \(\mathcal{D}(N)\); contraction tests remain for Step 3.
+\begin{lemma}[Deletion compatibility]
+\label{lem:method-compatibility}
+Let \(|E|>2r\) and let \(\mathcal{B}\) be a nonempty family of \(r\)-subsets of \(E\). If for every \(a\in E\) the members avoiding \(a\) form the bases of a rank-\(r\) matroid on \(E\setminus\{a\}\), then \(\mathcal{B}\) is the basis family of a rank-\(r\) matroid on \(E\).
+\end{lemma}
+\begin{proof}
+Take \(U,V\in\mathcal{B}\) and \(u\in U\setminus V\). Since \(|U\cup V|\leq 2r<|E|\), choose \(a\notin U\cup V\). Basis exchange in the specified deletion at \(a\) gives \(v\in V\setminus U\) such that \((U\setminus\{u\})\cup\{v\}\) belongs to that deletion's basis family, and hence to \(\mathcal{B}\). This proves basis exchange for the nonempty family \(\mathcal{B}\).
+\end{proof}
+
+\begin{proposition}[Exact recovery]
+\label{prop:method-recovery}
+The map sending \(x\in S(N)\) to the matroid with bases \(\B_N(x)\) is a bijection onto \(\mathcal{D}(N)\).
+\end{proposition}
+\begin{proof}
+The family \(\B_N(x)\) contains \(\B(N)\). Its restriction avoiding \(e\) gives the bases of \(N\), and its restriction avoiding \(f\in P\) gives the bases of a simple rank-four quinary extension of \(N\setminus f\) by the condition on \(\pi_f(x)\). Since \(11>2\cdot 4\), Lemma~\ref{lem:method-compatibility} makes \(\B_N(x)\) a matroid basis family. The deletions have rank four and are simple, so every pair of elements is independent in a deletion containing it, and hence in the recovered matroid. The matroid is nonquinary because its row is outside \(R(N)\).
+
+Conversely, if \(M\in\mathcal{D}(N)\), then each \(M\setminus f\) for \(f\in P\) is simple and quinary. It has rank four because it contains \(N\setminus f\), which has rank four. Its extra basis decisions therefore lie in \(R(N\setminus f)\). Since \(M\) is nonquinary, its full row lies outside \(R(N)\). This row determines \(M\) uniquely because \(\B(N)\) and the bits \(x_T\) together specify all bases.
+\end{proof}
 
 \subsubsection{Labelled representations}
 
-To build \(R(Q)\) exhaustively, we first construct \(L(Q)\), one matrix per \emph{labelled projective equivalence} class representing \(Q\). This equivalence allows row operations and nonzero column scalings with the element labels fixed. For each field-isomorphism class representing a matroid isomorphic to \(Q\), we align one matrix with \(Q\) using a matroid isomorphism. All other alignments are obtained by automorphisms of \(Q\).
+To build \(R(Q)\) exhaustively, we first construct \(L(Q)\), one matrix per \emph{labelled projective equivalence} class representing \(Q\). This equivalence allows invertible row operations and nonzero column scalings with the element labels fixed. For each field-isomorphism class representing a matroid isomorphic to \(Q\), we align one catalogue matrix with \(Q\) using a matroid isomorphism \(\alpha\).
 
-We compute these automorphisms from a coloured bipartite incidence graph: one colour marks element vertices, the other marks basis vertices, and an edge records membership of an element in a basis. The colour-preserving graph automorphisms induce exactly the matroid automorphisms. SageMath supplies group generators; repeatedly applying them and retaining new normalized matrices exhausts all alignments.
+To see why the aligned matrices suffice after relabelling, take any labelled representation of \(Q\). Proposition~\ref{prop:method-generation} provides a field-isomorphic catalogue matrix, and the column bijection \(\beta\) in that field isomorphism preserves the bases. Both \(\alpha\) and \(\beta\) are matroid isomorphisms onto \(Q\), so \(\beta\circ\alpha^{-1}\) is an automorphism of \(Q\). Applying this automorphism to the aligned matrix reaches the target class up to row operations and column scalings.
 
-For normalization, fix an ordered basis \(B=(b_1,\ldots,b_4)\), reduce its columns to \(I_4\), and write the remaining block as \(Z\). Its nonzero positions are fixed by the bases:
+We compute the automorphisms from a bipartite incidence graph, with one colour for element vertices and another for basis vertices. An edge records membership of an element in a basis. A colour-preserving automorphism permutes the elements and preserves the basis family, and every matroid automorphism extends to the basis vertices. SageMath supplies group generators. Repeatedly applying them to the aligned matrices and retaining each new normalized matrix exhausts the orbits. Relabelling respects projective equivalence, so the normalized matrix suffices for continuing the orbit calculation.
+
+For normalization, fix an ordered basis \(B=(b_1,\ldots,b_r)\), reduce its columns to \(I_r\), and write the remaining block as \(Z\). The determinant for a single basis exchange gives
 \[
  Z_{ij}\ne0\quad\Longleftrightarrow\quad
- (B\setminus\{b_i\})\cup\{j\}\in\B(Q).
+ (B\setminus\{b_i\})\cup\{j\}\in\B(Q),\qquad j\in E(Q)\setminus B.
 \]
-Equivalent reduced blocks differ only by row and column scalings. Form the bipartite graph of rows and columns of \(Z\), with edges at nonzero entries, and choose a fixed spanning forest. Set a root multiplier to 1 in each component and choose the other multipliers so every forest entry becomes 1. Any remaining scalings preserving those entries cancel on every edge in the component. The resulting matrix is therefore unique within its labelled projective equivalence class.
+
+\begin{lemma}[Normalization by a support forest]
+\label{lem:method-normalization}
+With the ordered basis fixed, scaling all entries on a fixed spanning forest of the support graph to 1 gives a unique matrix in each labelled projective equivalence class.
+\end{lemma}
+\begin{proof}
+In the support graph, row vertex \(i\) is adjacent to column vertex \(j\) when \(Z_{ij}\ne 0\). Choose a root multiplier of 1 in each tree. Traversing the forest, each edge determines the multiplier at its unvisited endpoint that makes the entry 1. Inverse scalings on the basis columns preserve \(I_r\).
+
+For uniqueness, a row transformation between two equivalent matrices in identity form must preserve each basis-column direction and is therefore diagonal. If both matrices have forest entries 1, the product of the row and column multipliers on each forest edge must equal 1. It follows along paths that all row multipliers in each tree are equal and all column multipliers are their inverses. Every support edge has both endpoints in the same tree, so every nonzero entry is unchanged. Isolated vertices affect no entry of \(Z\).
+\end{proof}
 
 \subsubsection{Extension tables and hyperplane compression}
 
@@ -138,31 +190,40 @@ For every \(V\in L(Q)\), append each unused point \(v\in\mathrm{PG}(3,5)\) as co
  z(V,v)_T=\mathbf{1}\{\det[V_T\mid v]\ne0\},
  \qquad T\in\binom{E(Q)}{3}.
 \]
-The distinct rows are exactly \(R(Q)\): every simple quinary extension restricts to a labelled representation covered by \(L(Q)\). To batch these tests, expand each determinant along \(v\) as \(c_T^{\mathsf T}v\). Stacking the cofactor rows in \(C\) and all 156 projective point columns in \(D\), the product \(CD\) over \(\F\) evaluates every triple--point test for that matrix at once.
+Every resulting row lies in \(R(Q)\). Conversely, take a row in \(R(Q)\) and a representation \([W\mid w]\) of its extension, with \(w\) labelled \(e\). Since \(W\) represents \(Q\), some \(V\in L(Q)\) is equivalent to \(W\) with labels fixed. Apply the row transformation to all columns and the old-column scalings to \(W\). Normalize the transformed new column \(v\) by scaling it. The direction of \(v\) is unused because the extension is simple, so \([V\mid v]\) is tried and yields the original row. Thus the distinct rows are exactly \(R(Q)\).
 
-Dependent triples always have bit 0. Independent triples with the same closure \(H\) in \(N\) share a bit \(y_H\): in any extension, such a triple spans \(e\) exactly when \(H\) does. Thus \(y_H=1\) means that adding \(e\) to a spanning triple of \(H\) gives a basis. Let \(\mathcal{H}(N)\) denote the hyperplanes of \(N\). The coordinates visible after deleting \(f\) are
+To batch these tests, expand each determinant along \(v\) as \(c_T^{\mathsf T}v\). Stacking the cofactor rows in \(C\) and all 156 projective point columns in \(D\), the product \(CD\) over \(\F\) evaluates every triple--point test for that matrix at once. We omit used points and convert nonzero entries to 1.
+
+In any rank-four extension \(M\) of \(N\), a dependent triple \(T\) has bit 0 because \(r_M(T\cup\{e\})\leq 3\). If \(T\) is independent, its closure \(H=\cl_N(T)\) is a hyperplane. Since \(N\) is a restriction of \(M\), we have \(T\subseteq H\subseteq\cl_M(T)\), so \(\cl_M(H)=\cl_M(T)\). Thus \(T\cup\{e\}\) is a basis exactly when \(e\notin\cl_M(H)\). All triples spanning \(H\) share this decision, which we denote by \(y_H\).
+
+Let \(\mathcal{H}(N)\) denote the hyperplanes of \(N\). The coordinates visible after deleting \(f\) are
 \[
  C_f=\left\{\operatorname{cl}_N(T):
  T\in\binom{P\setminus\{f\}}{3},\ r_N(T)=3\right\}.
 \]
-Compress \(R(N\setminus f)\) to a table \(A_f\) on \(C_f\), and \(R(N)\) to a table \(A\) on \(\mathcal{H}(N)\). The same solution set in hyperplane coordinates is
+For each surviving independent triple, \(\cl_{N\setminus f}(T)=\cl_N(T)\setminus\{f\}\). Thus triples grouped by a coordinate in \(C_f\) share a closure in \(N\setminus f\) and have equal bits in every row of \(R(N\setminus f)\). Dependent triples stay dependent under deletion. We therefore compress \(R(N\setminus f)\) to a table \(A_f\) on \(C_f\) and \(R(N)\) to a table \(A\) on \(\mathcal{H}(N)\). Define
 \[
  \widehat S(N)=
  \bigl\{y\in\{0,1\}^{\mathcal{H}(N)}:
  y|_{C_f}\in A_f\text{ for every }f\in P\bigr\}\setminus A.
 \]
+Expanding a row \(y\) copies \(y_H\) to every independent triple spanning \(H\) and puts zero on dependent triples. This reverses the compression in each table. Hence \(y|_{C_f}\in A_f\) exactly when the expanded row satisfies \(\pi_f(x)\in R(N\setminus f)\), and \(y\in A\) exactly when \(x\in R(N)\). Conversely, each \(x\in S(N)\) gives a matroid by Proposition~\ref{prop:method-recovery}, so its bits are constant on each hyperplane group and compress to a unique \(y\). This gives a bijection between \(\widehat S(N)\) and \(S(N)\).
 
 \subsubsection{Enumeration by natural joins}
 
-A natural join combines two table rows exactly when they agree on every shared coordinate. Joining the deletion tables successively therefore enforces all deletion constraints. Every hyperplane appears in at least one table: deleting any \(f\notin H\) leaves a spanning triple of \(H\) intact. The joined rows consequently assign every variable, and removing the full-parent rows gives
+A natural join combines two table rows exactly when they agree on every shared coordinate. For a nonempty set \(I\subseteq P\) of deletions already joined, let \(C_I=\bigcup_{f\in I}C_f\). The accumulated relation is
+\[
+ J_I=\{y\in\{0,1\}^{C_I}:y|_{C_f}\in A_f\text{ for all }f\in I\}.
+\]
+For a single deletion this is its table. Joining \(J_I\) with the next table enforces the previous conditions on \(C_I\) and the new condition on that table's columns, proving the formula inductively. Every hyperplane \(H\) appears in at least one table because deleting an \(f\notin H\) leaves a spanning triple of \(H\) intact. The joined rows therefore assign every variable, and removing the full-parent rows gives
 \[
  \widehat S(N)=(A_0\bowtie A_1\bowtie\cdots\bowtie A_9)\setminus A.
 \]
-The implementation chooses the next table to minimize the size of the intermediate join. The exhaustive eleven-element search used this method for every connected parent.
+The implementation groups rows by their bits on the shared columns and chooses the next table by the exact size of the resulting join. Once all columns have appeared, rows in \(A\) can be removed immediately because further joins only filter full assignments. Every connected parent in the eleven-element search was exhausted by this method.
 
 \subsubsection{SAT encoding and enumeration}
 
-The same tables admit a propositional SAT encoding with one Boolean variable \(y_H\) per hyperplane. We encode each allowed table \(A_f\) as a binary decision diagram (BDD), whose internal nodes test variables and whose terminal values indicate acceptance or rejection. For example, the table \(\{00,01,11\}\) on \((y_1,y_2)\) accepts immediately when \(y_1=0\); when \(y_1=1\), it accepts exactly when \(y_2=1\). This illustrates how a BDD shares decisions instead of listing a separate formula for every row.
+The same tables admit a propositional SAT encoding with one Boolean variable \(y_H\) per hyperplane. To construct a binary decision diagram (BDD) for \(A_f\), split its rows on successive columns in a fixed order. An empty branch rejects, and a branch that reaches the end with an allowed row accepts. Identical subdiagrams can be shared. For example, the table \(\{00,01,11\}\) on \((y_1,y_2)\) accepts immediately when \(y_1=0\). When \(y_1=1\), it accepts exactly when \(y_2=1\).
 
 At a node testing \(y_H\), let \(v\) be the Boolean value of the subdiagram, and let \(\ell,h\) be the values of its 0- and 1-branches. The node equivalence and its four clauses in conjunctive normal form are
 \[
@@ -176,17 +237,42 @@ At a node testing \(y_H\), let \(v\) be the Boolean value of the subdiagram, and
 \end{aligned}
 \end{gathered}
 \]
-We fix the accepting terminal to true and the rejecting terminal to false, and require the root of each \(A_f\) to be true. The conjunction of these encodings enforces every deletion constraint. To rule out a quinary full extension, for each row \(a\in A\) we add the blocking clause
+For a fixed \(y_H\), the clauses force \(v\) to equal the value of the selected child. Starting at the terminals and working up, each node is therefore forced to its evaluation on the hyperplane row. Setting each root to true enforces every deletion constraint. To rule out a quinary full extension, for each row \(a\in A\) we add the blocking clause
 \[
  \bigvee_{H\in\mathcal{H}(N)}(y_H\ne a_H).
 \]
-Here the literal is \(y_H\) when \(a_H=0\), and \(\neg y_H\) when \(a_H=1\). After each satisfying assignment, we record its hyperplane row and add the same kind of clause to block that row. Blocking only the \(y_H\) variables prevents multiple auxiliary-node assignments from duplicating an extension. Enumeration is complete when the solver returns \texttt{UNSAT}; a timeout leaves the search unresolved. SAT enumeration cross-checked the joins at nine and ten elements, including all 5,991 labelled ten-element candidates.
+Here the literal is \(y_H\) when \(a_H=0\), and \(\neg y_H\) when \(a_H=1\). The satisfying assignments projected onto the \(y_H\) variables are exactly \(\widehat S(N)\). We record each resulting row and add the same kind of clause on the \(y_H\) variables to block it. Enumeration is complete when the solver returns \texttt{UNSAT}. A resource limit returns \texttt{UNKNOWN} and leaves the search unresolved.
 
 \subsection{Step 3: testing contractions and removing duplicates}
 
-For every candidate \(M\in\mathcal{D}(N)\) and every \(a\in E(M)\), we test \(M/a\) for quinary representability. Each contraction has rank three because \(M\) is simple of rank four. We simplify it by deleting loops and retaining one element per parallel class, then compare the simplification with the complete catalogue of simple rank-three quinary matroids of the relevant sizes, generated by the same projective-point procedure as in Step 1. A representation of the simplification extends to the full contraction by restoring zero columns and parallel copies. Thus the test is exact.
+For every candidate \(M\in\mathcal{D}(N)\) and every \(a\in E(M)\), the contraction \(M/a\) has rank three because \(a\) is a nonloop. We test its simplification, obtained by deleting loops and retaining one element per parallel class. If \(M/a\) is quinary, its simplification is quinary by closure under deletion. Conversely, a representation of the simplification extends to \(M/a\) by restoring zero columns for loops and scalar copies for parallel elements. Hence it suffices to test the simplification. It has at most ten elements. At size three it is the free rank-three matroid represented by \(I_3\), and at sizes four through ten we compare it by exact isomorphism with the complete simple rank-three catalogue from Step 1.
 
-Candidates passing every contraction test are excluded minors, since Step 2 already establishes nonrepresentability and representability of all deletions. SageMath then removes duplicates up to matroid isomorphism, including candidates arising from different parents. Completeness follows from the three stages: every target has a parent covered by Step 1, its labelled extension appears in Step 2, and it passes Step 3.
+Candidates passing every contraction test are excluded minors, since Step 2 establishes nonrepresentability and representability of all deletions. SageMath then removes duplicates up to matroid isomorphism, including candidates arising from different parents. An independent check of distinctness compares canonical forms of coloured incidence graphs. For each matroid, the subset vertices represent either all bases or all nonbases of size four, using bases in a tie. Any matroid isomorphism preserves this choice and induces a colour-preserving graph isomorphism. Conversely, the graph determines the chosen subset family up to a relabelling of the elements. A flag records which family was encoded, so the graph and flag together determine the bases.
+
+\subsubsection{Independent certificates}
+
+For each final representative, the positive witnesses are matrices for its eleven deletions and eleven contractions, with columns in the order of the remaining labels. Modular Gaussian elimination checks the basis status of every subset of the appropriate size against the required minor. SageMath performs a second matrix check.
+
+For nonrepresentability, let \(\Phi_M\) be the SAT formula for a quinary representation of a final matroid \(M\). Fix an ordered basis \(B=(b_1,\ldots,b_r)\) and reduce its columns to \(I_r\), writing the remaining block as \(Z\). As in the labelled normalization, a position \(Z_{ij}\) is nonzero exactly when \((B\setminus\{b_i\})\cup\{j\}\) is a basis. Lemma~\ref{lem:method-normalization} allows the forest entries to be fixed to 1, leaving the other nonzero entries with domain \(\{1,2,3,4\}\).
+
+For each \(r\)-subset \(S\subseteq E(M)\), let \(I(S)=\{i:b_i\notin S\}\) and \(J(S)=S\setminus B\). Expanding along the identity columns reduces the determinant on \(S\), up to sign, to the square minor on the missing rows and extra columns. Thus we impose
+\[
+ \det Z[I(S),J(S)]\ne 0
+ \quad\Longleftrightarrow\quad S\in\B(M),
+\]
+with the empty determinant equal to 1. The encoder computes these determinants by cached Laplace expansion over \(\F\).
+
+Each field expression \(u\) with domain \(D_u\) has Boolean indicators \(p_{u,a}\) for \(a\in D_u\), with exactly one true. For an addition \(w=u+v\), the formula includes
+\[
+ \neg p_{u,a}\ \lor\ \neg p_{v,b}\ \lor\ p_{w,a+b}
+\]
+for every allowed pair \(a,b\), with the sum taken modulo five. Multiplication uses the analogous clause with \(ab\). Since the output has exactly one value, the selected inputs force the correct output. Constants can be substituted directly. Induction over the arithmetic operations therefore forces the determinant values, and the formula constrains their indicators according to the specified basis status.
+
+Any representation of \(M\) can be normalized as above and gives a satisfying assignment by evaluating the field expressions. Conversely, a satisfying assignment gives a full-rank matrix in identity form whose nonsingular \(r\)-column submatrices are exactly the bases of \(M\). Hence \(\Phi_M\) is satisfiable exactly when \(M\) is quinary. The saved DRAT refutation for each representative is checked against its saved formula by DRAT-trim \cite{drat}. Together with the 22 minor matrices, this certifies excluded-minor status directly from the representative's basis family.
+
+\subsection{Search coverage and classification}
+
+At size ten, generation retained 64,508 field-isomorphism classes, which gave 58,756 abstract classes. Aligning matrices and closing their automorphism orbits gave 71,547 labelled projective classes across that full catalogue. The merge checked that the four search ranges had matching input and source fingerprints and covered the catalogue without gaps or overlaps. Of the 58,756 parents, 84 were disconnected and every remaining problem finished by natural join with no unresolved cases. The 659 pairs in Table~\ref{tab:enumeration} count labelled extensions together with their parents, before the contraction filter \cite{classification-paper,verification}.
 
 \begin{table}[!htbp]
 \centering
@@ -204,8 +290,18 @@ Excluded-minor classes after contractions and deduplication & 35 \\
 \end{tabular}
 \end{table}
 
-\paragraph{Independent certificates.}
-For each of the 35 final representatives, a separate determinant-based SAT encoding requires a normalized matrix to reproduce every basis and nonbasis. Boolean indicators encode field values and clauses enforce arithmetic modulo five. DRAT-trim checks an unsatisfiability refutation, certifying that no quinary representation exists \cite{drat}. SageMath and modular Gaussian elimination verify the \(35\times22=770\) matrices representing the immediate minors, while canonical incidence graphs independently confirm pairwise nonisomorphism. These certificates establish the status and distinctness of the outputs; completeness additionally relies on the exhaustive search argument. As a calibration, the implementation also reproduced Brettell's rank-four catalogues for sizes seven through ten by exact isomorphism \cite{brettell}.
+\begin{theorem}
+There are exactly 35 isomorphism classes of rank-four, eleven-element excluded minors for quinary representability.
+\end{theorem}
+\begin{proof}
+For the upper bound, take any excluded minor of the required rank and size. By Lemma~\ref{lem:method-parents} and Proposition~\ref{prop:method-generation}, one of its deletions is isomorphic to a searched parent \(N\). Relabel the deletion as \(N\) and the removed element as \(e\). The resulting matroid belongs to \(\mathcal D(N)\), so Proposition~\ref{prop:method-recovery}, the complete extension tables, and the exhaustive joins ensure it is recovered. All its contractions are quinary, so its isomorphism class survives Step 3.
+
+For the lower bound, the 35 checked DRAT refutations establish nonquinary status, and the \(35\times 22=770\) checked matrices establish representability of all immediate minors. The independent incidence-graph check confirms that these representatives are pairwise nonisomorphic \cite{verification}.
+\end{proof}
+
+As calibration, the implementation reproduced Brettell's rank-four catalogues by exact matroid isomorphism, with 5, 92, 219, and 130 classes at sizes seven through ten, respectively \cite{brettell,verification}. At sizes seven and eight, the condition \(|E|>2r\) fails, so the searches impose basis exchange explicitly. SAT and natural join also agreed on the solutions from the shared tables for every connected parent at target size nine and on all 5,991 labelled deletion-minimal candidates at target size ten \cite{classification-paper,verification}.
+
+The repository's \path{results/r4-n11/} directory contains the merged search record (\path{summary.json}), the exact basis families (\path{excluded.jsonl}), and the 770 witness matrices (\path{minors/minor-witnesses.jsonl}). Each case under \path{nonrepresentation/} includes the DIMACS formula, DRAT refutation, and checker output. The generation, search, and replay commands are documented in \path{docs/REPRODUCING.md} \cite{repo}.
 
 
 \section{Experiments and results}
@@ -782,6 +878,10 @@ Advances in Applied Mathematics \textbf{166} (2025), 102864.
 Deng Tianle,
 \textit{matroid1: computational classification and verification artifacts}.
 \url{https://github.com/DengTianle/matroid1}.
+
+\bibitem{classification-paper}
+\textit{The rank-four, eleven-element excluded minors for representability over \(\mathbb{F}_5\)}.
+Project paper, revised exposition, 5 November 2026, \path{matroid1/paper/main.pdf}.
 
 \bibitem{method}
 \textit{Deletion compatibility and exhaustive extension search},
