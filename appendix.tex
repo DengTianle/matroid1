@@ -1,0 +1,363 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\setlist[enumerate]{topsep=4pt,itemsep=3pt,parsep=0pt}
+
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\C}{\mathcal{C}}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator{\si}{si}
+
+\newtheoremstyle{appendix-result}{6pt}{6pt}{\itshape}{}{\bfseries}{.}{.5em}{}
+\newtheoremstyle{appendix-definition}{6pt}{6pt}{}{}{\bfseries}{.}{.5em}{}
+\theoremstyle{appendix-result}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{appendix-definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\begin{document}
+\begin{center}
+    \Large\bfseries Appendix: Matroid Theory Background
+\end{center}
+
+This appendix collects the matroid theory used in the CS3263 report and its
+classification paper. All matroids are finite, and \(\F\) denotes an arbitrary
+field. See Oxley for a fuller treatment and proofs of the standard results
+\cite{oxley-survey,oxley}.
+
+\section{Basic definitions}
+\begin{definition}
+    A matroid $M$ is an ordered pair $(E, \I)$ consisting of a finite set $E$ and a collection $\I$ of subsets of $E$ having the following three properties:
+    \begin{enumerate}
+        \item $\emptyset \in \I$.
+        \item If $I \in \I$ and $I' \subseteq I$, then $I' \in \I$.
+        \item If $I_1$ and $I_2$ are in $\I$ and $|I_1| < |I_2|$, then there exists $e \in I_2 - I_1$ such that $I_1 \cup \{e\} \in \I$.
+    \end{enumerate}
+\end{definition}
+The members of $\I$ are the independent sets of $M$, and $E$ is its ground set. A subset of $E$ outside $\I$ is dependent. We often write $\I(M)$ for $\I$ and $E(M)$ for $E$.
+\begin{definition}
+    Let $E$ be the set of column labels of an $m \times n$ matrix $A$ over a field $\F$, and let $\I$ consist of the subsets $X\subseteq E$ for which the columns indexed by $X$ are linearly independent. Then $(E, \I)$ is the vector matroid of $A$, denoted by $M[A]$.
+\end{definition}
+It is easy to check that $M[A]$ is indeed a matroid.
+\begin{definition}
+    Two matroids $M_1$ and $M_2$ are isomorphic, written $M_1 \cong M_2$, if there is a bijection $\psi$ from $E(M_1)$ to $E(M_2)$ such that, for all $X \subseteq E(M_1)$, the set $\psi(X)$ is independent in $M_2$ if and only if $X$ is independent in $M_1$.
+\end{definition}
+\begin{definition}
+    If a matroid $M$ is isomorphic to the vector matroid of a matrix $A$ over a field $\F$, then $M$ is $\F$-representable. The matrix $A$ is an $\F$-representation of $M$.
+\end{definition}
+\section{Circuits}
+\begin{definition}
+    A minimal dependent set in a matroid $M$ is called a circuit. We denote the set of circuits of $M$ by $\C$ or $\C(M)$. A circuit with $n$ elements is called an $n$-circuit.
+\end{definition}
+A matroid is uniquely determined by its set of circuits $\C$: the members of $\I$ are exactly those subsets of $E$ that contain no member of $\C$.
+\begin{lemma}
+    The set $\C$ of circuits of a matroid has the following properties:
+    \begin{enumerate}
+        \item $\emptyset \notin \C$.
+        \item If $C_1$ and $C_2$ are members of $\C$ and $C_1 \subseteq C_2$, then $C_1=C_2$.
+        \item If $C_1$ and $C_2$ are distinct members of $\C$ and $e \in C_1 \cap C_2$, then there is a member $C_3$ of $\C$ such that $C_3 \subseteq (C_1 \cup C_2)\setminus\{e\}$.
+    \end{enumerate}
+\end{lemma}
+It turns out that the converse also holds in the sense that we can define a matroid using the above properties:
+\begin{theorem}
+    Let $E$ be a set and $\C$ be a collection of subsets of $E$ satisfying the three conditions above. Let $\I$ be the collection of subsets of $E$ that contain no member of $\C$. Then $(E, \I)$ is a matroid having $\C$ as its collection of circuits.
+\end{theorem}
+\begin{lemma}
+    Suppose $I$ is an independent set in a matroid $M$ and $e\in E(M)\setminus I$ is such that $I \cup \{e\}$ is dependent. Then $M$ has a unique circuit contained in $I \cup \{e\}$, and this circuit contains $e$.
+\end{lemma}
+A cycle of a graph is a nonempty connected subgraph in which each vertex has degree two, counting a loop twice toward the degree.
+\begin{definition}
+    Let $E$ be the set of edges of a graph $G$ and $\C$ be the set of edge sets of cycles of $G$. Then $\C$ is a set of circuits of a matroid on $E$ called the cycle matroid or polygon matroid of $G$. It is denoted by $M(G)$.
+\end{definition}
+In other words, $X$ is an independent set of $M(G)$ if and only if the subgraph induced by $X$ is a forest. One can check that the set $\C$ indeed satisfies the three properties for a set of circuits.
+A matroid is graphic if it is isomorphic to the cycle matroid of a graph.
+\begin{definition}
+    We record some graph inspired terminologies for general matroid:
+    \begin{enumerate}
+        \item An element $e$ of a matroid $M$ is called a loop if $\{e\}$ is a circuit of $M$.
+        \item Distinct elements $f$ and $g$ are parallel if $\{f,g\}$ is a circuit.
+        \item A parallel class of $M$ is a maximal nonempty set of nonloops whose distinct elements are pairwise parallel. A parallel class is trivial if it contains just one element.
+        \item If a matroid has no loops and no non-trivial parallel classes, it is called a simple matroid.
+    \end{enumerate}
+\end{definition}
+Every basis avoids loops. If $e_1$ is a nonloop and $e_2$ is distinct from $e_1$, then the two elements are parallel exactly when replacing $e_1$ by $e_2$ in any basis containing $e_1$ gives another basis. In a parallel class $X$, write $\B_x$ for the bases containing $x\in X$. For distinct $x,y\in X$, the families $\B_x$ and $\B_y$ are disjoint, and the exchange property for parallel elements gives
+\[
+    \{B\setminus\{x\}:B\in\B_x\}=\{B\setminus\{y\}:B\in\B_y\}.
+\]
+The \emph{simplification} $\si(M)$ is obtained by deleting every loop and retaining one element from each parallel class. Different choices give isomorphic matroids.
+
+\section{Bases}
+\begin{definition}
+    A maximal independent set in $M$ is called a basis or a base of $M$.
+\end{definition}
+\begin{lemma}
+    All bases of a matroid have the same cardinality.
+\end{lemma}
+\begin{lemma}[Basis exchange]
+    Let $\B$ be the bases of a matroid. If $B_1,B_2\in\B$ and $x\in B_1\setminus B_2$, then some $y\in B_2\setminus B_1$ satisfies $(B_1\setminus\{x\})\cup\{y\}\in\B$.
+\end{lemma}
+\begin{theorem}
+    Let $\B$ be a nonempty family of equicardinal subsets of a finite set $E$, satisfying the exchange property above. The subsets of members of $\B$ form the independent sets of a matroid whose bases are exactly $\B$.
+\end{theorem}
+\begin{lemma}
+    Let $B$ be a basis of $M$. If $e \in E(M)\setminus B$, then $B \cup \{e\}$ contains a unique circuit $C(e,B)$, which contains $e$.
+\end{lemma}
+We call $C(e, B)$ the fundamental circuit of $e$ with respect to $B$.
+\begin{proposition}
+    Every circuit in a matroid is the fundamental circuit of some element with respect to some basis.
+\end{proposition}
+\section{Rank}
+Let $M=(E,\I)$ and $X\subseteq E$. The family $\I|X=\{I\subseteq X:I\in\I\}$ defines a matroid on $X$, called the restriction $M|X$ or the deletion $M\setminus(E\setminus X)$. Its circuits are exactly the circuits of $M$ contained in $X$.
+\par Matroid deletion is a direct generalisation of the corresponding concept for graphs. For a graph $G$ and a subset $T$ of $E(G)$, recall that $G \backslash T$ is the graph obtained from $G$ by deleting the edges in $T$. We have
+\[M(G \backslash T) = M(G) \backslash T.\]
+\begin{definition}
+    We define the rank $r(X)$ of $X$ to be the cardinality of a basis $B$ of $M \vert X$ and call such a set $B$ a basis of $X$.
+\end{definition}
+\begin{lemma}
+    The rank function $r$ has the following properties:
+    \begin{enumerate}
+        \item If $X \subseteq E$, then $0 \le r(X) \le |X|$.
+        \item If $X \subseteq Y \subseteq E$, then $r(X) \le r(Y)$.
+        \item If $X$ and $Y$ are subsets of $E$, then
+        \[r(X \cup Y)+r(X \cap Y) \le r(X)+r(Y).\]
+    \end{enumerate}
+\end{lemma}
+These properties characterise the rank function and in fact the matroid.
+\begin{theorem}
+    Let $E$ be finite and $r\colon 2^E \to \mathbb{Z}_{\geq 0}$ satisfy the three properties above. Then $\I=\{X\subseteq E:r(X)=|X|\}$ defines a matroid on $E$ whose rank function is $r$.
+\end{theorem}
+\begin{proposition}
+    Let $M$ be a matroid with rank function $r$ and let $X \subseteq E(M)$. Then
+    \begin{enumerate}
+        \item $X$ is independent if and only if $|X|=r(X)$
+        \item $X$ is a basis if and only if $|X|=r(X)=r(M)$
+        \item $X$ is a circuit if and only if $X$ is nonempty and, for all $x \in X$, $r(X-\{x\}) = |X|-1=r(X)$.
+    \end{enumerate}
+\end{proposition}
+\section{Closure}
+Let $M$ be a matroid on $E$ with rank function $r$.
+\begin{definition}
+    Let $\cl \colon 2^E \to 2^E$ be defined by
+    \[\cl(X) = \{x \in E: r(X \cup \{x\}) = r(X)\}.\]
+    This function is called the closure operator of $M$, and we call $\cl(X)$ the closure or span of $X$ in $M$.
+\end{definition}
+\begin{lemma}
+    For all $X$, we have $r(X) = r(\cl(X))$.
+\end{lemma}
+\begin{lemma}
+    The closure operator of a matroid on a set $E$ has the following properties:
+    \begin{enumerate}
+        \item If $X \subseteq E$, then $X \subseteq \cl(X)$.
+        \item If $X \subseteq Y \subseteq E$, then $\cl(X) \subseteq \cl(Y)$.
+        \item If $X \subseteq E$, then $\cl(\cl(X)) = \cl(X)$.
+        \item If $X \subseteq E$, $x,y\in E$, and $y \in \cl(X \cup \{x\})\setminus\cl(X)$, then $x \in \cl(X \cup \{y\})$.
+    \end{enumerate}
+\end{lemma}
+The fourth property is sometimes referred to as the MacLane-Steinitz exchange property.
+\par Once again we have a characterisation of matroids in terms of such functions.
+\begin{theorem}
+    Let $E$ be a set and $\cl \colon 2^E \to 2^E$ be a function satisfying the above four properties. Let
+    \[\I = \{X \subseteq E: x \notin \cl(X\setminus\{x\}) \text{ for all $x \in X$}\}.\]
+    Then $(E, \I)$ is a matroid having closure operator $\cl$.
+\end{theorem}
+\begin{definition}
+    A subset $X\subseteq E(M)$ for which $\cl(X)=X$ is a flat or closed set of $M$. A hyperplane of $M$ is a flat of rank $r(M)-1$.
+\end{definition}
+A subset $X$ is a spanning set of $M$ if $\cl(X) = E(M)$. It spans a subset $Y$ of $E(M)$ if $Y \subseteq \cl(X)$.
+\begin{proposition}
+    The subset $X$ has the following properties:
+    \begin{enumerate}
+        \item $X$ is a spanning set if and only if $r(X) = r(M)$.
+        \item $X$ is a basis if and only if it is both spanning and independent.
+        \item $X$ is a basis if and only if it is a minimal spanning set.
+        \item $X$ is a hyperplane if and only if it is a maximal non-spanning set.
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}
+    \[\cl(X) = X \cup \{x\in E(M): \text{$M$ has a circuit $C$ with $x \in C \subseteq X \cup \{x\}$}\}.\]
+\end{proposition}
+\section{Duality}
+\begin{theorem}
+    Let $M$ be a matroid and $\B^*(M)$ be $\{E(M)-B:B \in \B(M)\}$. Then $\B^*(M)$ is the set of bases of a matroid on $E(M)$.
+\end{theorem}
+\begin{definition}
+    The matroid defined in the last theorem is called the dual of $M$, denoted as $M^*$.
+\end{definition}
+By construction, $(M^*)^*=M$. The bases of $M^*$ are the cobases of $M$, and its circuits are the cocircuits of $M$. A \emph{coloop} of $M$ is an element in every basis of $M$, or equivalently a loop of $M^*$.
+\begin{proposition}
+    Let $M$ be a matroid on $E$ and let $X \subseteq E$. Then
+    \begin{enumerate}
+        \item $X$ is independent in $M$ if and only if $E\setminus X$ spans $M^*$.
+        \item $X$ spans $M$ if and only if $E\setminus X$ is independent in $M^*$.
+        \item $X$ is a hyperplane of $M$ if and only if $E\setminus X$ is a cocircuit of $M$.
+        \item $X$ is a circuit of $M$ if and only if $E\setminus X$ is a hyperplane of $M^*$.
+    \end{enumerate}
+\end{proposition}
+In general, we attach an asterisk to a symbol to denote association with the dual. For example, $r^*$ denotes the rank function of $M^*$ while $\C^*$ denotes its set of circuits.
+\begin{proposition}
+    For all $X \subseteq E(M)$,
+    \[r^*(X) = r(E-X)+|X|-r(M).\]
+\end{proposition}
+\begin{proposition}
+    In a matroid $M$, let $C$ be a circuit and $C^*$ be a cocircuit. Then $|C \cap C^*| \ne 1$.
+\end{proposition}
+The above property is often called orthogonality.
+\begin{theorem}
+    If a matroid $M$ is $\F$-representable, then $M^*$ is also $\F$-representable.
+\end{theorem}
+\section{Minors}
+Let $M$ be a matroid on $E$ and $T\subseteq E$.
+\begin{definition}
+    The contraction of $T$ in $M$ is $M/T = (M^*\setminus T)^*$.
+\end{definition}
+Evidently $M/T$ has ground set $E-T$. We record a series of facts about the distinguished subsets, rank and closure of a contraction.
+\begin{proposition}
+    For all $X \subseteq E\setminus T$,
+    \[r_{M/T}(X) = r_M(X \cup T)-r_M(T). \]
+\end{proposition}
+\begin{proposition}
+    \[\I(M/T) = \{I \subseteq E\setminus T: \text{$M \vert T$ has a basis $B$ with $I \cup B \in \I(M)$}\}.\]
+\end{proposition}
+\begin{corollary}
+    \[\B(M/T) = \{B' \subseteq E\setminus T: \text{$M \vert T$ has a basis $B$ with $B' \cup B \in \B(M)$}\}.\]
+\end{corollary}
+\begin{proposition}
+    The circuits of $M/T$ consist of the minimal nonempty members of $\{C-T:C \in \C(M)\}$.
+\end{proposition}
+\begin{proposition}
+    For all $X \subseteq E\setminus T$,
+    \[\cl_{M/T}(X) = \cl_M(X \cup T)-T.\]
+\end{proposition}
+$M\setminus T$ and $M/T$ have the same ground set, and
+\[\I(M/T)\subseteq \I(M\setminus T).\]
+\begin{proposition}
+    $M \setminus T = M/T$ if and only if $r(T)+r(E-T)=r(M)$.
+\end{proposition}
+\begin{proposition}
+    In a matroid $M$, let $T_1$ and $T_2$ be disjoint subsets of $E(M)$. Then
+    \begin{enumerate}
+        \item $(M\setminus T_1)\setminus T_2 = M \setminus (T_1 \cup T_2) = (M\setminus T_2)\setminus T_1$
+        \item $(M/ T_1)/ T_2 = M / (T_1 \cup T_2) = (M/ T_2)/ T_1$
+        \item $(M \setminus T_1)/T_2 = (M/T_2)\setminus T_1$.
+    \end{enumerate}
+\end{proposition}
+\begin{definition}
+    A minor of $M$ is a matroid of the form $(M\setminus X)/Y$ for disjoint subsets $X,Y$ of $E(M)$. It is a proper minor when $X\cup Y$ is nonempty.
+\end{definition}
+The commutation identities put any sequence of deletions and contractions in this form. An $N$-minor of $M$ is a minor of $M$ isomorphic to $N$.
+\begin{proposition}
+    A matroid $N$ is a minor of a matroid $M$ if and only if $N^*$ is a minor of $M^*$. More particularly,
+    \[N = M \backslash X/Y \iff N^*=M^*/X\backslash Y.\]
+\end{proposition}
+\begin{proposition}
+    Let $M_1$ and $M_2$ be matroids on a common ground set $E$ and suppose $e\in E$. Then the following statements are equivalent:
+    \begin{enumerate}
+        \item $M_1 \backslash \{e\} = M_2 \backslash \{e\}$ and $M_1/\{e\} = M_2/\{e\}$
+        \item $M_1=M_2$, or their deletions of $e$ agree and $e$ is a loop of one matroid and a coloop of the other.
+    \end{enumerate}
+\end{proposition}
+Graph contraction deletes a nonloop edge and identifies its ends. Contraction of a loop means deleting it. For $T\subseteq E(G)$, $G/T$ is obtained by contracting the edges in $T$ in any order.
+\begin{proposition}
+    If $G$ is a graph, then $M(G)/T = M(G/T)$ for all $T \subseteq E(G)$.
+\end{proposition}
+\begin{corollary}
+    Every minor of a graphic matroid is graphic.
+\end{corollary}
+For a matrix $A$, we denote by $A \backslash T$ the matrix obtained from $A$ by deleting all the columns whose labels are in $T$. Evidently
+\[M[A]\backslash T = M[A\backslash T].\]
+The duality and deletion results give closure under minors.
+\begin{proposition}
+    Every minor of an $\F$-representable matroid is $\F$-representable.
+\end{proposition}
+\begin{definition}
+    An excluded minor for $\F$-representability is a nonrepresentable matroid over $\F$ whose proper minors are all $\F$-representable.
+\end{definition}
+\section{Connectivity}
+\begin{proposition}
+    Every graphic matroid has a connected graph representation. To obtain one, take a graph representing the matroid and identify one vertex from each connected component. Every cycle is contained in a single original component, so the cycle matroid is preserved.
+\end{proposition}
+
+A vertex cut of a graph $G$ is a set of vertices whose removal increases the number of connected components. A one-vertex cut is called a cut vertex. For a connected noncomplete graph, the vertex connectivity $\kappa(G)$ is the minimum size of a vertex cut. For a complete graph $\kappa(G)=|V(G)|-1$, and for a disconnected graph $\kappa(G)=0$. A graph is $k$-connected if $\kappa(G)\geq k$.
+
+\begin{lemma}
+    Let $G$ be a connected loopless graph with at least three vertices. Then $G$ is $2$-connected if and only if every pair of distinct edges lies on a common cycle.
+\end{lemma}
+The connectedness hypothesis matters because a cycle matroid does not record isolated vertices or distinguish separate components joined at a single vertex.
+\begin{definition}
+    A matroid $M$ is connected, or $2$-connected, if every pair of distinct elements of $E(M)$ lies on a common circuit.
+\end{definition}
+\begin{proposition}
+    A matroid $M$ is connected if and only if $M^*$ is connected.
+\end{proposition}
+The components of $M$ are the equivalence classes of the relation in which two elements coincide or lie on a common circuit. A separator is a union of components. The sets $\emptyset$ and $E(M)$ are the trivial separators, and the complement of any separator is also a separator.
+\begin{proposition}
+    A subset $X\subseteq E(M)$ is a separator if and only if
+    \[
+        r_M(X)+r_M(E(M)\setminus X)=r(M).
+    \]
+\end{proposition}
+\begin{definition}
+    Let $M_1$ and $M_2$ be matroids on disjoint sets $E_1$ and $E_2$. Their direct sum or $1$-sum $M_1\oplus M_2$ has ground set $E_1\cup E_2$ and independent sets
+    \[
+        \{I_1\cup I_2:I_1\in\I(M_1),\ I_2\in\I(M_2)\}.
+    \]
+\end{definition}
+\begin{proposition}
+    A matroid $M$ is disconnected if and only if there is a proper nonempty subset $T\subset E(M)$ such that
+    \[
+        M=(M|T)\oplus(M|(E(M)\setminus T)).
+    \]
+\end{proposition}
+\begin{definition}
+    Let $M$ and $N$ each have at least three elements, with $E(M)\cap E(N)=\{p\}$. Suppose $p$ is neither a loop nor a coloop of either matroid. The $2$-sum $M\oplus_2 N$ has ground set $(E(M)\cup E(N))\setminus\{p\}$. Its circuits are those of $M\setminus p$ and $N\setminus p$, together with the sets $(C\cup D)\setminus\{p\}$ where $C\in\C(M)$ and $D\in\C(N)$ both contain $p$.
+\end{definition}
+\begin{proposition}
+    The classes of graphic and $\F$-representable matroids are closed under direct sums and $2$-sums.
+\end{proposition}
+
+Matroid connectivity can be expressed in terms of rank.
+\begin{definition}
+    For $X\subseteq E(M)$, the connectivity function of $M$ is
+    \[
+        \lambda_M(X)=r_M(X)+r_M(E(M)\setminus X)-r(M).
+    \]
+\end{definition}
+The dual rank formula gives $\lambda_M(X)=r_M(X)+r_{M^*}(X)-|X|$.
+\begin{definition}
+    For a positive integer $k$, a set $X\subseteq E(M)$ is $k$-separating if $\lambda_M(X)<k$. The partition $(X,E(M)\setminus X)$ is a $k$-separation if $X$ is $k$-separating and both sides have at least $k$ elements. The matroid $M$ is $n$-connected if it has no $k$-separation for $1\leq k<n$.
+\end{definition}
+A set $X$ is a separator exactly when $\lambda_M(X)=0$. The nontrivial separators give the $1$-separations.
+\begin{corollary}
+    For every $X\subseteq E(M)$, $\lambda_M(X)=\lambda_{M^*}(X)$. Hence $M$ is $n$-connected if and only if $M^*$ is $n$-connected.
+\end{corollary}
+
+The following decomposition theorem is used in the classification \cite[Section~8.3]{oxley}.
+\begin{theorem}
+    A connected matroid $M$ has a $2$-separation if and only if it can be expressed as a $2$-sum $M_1\oplus_2 M_2$ in which each summand has at least three elements and is isomorphic to a proper minor of $M$.
+\end{theorem}
+
+\begin{thebibliography}{9}
+
+\bibitem{oxley-survey}
+J. Oxley,
+\textit{What is a matroid?},
+revised survey.
+\url{https://www.math.lsu.edu/~oxley/survey4.pdf}
+
+\bibitem{oxley}
+J. Oxley,
+\textit{Matroid Theory},
+2nd ed., Oxford University Press, 2011.
+
+\end{thebibliography}
+\end{document}
