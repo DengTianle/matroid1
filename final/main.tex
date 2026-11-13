@@ -1,0 +1,817 @@
+
+\documentclass[11pt,letterpaper,titlepage]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+%\usepackage{graphicx} % Required for inserting images
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{comment}
+
+\def\le{\leqslant}
+\def\ge{\geqslant}
+
+\def\Z{\mathbb{Z}}
+\def\N{\mathbb{N}}
+\def\R{\mathbb{R}}
+\def\C{\mathcal{C}}
+\def\Q{\mathbb{Q}}
+\def\F{\mathbb{F}}
+\def\I{\mathcal{I}}
+\def\B{\mathcal{B}}
+
+\DeclareMathOperator{\cl}{cl}
+\newcommand{\si}{\operatorname{si}}
+
+%\usepackage[margin=1in]{geometry}
+
+\title{CS3263 Report}
+
+\author{
+Deng Tianle \\
+A0282801J \\
+\texttt{e1156929@u.nus.edu}
+\and
+Liu Lekang \\
+A0281207L \\
+\texttt{e1155335@u.nus.edu}
+\and
+Zhao Kejun \\
+A0282631H \\
+\texttt{e1156759@u.nus.edu}
+}
+
+\date{13 November 2026}
+
+\begin{document}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+%\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
+
+\maketitle
+\section{Introduction}
+
+A matroid records which sets of elements are independent. When those dependencies arise from the columns of a matrix over \(\F\), finite-field linear algebra gives a concrete way to work with the matroid. An \emph{excluded minor} is a minimal obstruction under deletion and contraction to obtaining such a representation. Brettell enumerated the excluded minors for \(\F\)-representability on ten elements \cite{brettell}. This project studies the next size at rank four. The exhaustive computation in \texttt{matroid1} gives 35 isomorphism classes and provides a catalogue and verification records for the result \cite{repo,verification}.
+
+The project also asks how an LLM should contribute to a mathematical search. We compare four workflows, from direct reasoning to translation followed by exact solving. The first experiment asks the workflows to classify supplied matroids. The second asks them to find every valid extension of a supplied parent. Finding valid candidates and establishing that the list is complete require different evidence, and the two experiments measure these requirements separately.
+
+\section{Background and problem statement}
+
+A \emph{matroid} \(M=(E,\mathcal{I})\) consists of a finite ground set \(E\) and a family of independent sets \(\mathcal{I}\). The empty set belongs to \(\mathcal{I}\), subsets of independent sets are independent, and a smaller independent set can be augmented by an element from a larger one. The maximal independent sets are the \emph{bases} of \(M\). They have a common size, the \emph{rank} \(r(M)\), and determine \(\mathcal{I}\). Two matroids are isomorphic if a bijection between their ground sets preserves the bases. The rank of a subset \(S\) is the size of its largest independent subset. Its \emph{closure} contains every element whose addition leaves that rank unchanged. A \emph{hyperplane} is a maximal subset of rank \(r(M)-1\) \cite{oxley}.
+
+Write \(\F=\mathbb{Z}/5\mathbb{Z}\). A rank-\(r\) matroid is \emph{quinary} if there is an \(r\times |E|\) matrix \(V\) over \(\F\), with columns labelled by \(E\), such that for every \(r\)-subset \(S\subseteq E\),
+\[
+ S\in\B(M)\quad\Longleftrightarrow\quad\det V_S\ne 0.
+\]
+Deletion \(M\setminus a\) keeps the independent sets avoiding \(a\). For a represented matroid, this removes column \(a\). Contraction \(M/a\) is realized by projecting the other columns into the quotient by the span of column \(a\). A minor is the result of a sequence of these operations. Quinary representability is preserved under both operations, so checking all single-element deletions and contractions suffices to check every proper minor \cite{oxley}.
+
+\paragraph{Problem.}
+Enumerate, up to matroid isomorphism, all matroids \(M\) with \(|E(M)|=11\) and \(r(M)=4\) such that \(M\) is nonquinary and both \(M\setminus a\) and \(M/a\) are quinary for every \(a\in E(M)\). The output is a list of exact basis families, together with evidence of excluded-minor status, pairwise distinctness, and completeness of the list.
+
+\section{Method}
+
+We view each target matroid \(M\) as a single-element extension of a ten-element quinary \emph{parent} \(N=M\setminus e\). The exhaustive search has three stages:
+\begin{enumerate}
+\item Generate every possible parent up to matroid isomorphism.
+\item For each parent, enumerate all nonquinary extensions whose single-element deletions are quinary.
+\item Check every single-element contraction and remove isomorphic repeats.
+\end{enumerate}
+The second stage is a finite constraint satisfaction problem: each deletion supplies an allowed table, and the tables must agree on shared basis decisions.
+
+\subsection{Step 1: generating deletion parents}
+
+Excluded minors for field representability of this size are 3-connected, using closure of representability under direct sums and 2-sums \cite{oxley}. Hence every deletion parent is connected, simple, quinary, and of rank four. Here connected means that the matroid cannot be split into a direct sum on two nonempty ground sets. In particular, a connected ten-element parent has no coloop (an element belonging to every basis), so deleting any further element still leaves rank four.
+
+A simple rank-four representation uses distinct points of \(\mathrm{PG}(3,5)\), the \((5^4-1)/(5-1)=156\) one-dimensional subspaces of \(\F^4\). We choose one vector per point by scaling its first nonzero entry to 1. Any basis can be reduced to the identity matrix \(I_4\). Starting from \(I_4\), we therefore append each unused projective point and, at each size, retain one matrix per \emph{field-isomorphism} class. Field isomorphism allows invertible row operations, nonzero column scalings, and column permutations. These transformations carry possible appended points to possible appended points, so discarding equivalent matrices preserves every extension class.
+
+At ten columns, we convert the matrices to basis families, deduplicate by matroid isomorphism, and keep the connected parents. The matrix catalogue is retained separately: a single abstract matroid may have several field-inequivalent representations with different possible extensions. Keeping just one matrix per matroid would therefore risk missing candidates.
+
+\subsection{Step 2: recovering extensions from compatible deletions}
+
+Fix parent labels \(P=\{0,\ldots,9\}\) and the new label \(e=10\). For each parent \(N\), let \(\mathcal{D}(N)\) be the simple rank-four matroids \(M\) on \(P\cup\{e\}\) such that \(M\setminus e=N\), \(M\) is nonquinary, and every single-element deletion of \(M\) is quinary. We keep these labels fixed throughout this stage.
+
+The bases avoiding \(e\) are already fixed by \(N\). For each triple \(T\in\binom{P}{3}\), introduce a Boolean variable
+\[
+ x_T=1\quad\Longleftrightarrow\quad T\cup\{e\}\in\B(M).
+\]
+For \(Q=N\) or \(N\setminus f\), let \(R(Q)\) contain the bit rows arising from all simple rank-four quinary extensions of \(Q\) by \(e\). Let \(\pi_f(x)\) retain the coordinates for triples avoiding \(f\). Then \(\pi_f(x)\in R(N\setminus f)\) ensures a quinary deletion at \(f\), while \(x\in R(N)\) would make the full extension quinary. Thus the desired rows are
+\[
+ S(N)=\bigl\{x:\pi_f(x)\in R(N\setminus f)\text{ for every }f\in P\bigr\}
+       \setminus R(N).
+\]
+
+\paragraph{Sufficiency of deletion compatibility.}
+Every member of \(\mathcal{D}(N)\) yields a row in \(S(N)\). Conversely, a compatible row defines proposed bases whose restrictions to all deletions are bases of simple rank-four matroids. Take any two proposed bases \(U,V\). They use at most eight of the eleven elements, so some element \(a\) lies outside \(U\cup V\). For every \(u\in U\setminus V\), basis exchange in the deletion at \(a\) supplies \(v\in V\setminus U\) such that \((U\setminus\{u\})\cup\{v\}\) is a proposed basis. The full family therefore satisfies basis exchange and defines a matroid. Every pair of elements also survives in a simple deletion, ruling out loops and parallel pairs. Excluding \(R(N)\) makes the matroid nonquinary. Hence \(S(N)\) corresponds bijectively to \(\mathcal{D}(N)\); contraction tests remain for Step 3.
+
+\subsubsection{Labelled representations}
+
+To build \(R(Q)\) exhaustively, we first construct \(L(Q)\), one matrix per \emph{labelled projective equivalence} class representing \(Q\). This equivalence allows row operations and nonzero column scalings with the element labels fixed. For each field-isomorphism class representing a matroid isomorphic to \(Q\), we align one matrix with \(Q\) using a matroid isomorphism. All other alignments are obtained by automorphisms of \(Q\).
+
+We compute these automorphisms from a coloured bipartite incidence graph: one colour marks element vertices, the other marks basis vertices, and an edge records membership of an element in a basis. The colour-preserving graph automorphisms induce exactly the matroid automorphisms. SageMath supplies group generators; repeatedly applying them and retaining new normalized matrices exhausts all alignments.
+
+For normalization, fix an ordered basis \(B=(b_1,\ldots,b_4)\), reduce its columns to \(I_4\), and write the remaining block as \(Z\). Its nonzero positions are fixed by the bases:
+\[
+ Z_{ij}\ne0\quad\Longleftrightarrow\quad
+ (B\setminus\{b_i\})\cup\{j\}\in\B(Q).
+\]
+Equivalent reduced blocks differ only by row and column scalings. Form the bipartite graph of rows and columns of \(Z\), with edges at nonzero entries, and choose a fixed spanning forest. Set a root multiplier to 1 in each component and choose the other multipliers so every forest entry becomes 1. Any remaining scalings preserving those entries cancel on every edge in the component. The resulting matrix is therefore unique within its labelled projective equivalence class.
+
+\subsubsection{Extension tables and hyperplane compression}
+
+For every \(V\in L(Q)\), append each unused point \(v\in\mathrm{PG}(3,5)\) as column \(e\). The resulting matrix represents a simple quinary extension, with row
+\[
+ z(V,v)_T=\mathbf{1}\{\det[V_T\mid v]\ne0\},
+ \qquad T\in\binom{E(Q)}{3}.
+\]
+The distinct rows are exactly \(R(Q)\): every simple quinary extension restricts to a labelled representation covered by \(L(Q)\). To batch these tests, expand each determinant along \(v\) as \(c_T^{\mathsf T}v\). Stacking the cofactor rows in \(C\) and all 156 projective point columns in \(D\), the product \(CD\) over \(\F\) evaluates every triple--point test for that matrix at once.
+
+Dependent triples always have bit 0. Independent triples with the same closure \(H\) in \(N\) share a bit \(y_H\): in any extension, such a triple spans \(e\) exactly when \(H\) does. Thus \(y_H=1\) means that adding \(e\) to a spanning triple of \(H\) gives a basis. Let \(\mathcal{H}(N)\) denote the hyperplanes of \(N\). The coordinates visible after deleting \(f\) are
+\[
+ C_f=\left\{\operatorname{cl}_N(T):
+ T\in\binom{P\setminus\{f\}}{3},\ r_N(T)=3\right\}.
+\]
+Compress \(R(N\setminus f)\) to a table \(A_f\) on \(C_f\), and \(R(N)\) to a table \(A\) on \(\mathcal{H}(N)\). The same solution set in hyperplane coordinates is
+\[
+ \widehat S(N)=
+ \bigl\{y\in\{0,1\}^{\mathcal{H}(N)}:
+ y|_{C_f}\in A_f\text{ for every }f\in P\bigr\}\setminus A.
+\]
+
+\subsubsection{Enumeration by natural joins}
+
+A natural join combines two table rows exactly when they agree on every shared coordinate. Joining the deletion tables successively therefore enforces all deletion constraints. Every hyperplane appears in at least one table: deleting any \(f\notin H\) leaves a spanning triple of \(H\) intact. The joined rows consequently assign every variable, and removing the full-parent rows gives
+\[
+ \widehat S(N)=(A_0\bowtie A_1\bowtie\cdots\bowtie A_9)\setminus A.
+\]
+The implementation chooses the next table to minimize the size of the intermediate join. The exhaustive eleven-element search used this method for every connected parent.
+
+\subsubsection{SAT encoding and enumeration}
+
+The same tables admit a propositional SAT encoding with one Boolean variable \(y_H\) per hyperplane. We encode each allowed table \(A_f\) as a binary decision diagram (BDD), whose internal nodes test variables and whose terminal values indicate acceptance or rejection. For example, the table \(\{00,01,11\}\) on \((y_1,y_2)\) accepts immediately when \(y_1=0\); when \(y_1=1\), it accepts exactly when \(y_2=1\). This illustrates how a BDD shares decisions instead of listing a separate formula for every row.
+
+At a node testing \(y_H\), let \(v\) be the Boolean value of the subdiagram, and let \(\ell,h\) be the values of its 0- and 1-branches. The node equivalence and its four clauses in conjunctive normal form are
+\[
+\begin{gathered}
+ v\ \longleftrightarrow\ ((\neg y_H\land\ell)\lor(y_H\land h)),\\[0.6em]
+\begin{aligned}
+ &(\neg v\lor y_H\lor\ell),
+ &&(\neg v\lor\neg y_H\lor h),\\
+ &(v\lor y_H\lor\neg\ell),
+ &&(v\lor\neg y_H\lor\neg h).
+\end{aligned}
+\end{gathered}
+\]
+We fix the accepting terminal to true and the rejecting terminal to false, and require the root of each \(A_f\) to be true. The conjunction of these encodings enforces every deletion constraint. To rule out a quinary full extension, for each row \(a\in A\) we add the blocking clause
+\[
+ \bigvee_{H\in\mathcal{H}(N)}(y_H\ne a_H).
+\]
+Here the literal is \(y_H\) when \(a_H=0\), and \(\neg y_H\) when \(a_H=1\). After each satisfying assignment, we record its hyperplane row and add the same kind of clause to block that row. Blocking only the \(y_H\) variables prevents multiple auxiliary-node assignments from duplicating an extension. Enumeration is complete when the solver returns \texttt{UNSAT}; a timeout leaves the search unresolved. SAT enumeration cross-checked the joins at nine and ten elements, including all 5,991 labelled ten-element candidates.
+
+\subsection{Step 3: testing contractions and removing duplicates}
+
+For every candidate \(M\in\mathcal{D}(N)\) and every \(a\in E(M)\), we test \(M/a\) for quinary representability. Each contraction has rank three because \(M\) is simple of rank four. We simplify it by deleting loops and retaining one element per parallel class, then compare the simplification with the complete catalogue of simple rank-three quinary matroids of the relevant sizes, generated by the same projective-point procedure as in Step 1. A representation of the simplification extends to the full contraction by restoring zero columns and parallel copies. Thus the test is exact.
+
+Candidates passing every contraction test are excluded minors, since Step 2 already establishes nonrepresentability and representability of all deletions. SageMath then removes duplicates up to matroid isomorphism, including candidates arising from different parents. Completeness follows from the three stages: every target has a parent covered by Step 1, its labelled extension appears in Step 2, and it passes Step 3.
+
+\begin{table}[!htbp]
+\centering
+\caption{Stages of the exhaustive rank-four search.}
+\label{tab:enumeration}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Stage & Count \\
+\midrule
+Simple quinary ten-element parent classes & 58,756 \\
+Connected parent classes searched to exhaustion & 58,672 \\
+Labelled pairs \((N,M)\) with \(M\in\mathcal{D}(N)\) & 659 \\
+Excluded-minor classes after contractions and deduplication & 35 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Independent certificates.}
+For each of the 35 final representatives, a separate determinant-based SAT encoding requires a normalized matrix to reproduce every basis and nonbasis. Boolean indicators encode field values and clauses enforce arithmetic modulo five. DRAT-trim checks an unsatisfiability refutation, certifying that no quinary representation exists \cite{drat}. SageMath and modular Gaussian elimination verify the \(35\times22=770\) matrices representing the immediate minors, while canonical incidence graphs independently confirm pairwise nonisomorphism. These certificates establish the status and distinctness of the outputs; completeness additionally relies on the exhaustive search argument. As a calibration, the implementation also reproduced Brettell's rank-four catalogues for sizes seven through ten by exact isomorphism \cite{brettell}.
+
+
+\section{Experiments and results}
+
+We evaluate how an LLM should contribute to the classification task through two experiments. The first tests classification of supplied matroids; the second tests the more demanding task of finding every excluded-minor extension of a supplied parent. Together they distinguish answer correctness, computational efficiency, and evidence of completeness.
+
+\subsection{Workflows and shared setup}
+
+We compare four workflows with different divisions of responsibility between the frontier LLM model and the tools and solvers:
+\begin{description}
+\item[Direct reasoning.] The model returns its answer and justification in one call, without tools.
+\item[Exact queries.] The model requests ranks, determinants modulo five, deletions, or contractions, then interprets these calculations and constructs the final answer.
+\item[Model-directed SAT.] The model chooses representability tests in classification, or candidate checks and constrained extension searches in enumeration. It uses the solver replies to decide the final label or solution set.
+\item[Translation and exact solving.] The model translates the supplied hyperplanes into structured data. After checking that the translation preserves the full labelled basis family, the exact backend performs the classification or exhaustive search and returns the answer.
+\end{description}
+
+Both experiments use \texttt{gpt-6.1-sol} at medium reasoning effort, with one trial per instance and workflow. All workflows receive the same complete hyperplane descriptions, while answer keys remain with the grader. Built-in model tools are disabled; only the designated interfaces are available. The benchmark cases are separate from the pilots. Query budgets, case-generation details, and supplementary results are provided in Appendix~\ref{app:experiments}.
+
+\subsection{Experiment 1: classifying supplied matroids}
+
+\paragraph{Design.}
+We use 30 rank-four matroids on eleven elements, with ten in each class: quinary, excluded minor, and nonquinary but nonminimal. Quinary cases are generated from matrices, excluded minors are drawn from the certified catalogue, and nonminimal cases extend known excluded minors so that deletion recovers an obstruction. All cases are relabelled and their labels checked by the exact solver. We measure classification accuracy and median elapsed time. For the ten quinary cases, we also check matrices supplied by the direct and exact-query workflows against every basis and nonbasis. This separates a correct label from a verifiable representation.
+
+\begin{table}[!htbp]
+\centering
+\caption{Classification results on 30 supplied matroids.}
+\label{tab:classification}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Workflow & Correct labels & Median time (s) \\
+\midrule
+Direct reasoning & \(30/30\) & 50.8 \\
+Exact queries & \(30/30\) & 80.2 \\
+Model-directed SAT & \(30/30\) & 16.3 \\
+Translation and exact solving & \(30/30\) & 12.2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Results.}
+All four workflows classify every case correctly (Table~\ref{tab:classification}). Translation and exact solving has the shortest median time, about one quarter of direct reasoning, and all 30 translations preserve the input basis family. All ten matrices from direct reasoning pass the determinant checks, as do nine from exact queries. The remaining exact-query response gives the correct label but includes a placeholder instead of a matrix.
+
+\paragraph{Discussion.}
+Exact queries increase elapsed time without improving label accuracy. Computing a deletion or contraction still leaves the model to decide its representability; SAT queries resolve that predicate directly. The extra interaction also contributes to time. Thus the useful tool interface is the one that addresses the remaining mathematical decision, rather than simply supplying intermediate calculations. The missing matrix further shows why accuracy should be accompanied by a certificate check.
+
+The perfect scores require qualification. The case constructions induce different basis-count distributions: a leave-one-out rule assigning the nearest class mean from basis count alone scores \(24/30\). All workflows solve the six cases it misses, but the benchmark still supplies a strong structural cue. Relabelling preserves that cue. These results demonstrate success on the selected cases; a stronger generalization test would match classes on basis counts, diversify their constructions, and repeat trials.
+
+\subsection{Experiment 2: searching for all excluded-minor extensions}
+\label{sec:search}
+
+\paragraph{Design.}
+Each trial supplies a connected, simple, rank-four quinary parent on ten elements and asks for all excluded-minor extensions by element 10. The 24 pairwise nonisomorphic parents comprise three groups of eight: parents with valid solutions, parents whose deletion-compatible nonquinary candidates fail contraction checks, and parents with no such candidates. This design tests recovery and two distinct reasons for an empty answer. Five positive parents have multiple solutions. Exhaustive joins, SAT enumeration, contraction checks, and comparison with the certified catalogue establish 16 reference solutions up to isomorphism fixing element 10.
+
+We measure candidate precision, solution recall, and \emph{exact-set match}, which requires a complete, valid answer for a parent. We separately measure \emph{verified exhaustion}: an accepted computational trace must cover all extensions and account for every valid output. Matching the reference set and establishing completeness are different requirements. Median time covers the workflow's search and verification. Prepared compatibility tables are available to the SAT and translation workflows; their median construction time of 0.3 seconds is recorded separately.
+
+\begin{table}[!htbp]
+\centering
+\caption{Search results on 24 parents. Exhaustion counts accepted computational traces; free-text completeness arguments are not scored by this measure.}
+\label{tab:search-main}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Workflow & Precision & Recall & Exact sets & Exhausted & Median (s) \\
+\midrule
+Direct reasoning & \(16/16\) & \(16/16\) & \(24/24\) & \(0/24\) & 131.1 \\
+Exact queries & \(16/16\) & \(16/16\) & \(24/24\) & \(0/24\) & 144.8 \\
+Model-directed SAT & \(15/16\) & \(15/16\) & \(23/24\) & \(14/24\) & 79.9 \\
+Translation and exact solving & \(16/16\) & \(16/16\) & \(24/24\) & \(24/24\) & 9.9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Results.}
+Direct reasoning, exact queries, and translation recover all 16 solutions and match every reference set (Table~\ref{tab:search-main}). Translation is fastest on every parent and provides accepted exhaustion evidence in all 24 trials. Model-directed SAT supplies correct sets in 23 trials, but only 14 have accepted exhaustion traces; nine correct answers leave coverage gaps. In its remaining trial, the solver finds both required extensions, but the final response omits a triple from one candidate, making the submitted basis family invalid. All workflows correctly return empty sets on the 16 negative parents.
+
+\paragraph{Discussion.}
+The distinction between finding solutions and proving completeness is decisive. Direct reasoning succeeds at recovering the answers, but its free-text arguments are not accepted computational traces. Its \(0/24\) exhaustion score therefore does not establish that those arguments are mathematically wrong. Model-directed SAT provides exact local answers, yet still depends on the model to cover every branch and preserve checked candidates. The transcription failure demonstrates that solver correctness need not survive the final response. Returning identifiers for checked basis families would address this failure mode; that interface improvement remains to be evaluated.
+
+Translation transfers enumeration, contraction checks, and output construction to the backend. Its 9.9-second median is about thirteen times lower than direct reasoning's, while also providing complete traces. The exact method exploits the problem's structure: these parents require 28--48 hyperplane variables, but the largest intermediate join contains only 1,166 rows. Compatibility constraints sharply restrict the represented search space, although this is not a measured speedup over an uncompressed baseline. The negative groups also confirm the need for both filters: each contraction near miss leaves one deletion-compatible candidate that must still be rejected.
+
+The balanced sample makes these behaviours observable but does not reflect their frequency in the full search. Only 224 of 58,672 connected parents, about \(0.38\%\), admit excluded-minor extensions. An always-empty answer would match about \(99.62\%\) of that catalogue while discovering nothing. Consequently, solution recall and exhaustion evidence are essential alongside exact-set accuracy. The benchmark evaluates selected search behaviours; the global classification rests on the separate exhaustive computation.
+
+\subsection{Overall Discussion}
+
+Across both experiments, validated translation followed by exact solving gives the fastest answers and the strongest computational evidence. This supports assigning formal verification and exhaustive enumeration to exact tools for fully specified instances. It does not demonstrate a need for an LLM to parse the present regular format: a deterministic parser is an appropriate unmeasured baseline. Ambiguous or incomplete descriptions would require specification checks before a solver's certificate could support the intended claim.
+
+These are comparisons of complete workflows, whose tool capabilities and model-call counts differ, rather than controlled component ablations. Timings exclude catalogue construction and the separately recorded search-table preparation. With one trial per instance, one model, and constructed cases, the results do not establish statistical stability or performance on larger or less structured inputs. The supported conclusion concerns the division of work in this setting, rather than a general superiority of tool use over direct reasoning.
+
+
+
+
+\begin{comment}
+\section{Experimental study}
+
+\subsection{Instance descriptions and validation}
+\label{sec:inputs}
+
+The input must specify a single labelled matroid, rather than a few dependencies that admit several completions. For the two experiments below, each prompt gives the ground set, rank, and all hyperplanes of size at least the rank. Writing this hyperplane list as \(\mathcal H\), the complete basis family is
+\[
+ \B(M)=\{S\subseteq E: |S|=r(M),\ S\nsubseteq H\text{ for every }H\in\mathcal H\}.
+\]
+Indeed, every dependent set of size \(r(M)\) lies in a hyperplane, and that hyperplane has at least \(r(M)\) elements. This compact description therefore fixes all \(\binom{11}{4}=330\) basis-membership decisions in a classification instance, or all \(\binom{10}{4}=210\) in a search parent. Checking a translation means comparing these entire labelled families, not merely checking that the output satisfies the matroid axioms.
+
+A complementary diagnostic collection stores the complete bases explicitly. It contains 24 simple rank-four, eleven-element matroids, with eight quinary, eight excluded-minor, and eight nonquinary nonminimal cases. Six are designated for development and 18 for testing, with each split balanced across the three classes. The collection uses explicit matrix constructions, catalogue representatives, and free extensions of nonquinary parents, as in the classification design below. Case identifiers and element permutations conceal the construction labels, while the evaluator retains the provenance and inverse correspondence. All 24 have distinct label-invariant signatures: basis counts, rank distributions of subsets of sizes one through three, and sorted element--basis incidence counts. Unequal signatures prove that no two cases are isomorphic; equality would require a further isomorphism test \cite{diagnostic}.
+
+This collection provides an additional check of the descriptions and answer certificates. Each exported basis list was parsed back and compared with its structured input; all 24 families passed basis exchange and the rank, size, and simplicity checks. Rechecking the labels required eight representation matrices, eight original nonrepresentation proofs with \(8\times22=176\) immediate-minor matrices, and eight nonrepresentable-minor proofs. All checks passed. The determinant formulas were regenerated before replaying DRAT, binding each refutation to its intended matroid. These are checks of a separate diagnostic collection, not additional model trials or part of either benchmark reported below \cite{diagnostic}.
+
+\subsection{Shared protocol}
+
+Both experiments use \texttt{gpt-6.1-sol} at medium reasoning effort through the Codex CLI. Every invocation starts a fresh session. Follow-up prompts repeat the instance and include the earlier queries and tool replies from that trial. The four workflows see the same cases, and the runner disables the model's built-in tools. The model receives only the description and permitted replies. The answer keys are held by the grader. The hyperplane descriptions specify the complete inputs as described in Section~\ref{sec:inputs}. We score one trial per instance and workflow.
+
+\begin{description}
+\item[Direct reasoning.] The model reads the instance and returns its answer with a justification in a single call.
+\item[Exact queries.] The model can request ranks, determinants modulo five, deletions, or contractions. The tools return these calculations, and the model decides what they imply.
+\item[Model-directed SAT.] The model chooses representability checks in the classification experiment. In the search experiment it can test a proposed extension or constrain the status of selected triples. A SAT query on those constraints returns at most one compatible completion, with a contraction verdict. Previously returned completions are blocked.
+\item[Translation and exact solving.] The model converts the description to structured hyperplanes. The harness compares the resulting labelled basis family with the original and then hands it to the exact backend. The backend produces the final decision or list.
+\end{description}
+
+\paragraph{Answer and evidence requirements.}
+For classification, a quinary answer can be certified by a matrix whose maximal determinants match the entire basis family. An excluded-minor answer needs nonrepresentability of the original together with representations of all 22 immediate minors. A nonquinary nonminimal answer can instead be established by one nonrepresentable immediate minor, since representability is minor-closed. A rejected candidate matrix or an unsuccessful bounded search establishes none of these negative claims. For extension search, an empty list is likewise a complete answer only when every possible extension has been ruled out. These distinctions separate label accuracy, valid witnesses, and verified exhaustion in the results below; free-text mathematical arguments remain available for review rather than being treated as mechanically checked certificates.
+
+\subsection{Experiment 1. Classifying supplied matroids}
+
+\paragraph{Design.}
+We used 30 rank-four matroids on eleven elements, with ten in each of three classes. The quinary cases came from matrices obtained by extending \(I_4\) with sampled projective points. The excluded minors came from the certified catalogue. For the nonquinary, nonminimal cases, we added an element to a known ten-element excluded minor. The element was added freely to the whole matroid or to a chosen hyperplane, so deleting it recovered the known obstruction. We relabelled the matroids and verified their classification labels with the exact solver. The benchmark cases were separate from the three-case pilot.
+
+For the whole-matroid free extension of a rank-four parent \(N\) by \(e\), the basis family has the explicit form
+\[
+ \B(N+e)=\B(N)\ \cup\
+ \{T\cup\{e\}:T\subseteq E(N),\ |T|=3,\ r_N(T)=3\}.
+\]
+Deleting \(e\) recovers \(N\), so a nonquinary parent supplies a concrete proper-minor obstruction. The construction preserves rank and, for these simple parents, simplicity. Thus nonminimality need not be signalled by an easily detected loop or parallel pair. The hyperplane extensions in the benchmark retain the same deletion obstruction, but use a different restriction on the new bases.
+
+The two query workflows each had one batch of at most 23 requests, enough for the model-directed SAT workflow to query the original and all 22 immediate minors. Each solver call had a 10-second budget. We measured classification accuracy and median elapsed time per trial. We also checked the matrices supplied by the direct and exact-query models on the ten quinary cases. This witness check measures whether the response provides verifiable evidence in addition to a correct label.
+
+\begin{table}[!htbp]
+\centering
+% REFERENCE TO SUPPLY: classificationlogs has no bibliography entry in the supplied report.
+% This citation is for the 30-case classification experiment, not study/results/b0-linux.
+\caption{Classification on 30 held-out matroids \cite{classificationlogs}.}
+\label{tab:classification}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Workflow & Correct & Median time (s) & Model calls \\
+\midrule
+Direct reasoning & \(30/30\) & 50.8 & 30 \\
+Exact queries & \(30/30\) & 80.2 & 60 \\
+Model-directed SAT & \(30/30\) & 16.3 & 60 \\
+Translation and exact solving & \(30/30\) & 12.2 & 30 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Results and interpretation.}
+All four workflows reached the same accuracy (Table~\ref{tab:classification}). Translation and exact solving had the shortest median time, about one quarter of direct reasoning. All 30 translations recovered the original basis family. Model-directed SAT requested all 23 checks on every case, including the representable cases for which a checked matrix for the original already settles the decision. SAT queries resolve representability directly. The exact-query workflow mainly requested deletions and contractions and still had to reason about whether they were representable. Its extra round trip and the remaining proof work help explain why it took longer.
+
+All ten matrices supplied by direct reasoning passed the determinant checks, as did nine of the ten from exact queries. The remaining exact-query response gave the correct label with a placeholder where a matrix should have appeared. The accuracy metric credits this response, while the witness check records the missing evidence.
+
+The construction also gives the classes different basis counts. The ten excluded minors have 233--261 bases, the quinary cases 260--284, and the nonminimal cases 275--293. A leave-one-out rule that predicts the class with the nearest mean basis count scored \(24/30\). Each prediction used the other 29 cases to estimate the three means. All workflows solved the six cases this rule missed. The benchmark therefore offers a strong structural cue, and the matrix audit is a more discriminating measure of the evidence supplied by the model.
+
+\subsection{Experiment 2. Searching for excluded-minor extensions}
+\label{sec:search}
+
+
+\paragraph{Design.}
+Each trial gives a connected, simple, rank-four quinary parent \(N\) on ten elements. The task is to return every excluded-minor extension by element \(10\), with isomorphisms required to fix that new element. The response gives the old triples that form bases together with \(10\). This determines each extension because \(N\) fixes the old bases.
+
+The held-out set has 24 pairwise nonisomorphic parents, with eight in each group. The first group comes from deletions of catalogue matroids and has valid solutions. Five of those parents have multiple solutions. The second group comes from deletions of series extensions of a rank-three excluded minor. A series extension here adds an element whose contraction recovers that obstruction. Its deletion-compatible candidates fail the contraction test. The third group comes from replacing a column in a quinary representation of a parent with solutions. For the selected parents in this group, the compatibility search produces no nonquinary candidates. Thus the two groups with empty answer sets test different parts of the search.
+
+We exhaust both the join and the SAT encoding on each parent and compare their labelled outputs. The grader checks contractions and confirms the surviving extensions by matching the parents against deletions of the certified catalogue. This gives 16 solutions up to isomorphism fixing \(10\), from 14 ordinary catalogue classes. The three pilot parents were kept separate. The query workflows could request two batches of up to six checks, with a required first batch. Each trial had a 240-second budget, with a 10-second solver budget per call. All 96 trials finished within budget. The SAT and translation workflows used prepared compatibility tables, whose median construction time was 0.3 seconds per parent and was recorded separately.
+
+\paragraph{Metrics.}
+Precision counts valid excluded-minor extensions among submitted candidates. Recall counts the recovered solutions out of the 16 in the reference sets, with duplicates identified up to isomorphism fixing \(10\). An \emph{exact-set match} requires a valid, complete answer for one parent, including the empty set where appropriate. Catalogue coverage counts distinct ordinary isomorphism classes across all parents. \emph{Verified exhaustion} requires a checkable trace that accounts for all extensions and confirms that the final answer includes every valid one. The grader checks complete enumeration traces and SAT branch coverage. It retains free-text arguments for review. We also record model calls, median elapsed time, and median time to the first valid candidate on trials that produced one.
+
+\begin{table}[!htbp]
+\centering
+% REFERENCE TO SUPPLY: searchlogs has no bibliography entry in the supplied report.
+% This citation is for the 24-parent extension-search experiment.
+\caption{Search on 24 held-out parents. Precision uses submitted candidates, and recall uses the reference solutions.}
+\label{tab:search}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Workflow & Precision & Recall & Exact sets & Exhausted & Median (s) \\
+\midrule
+Direct reasoning & \(16/16\) & \(16/16\) & \(24/24\) & \(0/24\) & 131.1 \\
+Exact queries & \(16/16\) & \(16/16\) & \(24/24\) & \(0/24\) & 144.8 \\
+Model-directed SAT & \(15/16\) & \(15/16\) & \(23/24\) & \(14/24\) & 79.9 \\
+Translation and exact solving & \(16/16\) & \(16/16\) & \(24/24\) & \(24/24\) & 9.9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Correctness and coverage.}
+All workflows returned the empty set on the 16 parents with no solutions. Among the five parents with multiple solutions, model-directed SAT submitted the full set on four, while the other workflows did so on all five. Direct reasoning, exact queries, and translation recovered all 14 reachable catalogue classes. The submitted SAT answers covered 13. The direct and exact-query completeness arguments were free text, so the automated exhaustion score credits only the two workflows that supplied accepted traces.
+
+On parent \texttt{a48cea5e8b60}, the model queried both basis statuses of \(\{0,1,2\}\) with the new element. Both branches returned \texttt{UNSAT}, exhausting all deletion-compatible nonquinary extensions. The model obtained verified exhaustion on all eight parents with no such candidates, three contraction near misses, and three parents with solutions. Nine other trials returned the correct set and left gaps in the branch trace. On parent \texttt{71b692bcf18e}, the trace covered the search and the solver found both valid extensions. The submitted list for one extension omitted \(\{2,7,9\}\), although it retained other triples spanning the same parent hyperplane. These triples must all have the same basis status with element \(10\), so the submitted basis family is invalid. Returning solver candidate identifiers would preserve the checked basis families through the final response.
+
+\paragraph{Efficiency and scope.}
+The 96 trials took about 40 minutes with four workers. Direct, exact-query, SAT, and translation workflows used 24, 48, 55, and 24 model calls respectively. Model-directed SAT reduced median time to a first valid candidate from 144.8 seconds for direct reasoning to 21.3 seconds. Translation and exact solving reached 10.1 seconds and gave the fastest total time on each parent. The parent descriptions already specify every basis, so translation is a short step and the solver can carry the candidate data through enumeration and verification. The speed differences describe the complete workflows, including their different model call counts.
+
+The sample deliberately enriches parents with solutions. Deduplicating all single-element deletions of the 35 certified classes gives 224 such parent classes, about \(0.38\%\) of the 58,672 connected parents. They form one third of our benchmark. The two groups with empty answer sets also use specific constructions to exercise the deletion and contraction filters. These choices make recovery and rejection visible in a small experiment. The reported scores describe the selected cases, while the global result comes from exact enumeration over the full parent catalogue.
+\end{comment}
+\section{Responsible AI}
+
+\paragraph{Scientific reliability.}
+In AI-assisted mathematical research, an incorrect classification can propagate into later proofs and impose substantial checking costs on other researchers. Transparency and the prevention of unintended consequences are therefore central responsible-AI concerns in this domain \cite{responsibleai}. A plausible explanation or a correct benchmark answer is insufficient evidence for a classification theorem. Our claim is supported by the coverage argument, exhaustive searches, checked nonrepresentability refutations, immediate-minor matrices, and isomorphism checks. The distinction matters: certificates establish the status of the listed objects, while completeness also requires coverage of every possible parent and extension. A timeout remains unresolved, and a checked result applies only to the mathematical object actually encoded.
+
+\paragraph{Transparency and human responsibility.}
+The AI assistance described in Section~\ref{sec:contributions} makes traceability important: polished mathematical prose can obscure how a result was obtained. The saved prompts, outputs, tool replies, and verification records allow readers to trace claims to computational evidence. Such records support scrutiny but do not explain the model's internal reasoning or guarantee that the implementation matches the intended mathematics. The authors remain responsible for the formulation, completeness argument, attribution of prior work, and claims presented to readers. Neither model confidence nor a solver verdict transfers that responsibility to the software.
+
+\paragraph{Responsible evaluation and use.}
+Reporting only accuracy or speed could encourage reliance on answers without adequate justification. Section~4 shows that a correct label can lack its promised witness and that a valid solver result can be corrupted when transcribed. We therefore distinguish answer accuracy, validity of submitted objects, and evidence of exhaustion. Input translations are checked against the original basis family; the observed output error also motivates preserving checked candidates through the final response. The constructed benchmarks support conclusions about these workflows on fully specified matroids, not a general claim that the model can independently conduct reliable mathematical research. Ambiguous descriptions require clarification before certification, and broader use would require additional evaluation.
+
+
+
+\section{Statement of Contributions and AI assistance}
+\label{sec:contributions}
+
+\begin{description}
+\item[Deng Tianle.] \textit{[]}
+\item[Liu Lekang.] \textit{[]}
+\item[Zhao Kejun.] \textit{[Designed and run experiments, analyzed results]}
+\end{description}
+
+\paragraph{AI assistance.}
+We used an LLM with computational tools to develop and carry out the exhaustive search. Codex also assisted with the evaluation harness, analysis of saved results, and drafting and editing this report. These activities were AI-assisted; the authors retain responsibility for the submitted work and its claims.
+
+\clearpage
+
+
+
+\section*{Appendix}
+\subsection*{A.1 Matroid Theory Background}
+\subsubsection{Basic definitions}
+\begin{definition}
+    A matroid $M$ is an ordered pair $(E, \I)$ consisting of a finite set $E$ and a collection $\I$ of subsets of $E$ having the following three properties:
+    \begin{enumerate}
+        \item $\emptyset \in \I$.
+        \item If $I \in \I$ and $I' \subset I$, then $I' \in \I$. 
+        \item If $I_1$ and $I_2$ are in $\I$ and $|I_1| < |I_2|$, then there exists $e \in I_2 - I_1$ such that $I_1 \cup \{e\} \in \I$. 
+    \end{enumerate}
+\end{definition}
+If $M$ is the matroid $(E, \I)$, $M$ is a called a matroid on $E$. The members of $\I$ are the independent sets of $M$, and $E$ is the ground set of $M$. A subset of $E$ that is not in $\I$ are called dependent. We often write $\I(M)$ for $\I$ and $E(M)$ for $E$. 
+\begin{definition}
+    Let $E$ be the set of column labels of an $m \times n$ matrix $A$ over a field $\F$, and let $\I$ be the set of subsets $X$ of $E$ for which the multiset of columns labelled by $X$ is linearly independent. Then $(E, \I)$ is a vector matroid of $A$, denoted by $M[A]$. 
+\end{definition}
+It is easy to check that $M[A]$ is indeed a matroid. 
+\begin{definition}
+    Two matroids $M_1$ and $M_2$ are isomorphic, written $M_1 \cong M_2$, if there is a bijection $\psi$ from $E(M_1)$ to $E(M_2)$ such that, for all $X \subset E(M_1)$, the set $\psi(X)$ is independent in $M_2$ if and only if $X$ is independent in $M_1$. 
+\end{definition}
+\begin{definition}
+    If a matroid $M$ is isomorphic to the vector matroid of a matrix $A$ over a field $\F$, then $M$ is $\F$-representable; $A$ is a $\F$-representation of $M$. 
+\end{definition}
+As we would see later, not all matroids are representable. 
+\subsubsection{Circuits}
+There is an alternative perspective on matroids that is related to the interpretation of matroids via graph theory rather than linear algebra. 
+\begin{definition}
+    A minimal dependent set in a matroid $M$ is called a circuit. We denote the set of circuits of $M$ by $\C$ or $\C(M)$. A circuit with $n$ elements is called an $n$-circuit. 
+\end{definition}
+A matroid is uniquely determined by its set of circuits $\C$: the members of $\I$ are exactly those subsets of $E$ that contain no member of $\C$. 
+\begin{lemma}
+    The set $\C$ of circuits of a matroid has the following properties:
+    \begin{enumerate}
+        \item $\emptyset \notin \C$. 
+        \item If $C_1$ and $C_2$ are members of $\C$ and $C_1 \subset C_2$, then $C_1=C_2$. 
+        \item If $C_1$ and $C_2$ are disticnt members of $\C$ and $e \in C_1 \cap C_2$, then there is a member $C_3$ of $\C$ such that $C_3 \subset (C_1 \cup C_2)-\{e\}$. 
+    \end{enumerate}
+\end{lemma}
+It turns out that the converse also holds in the sense that we can define a matroid using the above properties:
+\begin{theorem}
+    Let $E$ be a set and $\C$ be a collection of subsets of $E$ satisfying the three conditions above. Let $\I$ be the collection of subsets of $E$ that contain no member of $\C$. Then $(E, \I)$ is a matroid having $\C$ as its collection of circuits. 
+\end{theorem}
+\begin{lemma}
+    Suppose $I$ is an independent set in a matroid $M$ and $e$ is an element of $M$ such that $I \cup \{e\}$ is dependent. Then $M$ has a unique circuit contained in $I \cup \{e\}$, and this circuit contains $e$. 
+\end{lemma}
+%\begin{proposition}
+%    
+%\end{proposition}
+Recall that a cycle (or circuit) of a graph is a connected subgraph all of whose vertices have degree two. 
+\begin{definition}
+    Let $E$ be the set of edges of a graph $G$ and $\C$ be the set of edge sets of cycles of $G$. Then $\C$ is a set of circuits of a matroid on $E$ called the cycle matroid or polygon matroid of $G$. It is denoted by $M(G)$. 
+\end{definition}
+In other words, $X$ is an independent set of $M(G)$ if and only if the subgraph induced by $X$ is a forest. One can check that the set $\C$ indeed satisfies the three properties for a set of circuits. 
+\par A matroid that is isomorphic to the cycle matroid of a graph is called graphic. However, again not all matroids are graphic. 
+\begin{definition}
+    We record some graph inspired terminologies for general matroid: 
+    \begin{enumerate}
+        \item An element $e$ of a matroid $M$ is called a loop if $\{e\}$ is a circuit of $M$. 
+        \item If $f$ and $g$ are elements of $M$ such that $\{f, g\}$ is a circuit, then $f$ and $g$ are parallel in $M$. 
+        \item A parallel class of $M$ is a maximal subset of $E(M)$ such that any two distinct members of $X$ are parallel and no member of $X$ is a loop. A parallel class is trivial if it contains just one element. 
+        \item If a matroid has no loops and no non-trivial parallel classes, it is called a simple matroid. 
+    \end{enumerate}
+\end{definition}
+(This discussion involves concepts introduced in later sections) It is clear that no basis intersects the set of loops of $M$. Also, if $e_1$ is not a loop of $M$, then $e_2$ is parallel with $e_1$ if and only if, for every basis $B$ containing $e_1$, the set $(B-\{e_1\})\cup\{e_2\}$ is also a basis. Now let $X$ be a non-trivial parallel class of $M$ and, for each $x \in X$, let $\B_x$ denote the set of bases of $M$ containing $x$. If $x$ and $y$ are distinct members of $X$, then $\B_x \cap \B_y = \emptyset$, but $\{B-\{x\}:B \in \B_x\} = \{B-\{y\}:B \in \B_y\}$. Thus, if we delete all the loops from $M$ and then, in each non-trivial parallel class $X$, we distinguish one element and delete all other elements in $X$, the matroid we obtain is uniquely determined up to a renaming of the distinguished elements. We denote this matroid by $\si(M)$ and call it the simple matroid associated with $M$ or the simplification of $M$. 
+\par The cycle matroid and vector matroid are two canonical examples of matroids that inspire a lot of the terminology used in matroid theory.  
+
+\subsubsection{Bases}
+We see that matroids have a concept of basis and rank like in linear algebra. Let $M$ be a matroid. 
+\begin{definition}
+    A maximal independent set in $M$ is called a basis or a base of $M$. 
+\end{definition}
+\begin{lemma}
+    All bases of a matroid has the same cardinality. 
+\end{lemma}
+Let $\B$ be the set of bases of $M$. Clearly $\B$ is non-empty. Furthermore, it has the following property (which can be seen as an analogue of Steinitz exchange lemma):
+\begin{lemma}
+    Let $B_1, B_2 \in \B$, $x \in B_1 - B_2$. Then there exists $y \in B_2-B_1$ such that $(B_1-\{x\}) \cup \{y\} \in \B$. 
+\end{lemma}
+We also have a converse characterisation result similar to the one for circuits. 
+\begin{theorem}
+    Let $E$ be a set and $\B$ be a non-empty collection of subests of $E$ satisfying the exchange property above. Let $\I$ be the collection of subsets of $E$ that are contained in some member of $\B$. Then $(E, \I)$ is a matroid having $\B$ as its collection of bases. 
+\end{theorem}
+\begin{lemma}
+    Let $B$ be a basis of $M$. If $e \in M - B$, then $B \cup \{e\}$ contains a unique circuit, $C(e, B)$. Moreover $e \in C(e, B)$
+\end{lemma}
+We call $C(e, B)$ the fundamental circuit of $e$ with respect to $B$. 
+\begin{proposition}
+    Every circuit in a matroid is the fundamental circuit of some element with respect to some basis. 
+\end{proposition}
+\subsubsection{Rank}
+We first define a fundamental and very natrual matroid construction. Let $M$ be the matroid $(E, \I)$ and suppose that $X \subset E$. Let $\I \vert X$ denote the set $\{I \subset X: I \in \I\}$. Then it is easy to see that the pair $(X, \I \vert X)$ is a matroid. We call this matroid the restriction of $M$ to $X$ or the deletion of $E-X$ from $M$, denoted by $M \vert X$ or $M\setminus(E-X)$. One easily checks that $\C(M \vert X) = \{C \subset X: C \in \C(M)\}$. 
+\par Matroid deletion is a direct generalisation of the corresponding concept for graphs. For a graph $G$ and a subset $T$ of $E(G)$, recall that $G \backslash T$ is the graph obtained from $G$ by deleting the edges in $T$. We have
+\[M(G \backslash T) = M(G) \backslash T.\]
+\begin{definition}
+    We define the rank $r(X)$ of $X$ to be the cardinality of a basis $B$ of $M \vert X$ and call such a set $B$ a basis of $X$. 
+\end{definition}
+\begin{lemma}
+    The rank function $r$ has the following properties:
+    \begin{enumerate}
+        \item If $X \subset E$, then $0 \le r(X) \le |X|$. 
+        \item If $X \subset Y \subset E$, then $r(X) \le r(Y)$. 
+        \item If $X$ and $Y$ are subsets of $E$, then
+        \[r(X \cup Y)+r(X \cap Y) \le r(X)+r(Y).\]
+    \end{enumerate}
+\end{lemma}
+These properties characterise the rank function and in fact the matroid. 
+\begin{theorem}
+    Let $E$ be a set and $r\colon 2^E \to \Z_{\ge 0}$ be a function satisfying the above three properties. Let $\I$ be the collection of subsets of $X$ of $E$ for which $r(X) = |X|$. Then $(E, \I)$ is a matroid having rank function $r$. 
+\end{theorem}
+\begin{proposition}
+    Let $M$ be a matroid with rank function $r$ and let $X \subset E(M)$. Then
+    \begin{enumerate}
+        \item $X$ is independent if and only if $|X|=r(X)$
+        \item $X$ is a basis if and only if $|X|=r(X)=r(M)$
+        \item $X$ is a circuit if and only if $X$ is nonempty and, for all $x \in X$, $r(X-\{x\}) = |X|-1=r(X)$. 
+    \end{enumerate}
+\end{proposition}
+\subsubsection{Closure}
+We now consider the analogue of span in matroid theory. Let $M$ be a matroid over $E$, with rank function $r$. 
+\begin{definition}
+    Let $\cl \colon 2^E \to 2^E$ be defined by
+    \[\cl(X) = \{x \in E: r(X \cup \{x\}) = r(X)\}.\]
+    This function is called the closure operator of $M$, and we call $\cl(X)$ the closure or span of $X$ in $M$. 
+\end{definition}
+\begin{lemma}
+    For all $X$, we have $r(X) = r(\cl(X))$. 
+\end{lemma}
+\begin{lemma}
+    The closure operator of a matroid on a set $E$ has the following properties:
+    \begin{enumerate}
+        \item If $X \subset E$, then $X \subset \cl(X)$. 
+        \item If $X \subset Y \subset E$, then $\cl(X) \subset \cl(Y)$. 
+        \item If $X \subset E$, then $\cl(\cl(X)) = \cl(X)$. 
+        \item If $X \subset E$, $x \in E$ and $y \in \cl(X \cup \{x\})-\cl(X)$, then $x \in \cl(X \cup y)$. 
+    \end{enumerate}
+\end{lemma}
+The fourth property is sometimes referred to as the MacLane-Steinitz exchange property. 
+\par Once again we have a characterisation of matroids in terms of such functions. 
+\begin{theorem}
+    Let $E$ be a set and $\cl \colon 2^E \to 2^E$ be a function satisfying the above four properties. Let
+    \[\I = \{X \subset E: x \notin \cl(X-\{x\}) \text{ for all $x \in X$}\}.\]
+    Then $(E, \I)$ is a matroid having closure operator $\cl$.
+\end{theorem}
+We next introduce the concept of hyperplane and results that are familiar from linear algebra. Let $M$ be a matroid and $X \subset E(M)$. 
+\begin{definition}
+    A subset $X$ for which $\cl(X)=X$ is called a flat or a closed set of $M$. A hyperplane of $M$ is a flat of rank $r(M)-1$. 
+\end{definition}
+A subset $X$ is a spanning set of $M$ if $\cl(X) = E(M)$. We also say that $X$ spans a subset $Y$ of $E(M)$ if $Y \subset \cl(X)$. 
+\begin{proposition}
+    The subset $X$ has the following properties:
+    \begin{enumerate}
+        \item $X$ is a spanning set if and only if $r(X) = r(M)$. 
+        \item $X$ is a basis if and only if it is both spanning and independent. 
+        \item $X$ is a basis if and only if it is a minimal spanning set.
+        \item $X$ is a hyperplane if and only if it is a maximal non-spanning set. 
+        %\item $X$ is a circuit if and only if $X$ is a minimal nonempty set such that $x \in \cl(X-\{x\})$ for all $x \in X$. 
+    \end{enumerate}
+\end{proposition}
+\begin{proposition}
+    \[\cl(X) = X \cup \{x: \text{$M$ has a circuit $C$ such that $x \in C \subset X \cup \{x\}$}\}\]
+\end{proposition}
+\subsubsection{Duality}
+\begin{theorem}
+    Let $M$ be a matroid and $\B^*(M)$ be $\{E(M)-B:B \in \B(M)\}$. Then $\B^*(M)$ is the set of bases of a matroid on $E(M)$. 
+\end{theorem}
+\begin{definition}
+    The matroid defined in the last theorem is called the dual of $M$, denoted as $M^*$. 
+\end{definition}
+One sees that $\B(M^*) = \B^*(M)$. It is clear that $(M^*)^*=M$. The bases of $M^*$ are called cobases of $M$. We use this naming convention for other distinguished subsets of $E(M^*)$. 
+\begin{proposition}
+    Let $M$ be a matroid on a set $E$ and suppose $X \subset E$. Then
+    \begin{enumerate}
+        \item X is independent if and only if $E-X$ is cospanning. 
+        \item X is spanning if and only if $E-X$ is coindependent. 
+        \item X is a hyperplane if and only if $E-X$ is a cocircuit. 
+        \item X is a circuit if and only if $E-X$ is a cohyperplane. 
+    \end{enumerate}
+\end{proposition}
+In general, we attach an asterisk to a symbol to denote association with the dual. For example, $r^*$ denotes the rank function of $M^*$ while $\C^*$ denotes its set of circuits. 
+\begin{proposition}
+    For all $X \subset E(M)$, 
+    \[r^*(X) = r(E-X)+|X|-r(M).\]
+\end{proposition}
+\begin{proposition}
+    In a matroid $M$, let $C$ be a circuit and $C^*$ be a cocircuit. Then $|C \cap C^*| \ne 1$. 
+\end{proposition}
+The above property is often called orthogonality. 
+\par Finally we record a result that is evidently relevant in our case. 
+\begin{theorem}
+    If a matroid $M$ is $\F$-representable, then $M^*$ is also $\F$-representable.
+\end{theorem}
+\subsubsection{Minors}
+We introduce the operation contraction as the dual of the operation fo deletion discussed previously. Let $M$ be a matroid on $E$ and $T$ be a subset of $E$. 
+\begin{definition}
+    The contraction of $T$ from $M$, $M/T = (M^*\setminus T)^*$. 
+\end{definition}
+Evidently $M/T$ has ground set $E-T$. We record a series of facts about the distinguished subsets, rank and closure of a contraction. 
+\begin{proposition}
+    If $T \subset E$, then for all $X \subset E-T$, 
+    \[r_{M/T}(X) = r_M(X \cup T)-r_M(T). \]
+\end{proposition}
+\begin{proposition}
+    %Let $B_T$ be a basis of $M \vert T = M \setminus(E-T)$. Then
+    \[\I(M/T) = \{I \subset E-T: \text{$M \vert T$ has a basis $B$ such that $I \cup B \in \I(M)$}\}\]
+\end{proposition}
+\begin{corollary}
+    \[\B(M/T) = \{B' \subset E-T: \text{$M \vert T$ has a basis $B$ such that $B' \cup B \in \B(M)$}\}\]
+\end{corollary}
+\begin{proposition}
+    The circuits of $M/T$ consist of the minimal nonempty members of $\{C-T:C \in \C(M)\}$. 
+\end{proposition}
+\begin{proposition}
+    For all $X \subset E-T$, 
+    \[\cl_{M/T}(X) = \cl_M(X \cup T)-T.\]
+\end{proposition}
+Notice that $M \setminus T$ and $M/T$ are matroids on the same ground set. Evidently it is always true that
+\[\I(M \setminus T) \supset \I(M/T).\]
+\begin{proposition}
+    $M \setminus T = M/T$ if and only if $r(T)+r(E-T)=r(M)$.
+\end{proposition}
+The operations of deletion and contraction commute both with each other and with themselves. Evidently, this is an important fact. 
+\begin{proposition}
+    In a matroid $M$, let $T_1$ and $T_2$ be disjoint subsets of $E(M)$. Then
+    \begin{enumerate}
+        \item $(M\setminus T_1)\setminus T_2 = M \setminus (T_1 \cup T_2) = (M\setminus T_2)\setminus T_1$
+        \item $(M/ T_1)/ T_2 = M / (T_1 \cup T_2) = (M/ T_2)/ T_1$
+        \item $(M \setminus T_1)/T_2 = (M/T_2)\setminus T_1$. 
+    \end{enumerate}
+\end{proposition}
+\begin{definition}
+    A minor of $M$ is a matroid of the form $M\setminus X/Y$ for some pair of disjoint sets $X$ and $Y$ either of which may be empty. 
+\end{definition}
+By the previous proposition, any sequence of deletions and contractions from $M$ gives a minor of $M$. If $X \cup Y$ is nonempty, we say that $M\backslash X/Y$ is a proper minor. A matroid $N_1$ is called an $N$-minor of $M$ if $N_1$ is a minor of $m$ that is isomorphic to $N$. 
+\begin{proposition}
+    A matroid $N$ is a minor of a matroid $M$ if and only if $N^*$ is a minor of $M^*$. More particularly, 
+    \[N = M \backslash X/Y \iff N^*=M^*/X\backslash Y.\]
+\end{proposition}
+\begin{proposition}
+    Let $M_1$ and $M_2$ be matroids on a common ground set $E$ and suppose $e\in E$. Then the following statements are equivalent:
+    \begin{enumerate}
+        \item $M_1 \backslash \{e\} = M_2 \backslash \{e\}$ and $M_1/\{e\} = M_2/\{e\}$
+        \item $M_1=M_2$; or $e$ is a loop of one of $M_1$ and $M_2$ and a coloop of the other. 
+    \end{enumerate}
+\end{proposition}
+Matroid contraction is a direct generalisation of the corresponding concept for graphs. If $e$ is an edge of a graph $G$, then $G/\{e\}$ is obtained from $G$ by contracting $e$, i.e. deleting $e$ and identifying its ends. Repeating this process for all the edges in a subset $T$ of $E(G)$ gives the graph $G/T$ (which is well-defined since $(G/\{e\})/\{f\} = (G/\{f\})/\{e\}$ for all edges $e$ and $f$). 
+\begin{proposition}
+    If $G$ is a graph, then $M(G)/T = M(G/T)$ for all $T \subset E(G)$
+\end{proposition}
+\begin{corollary}
+    Every minor of a graphic matroid is graphic.
+\end{corollary}
+For a matrix $A$, we denote by $A \backslash T$ the matrix obtained from $A$ by deleting all the columns whose labels are in $T$. Evidently
+\[M[A]\backslash T = M[A\backslash T].\]
+Since $F$-representability is closed under duality, we have:
+\begin{proposition}
+    Every minor of an $\F$-representable matroid is $\F$-representable. 
+\end{proposition}
+\begin{definition}
+    An excluded minor for $\F$-representability is a matroid that is not $\F$-representable but every proper minor of which is $\F$-representable. 
+\end{definition}
+\subsubsection{Connectivity}
+We continue to look at analogues of graph concepts in matroid theory. Here we discuss the concept of $k$-connectedness. 
+\par The concept of $1$-connectedness is not really relevant in matroid theory due to the following proposition. 
+\begin{proposition}
+    Let $M$ be a graphic matroid. Then $M \cong M(G)$ for some connected graph $G$. 
+\end{proposition}
+\iffalse
+\begin{proof}
+    Let $M \cong M(H)$ for some graph $H$. Break $H$ into connected components, pick one vertex from each component and identify them. The new graph $G$ is connected and $M(G) \cong M(H)$. 
+\end{proof}
+\fi
+We now recall the definition of general $k$-connectedness for graphs. A subset $X$ of the vertex set of a graph $G$ is called a vertex cut if $G-X$ has more connected components than $G$. If a vertex cut consists a single vertex $v$, then $v$ is called a cut-vertex of $G$. For a connected graph $G$ that has at least one pair of distinct non-adjacent vertices, the connectivity $\kappa(G)$ of $G$ is the smallest integer $j$ for which $G$ has a $j$-element vertex cut. When $G$ is connected but has no pair of distinct non-adjacent vertices, we take $\kappa(G) = |V(G)|-1$; if $G$ is disconnected, let $\kappa(G)=0$. For a positive integer $K$, a graph $G$ is said to be $k$-connected if $\kappa(G) \ge k$.  
+\par To generalise $2$-connectivity to matroids, we use the following result. 
+\begin{lemma}
+    Let $G$ be a loopless graph without isolated vertices and suppose that $|V(G)| \ge 3$. Then $G$ is $2$-connected if and only if, for every pair of distinct edges of $G$, there is a cycle containing both. 
+\end{lemma} 
+\begin{definition}
+    We call a matroid $M$ $2$-connected or sometimes just connected if for every pair of distinct elements of $E(M)$, there is a circuit containing both. 
+\end{definition}
+\begin{proposition}
+    A matroid $M$ is connected if and only if $M^*$ is connected. 
+\end{proposition}
+In a matroid $M$ with ground set $E$, a subset $X$ of $E$ is called a separator of $M$ if $X$ is a union of components of $M$. Both $E$ and $\emptyset$ are separators of $M$. All other separators are called non-trivial separators. Clearly if $X$ is a separator so is $E-X$. 
+\begin{proposition}
+    $X$ is a separator of $M$ if and only if 
+    \[r(X)+r(E-X)=r(M).\]
+\end{proposition}
+We now discuss some summations operations that are very related to connectivity and more generally $k$-connectivity.
+\begin{definition}
+    Let $M_1$ and $M_2$ be matroids on disjoint sets $E_1$ and $E_2$ respectively. Let $E=E_1 \cup E_2$ and $\I = \{I_1 \cup I_2: I_1 \in \I(M_1), I_2 \in \I(M_2)\}$. Then the matroid $(E, \I)$ is called the direct sum or $1$-sum of $M_1$ and $M_2$ 
+\end{definition}
+\begin{proposition}
+    A matroid $M$ is disconnected if and only if $E(M)$ has a proper nonempty subset $T$ such that
+    \[M = (M \vert T) \oplus (M\vert (E-T)).\]
+\end{proposition}
+
+\begin{definition}
+    Let $M$ and $N$ be matroids each with at least two elements, with $E(M) \cap E(N) = \{p\}$ and suppose that neither $M$ nor $N$ has $\{p\}$ as a separator. Then $M \oplus_2 N$ is the matroid with ground set $(E(M)\cup E(N))-\{p\}$ and set of circuits
+    \[\C(M\backslash p) \cup \C(N \backslash p) \cup \{(C \cup D)-\{p\}: p\in C \in \C(M) \text{ and } p\in D \in \C(N)\}.\]
+\end{definition}
+\begin{proposition}
+    The classes of graphic and $\F$-representable matroids are closed under $1$-sums and under $2$-sums. 
+\end{proposition}
+It is not hard to come up with examples where the (geometric) dual of a planar $k$-connected graph is not $k$-connected. The generalisation of $k$-connectedness we would discuss now is preserved under duality. Let $M$ be a matroid over $E$. 
+\begin{definition}
+    For $X \subset E$, define
+    \[\lambda_M(X) = r(X)+r(E-X)-r(M).\]
+    We call $\lambda_M$ the connectivity function of $M$ and will often abbreviate it as $\lambda$. 
+\end{definition}
+It directly follows from the formula for $r^*$ that: 
+\[\lambda_M(X) = r(X)+r^*(X)-|X|.\]
+\begin{definition}
+    Let $k$ be a positive integer. For $X \subset E(M)$, if $\lambda_M(X)<k$, then both $X$ and $(X, E-X)$ are called $k$-separating. A $k$-separating pair $(X, E-X)$ for which $\min\{|X|, |E-X|\} \ge k$ is called a $k$-separation of $M$ with sides $X$ and $E-X$. We say that $M$ is $n$-connected if, for all $1 \le k \le n-1$, it has no $k$-separations. 
+\end{definition}
+In particular, we see that a separator is the same as a $1$-separating set. 
+\begin{corollary}
+    We have $\lambda_M(X) = \lambda_{M^*}(X)$. Moreover, $M$ is $n$-connected if and only if $M^*$ is $n$-connected. 
+\end{corollary}
+We are ready to state the following theorem which is used crucially for our classification. 
+\begin{theorem}
+    A $2$-connected matroid $M$ is not $3$-connected if and only if $M = M_1 \oplus_2 M_2$ for some matroids $M_1$ and $M_2$, each of which has at least three elements and is isomorphic to a proper minor of $M$. 
+\end{theorem}
+%\subsection{Projective geometries and representable matroids}
+
+
+\begin{thebibliography}{99}
+
+\bibitem{what}
+J. Oxley,
+\textit{What is a matroid?},
+Cubo \textbf{5} (2003), 176--215.
+
+\bibitem{oxley}
+J. Oxley,
+\textit{Matroid Theory},
+2nd ed., Oxford University Press, 2011.
+
+\bibitem{brettell}
+N. Brettell,
+\textit{The excluded minors for $\mathrm{GF}(5)$-representable matroids on ten elements},
+Advances in Applied Mathematics \textbf{166} (2025), 102864.
+\url{https://doi.org/10.1016/j.aam.2025.102864}
+
+\bibitem{repo}
+Deng Tianle,
+\textit{matroid1: computational classification and verification artifacts}.
+\url{https://github.com/DengTianle/matroid1}.
+
+\bibitem{method}
+\textit{Deletion compatibility and exhaustive extension search},
+project documentation, \path{matroid1/docs/DELETION_COMPATIBILITY.md}.
+
+\bibitem{status}
+\textit{Completed rank-four search: status and computational resources},
+project record, \path{matroid1/docs/STATUS.md}.
+
+\bibitem{verification}
+\textit{Rank-four, eleven-element verification record},
+\path{matroid1/results/r4-n11/verification.json}.
+
+\bibitem{drat}
+N. Wetzler, M. J. H. Heule, and W. A. Hunt, Jr.,
+\textit{DRAT-trim: Efficient checking and trimming using expressive clausal proofs},
+Theory and Applications of Satisfiability Testing (SAT 2014),
+Lecture Notes in Computer Science \textbf{8561}, 422--429.
+
+\bibitem{diagnostic}
+\textit{Diagnostic matroid instances and certificate validation},
+project artifacts: \path{study/build_dataset.py},
+\path{study/data/certification.json}, and
+\path{study/output/lekang/validation/summary.json}.
+The last record documents the 13 November 2026 recheck of all 24 cases.
+
+% The supplied report cites classificationlogs and searchlogs above, but their
+% corresponding log locations and bibliography entries have not been supplied.
+% Add the real references here; do not substitute the separate diagnostic data.
+
+\end{thebibliography}
+
+\end{document}
